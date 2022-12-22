@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonBase\CommonBase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FM01060.cs" />
+    <Compile Update="FM02020.cs" />
+    <Compile Update="FM08020.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FM02010.cs" />
+    <Compile Update="FM01040.cs" />
+    <Compile Update="FM01030.cs" />
+    <Compile Update="FM01010.cs" />
+    <Compile Update="FM00000.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\message.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="testtype.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,267 @@
+﻿[
+	{
+		"Code":"MS00100",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"既に起動済みです（多数起動不可）。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS00110",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"初画面の起動に失敗しました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS00120",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"ＤＢ接続情報の取得に失敗しました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS01010",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"入力項目が不足しています。
+〔{0}〕",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS01020",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"入力内容に誤りがあります。
+〔{0}〕",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS01030",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"数字項目に数値以外が入力されています。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS01040",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"数字項目の入力値が「{0}」を超えています。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS01050",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"入力内容が変更されていません。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS02010",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"「{0}」処理が完了しました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS02020",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"「{0}」処理がキャンセルされました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS02030",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"既に処理が完了しています 。
+〔{0}〕",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03010",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"登録処理が完了しました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03020",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"更新処理が完了しました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03030",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"削除処理が完了しました。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03040",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"登録処理に失敗しました。〔{0}〕
+保守担当へ連絡してください。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03050",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"更新処理に失敗しました。〔{0}〕
+保守担当へ連絡してください。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03060",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"削除処理に失敗しました。
+保守担当へ連絡してください。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS03070",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"登録処理を実施して良いですか？",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS03080",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"更新処理を実施して良いですか？",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS03090",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"削除処理を実施して良いですか？",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS04010",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"入力中ですが画面を閉じて良いですか？",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS04020",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"入力中ですが破棄しても良いですか？",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS05010",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"既に登録済みです。
+{0} {1}",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS05020",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"該当するデータが存在しません。
+〔{0}〕",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS05030",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"該当するデータが存在しません。
+処理を続行してもよろしいですか？
+〔{0}〕
+",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS05040",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"表示対象のデータがありません。",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS05050",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"「{0}」の取得に失敗しました。
+",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS90010",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"システム異常（保守担当へ連絡してください）
+
+{0}",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+]

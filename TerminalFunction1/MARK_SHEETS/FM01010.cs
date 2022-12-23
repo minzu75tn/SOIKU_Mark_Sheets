@@ -18,6 +18,7 @@ namespace MARK_SHEETS
     {
         public FM00000 PARRENT_FORM { get; set; } = null;
         public Retention RETENTION { get; set; } = null;
+
         private bool DoClose { get; set; } = false;
         private bool DoExecute { get; set; } = false;
 
@@ -72,14 +73,6 @@ namespace MARK_SHEETS
                 RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", lstMessages.Items[ii]);
             }
             RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", "ended.");
-        }
-
-        private void cmdCLose_Click(object sender, EventArgs e)
-        {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
-
-            DoClose = true;
-            Close();
         }
 
         private void cmbGouID_Leave(object sender, EventArgs e)
@@ -144,7 +137,7 @@ namespace MARK_SHEETS
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
+            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbKyoukaID.Text);
             cmbRyouiki.DataSource = null;
         }
 
@@ -413,7 +406,7 @@ namespace MARK_SHEETS
                 Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みを開始しました。", Path.GetFileName(filePath)));
 
                 // delete
-                string SQLSTMT = SQL.REGIST_T301D.DELETE_301D;
+                string SQLSTMT = SQL.RELATED_T301D.DELETE_T301D;
                 SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(RETENTION.GOU_ID));
                 SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(RETENTION.KYOUKA_ID));
                 SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(RETENTION.SENTAKU_ID));
@@ -428,7 +421,7 @@ namespace MARK_SHEETS
                 {
                     Hashtable hash = (Hashtable)arrayList[ii];
 
-                    string SQLSTMT2 = SQL.REGIST_T301D.INSERT_301D;
+                    string SQLSTMT2 = SQL.RELATED_T301D.INSERT_T301D;
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(RETENTION.GOU_ID));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(RETENTION.KYOUKA_ID));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@ryouiki_sentaku_id", Convert.ToInt32(RETENTION.SENTAKU_ID));
@@ -453,7 +446,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.Message + "\n" + ex.StackTrace);
+                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みに失敗しました。", Path.GetFileName(filePath)));
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);

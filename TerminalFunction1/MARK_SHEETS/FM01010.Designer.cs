@@ -29,15 +29,9 @@ namespace MARK_SHEETS
         /// </summary>
         private new void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.cmdExecute = new System.Windows.Forms.Button();
             this.lstMessages = new System.Windows.Forms.ListBox();
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.cmdCLose = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnlGouKyoukaSentaku = new System.Windows.Forms.Panel();
             this.pnlGouKyouka = new System.Windows.Forms.Panel();
@@ -49,50 +43,16 @@ namespace MARK_SHEETS
             this.label3 = new System.Windows.Forms.Label();
             this.cmbRyouiki = new System.Windows.Forms.ComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.statusStrip1.SuspendLayout();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.groupBox1.SuspendLayout();
             this.pnlGouKyoukaSentaku.SuspendLayout();
             this.pnlGouKyouka.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3,
-            this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 361);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(735, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.AutoSize = false;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(75, 17);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.AutoSize = false;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(100, 17);
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.AutoSize = false;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(191, 17);
-            this.toolStripStatusLabel3.Spring = true;
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.AutoSize = false;
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(350, 16);
             // 
             // cmdExecute
             // 
@@ -121,7 +81,7 @@ namespace MARK_SHEETS
             this.lstMessages.Location = new System.Drawing.Point(14, 106);
             this.lstMessages.Margin = new System.Windows.Forms.Padding(4);
             this.lstMessages.Name = "lstMessages";
-            this.lstMessages.Size = new System.Drawing.Size(706, 199);
+            this.lstMessages.Size = new System.Drawing.Size(706, 251);
             this.lstMessages.TabIndex = 4;
             // 
             // cmdCancel
@@ -137,20 +97,6 @@ namespace MARK_SHEETS
             this.cmdCancel.Text = "キャンセル";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
-            // 
-            // cmdCLose
-            // 
-            this.cmdCLose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCLose.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCLose.Location = new System.Drawing.Point(602, 313);
-            this.cmdCLose.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdCLose.Name = "cmdCLose";
-            this.cmdCLose.Size = new System.Drawing.Size(118, 32);
-            this.cmdCLose.TabIndex = 7;
-            this.cmdCLose.TabStop = false;
-            this.cmdCLose.Text = "閉じる";
-            this.cmdCLose.UseVisualStyleBackColor = true;
-            this.cmdCLose.Click += new System.EventHandler(this.cmdCLose_Click);
             // 
             // groupBox1
             // 
@@ -202,6 +148,7 @@ namespace MARK_SHEETS
             this.cmbKyoukaID.Size = new System.Drawing.Size(62, 21);
             this.cmbKyoukaID.TabIndex = 2;
             this.cmbKyoukaID.SelectedIndexChanged += new System.EventHandler(this.cmbKyoukaID_SelectedIndexChanged);
+            this.cmbKyoukaID.Enter += new System.EventHandler(this.Common_Enter);
             // 
             // label2
             // 
@@ -277,12 +224,52 @@ namespace MARK_SHEETS
             this.cmbRyouiki.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbRyouiki.Size = new System.Drawing.Size(62, 21);
             this.cmbRyouiki.TabIndex = 3;
+            this.cmbRyouiki.Enter += new System.EventHandler(this.Common_Enter);
             // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.AutoSize = false;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(75, 17);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.AutoSize = false;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(100, 17);
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.AutoSize = false;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(191, 17);
+            this.toolStripStatusLabel3.Spring = true;
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.AutoSize = false;
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(350, 16);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.toolStripProgressBar1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 361);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(735, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // FM01010
             // 
@@ -291,7 +278,6 @@ namespace MARK_SHEETS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 383);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.cmdCLose);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.lstMessages);
             this.Controls.Add(this.statusStrip1);
@@ -303,31 +289,25 @@ namespace MARK_SHEETS
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01010_FormClosing);
             this.Load += new System.EventHandler(this.FM01010_Load);
             this.Shown += new System.EventHandler(this.FM01010_Shown);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.pnlGouKyoukaSentaku.ResumeLayout(false);
             this.pnlGouKyoukaSentaku.PerformLayout();
             this.pnlGouKyouka.ResumeLayout(false);
             this.pnlGouKyouka.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button cmdExecute;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         internal System.Windows.Forms.ListBox lstMessages;
         private Button cmdCancel;
-        private Button cmdCLose;
         private GroupBox groupBox1;
         private Label label3;
         private ComboBox cmbRyouiki;
-        private ToolStripProgressBar toolStripProgressBar1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Panel pnlGouKyoukaSentaku;
         private Panel pnlGouKyouka;
@@ -336,6 +316,11 @@ namespace MARK_SHEETS
         private Label label1;
         private TextBox txtGouIDName;
         private ComboBox cmbGouID;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+        private ToolStripStatusLabel toolStripStatusLabel3;
+        private ToolStripProgressBar toolStripProgressBar1;
+        private StatusStrip statusStrip1;
     }
 }
 

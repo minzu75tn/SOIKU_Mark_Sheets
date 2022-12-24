@@ -11,6 +11,8 @@ using CommonBase.Alerts;
 using CommonBase.Commons;
 using CommonBase.CsvFiles;
 using CommonBase.Tables;
+using NPOI.HPSF;
+using NPOI.Util;
 
 namespace MARK_SHEETS
 {
@@ -284,26 +286,47 @@ namespace MARK_SHEETS
                 RETENTION.KYOUKA_ID = cmbKyoukaID.SelectedValue.ToString();
                 RETENTION.SENTAKU_ID = cmbRyouiki.Text;
 
-                // Locate_201_10-1_000.csv
+                // file
+
+                DateTime dtNow = DateTime.Now;
                 string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
-                string files = $"{Constant.MARKS_LOCATE_FILE}_{RETENTION.GOU_ID}_{RETENTION.KYOUKA_ID}-{RETENTION.SENTAKU_ID}_{"000"}{Constant.FILE_EXTENTION_CSV}";
-                string filePath = drives + Constant.MARKS_DESIGN_FOLDER + @"\" + files;
-                if (!CommonLogic1.ExistsFile(filePath))
+                string filePath = drives + Constant.MARKS_DESIGN_FOLDER;
+                string filename = $"{Constant.MARKS_LOCATE_FILE}_{RETENTION.GOU_ID}_{RETENTION.KYOUKA_ID}-{RETENTION.SENTAKU_ID}_{dtNow.ToString("yyyyMMdd")}{Constant.FILE_EXTENTION_CSV}";
+                string fullPath = "";
+
+                openFileDialog1.Title = "ファイルの選択";
+                openFileDialog1.InitialDirectory = filePath;
+                openFileDialog1.FileName = filename;
+                openFileDialog1.Filter = "CSVファイル(*.csv;*.csv)|*.*";
+                openFileDialog1.FilterIndex = 1;
+                DialogResult results = openFileDialog1.ShowDialog();
+                if (results == DialogResult.OK)
                 {
-                    string[] embedArray = new string[1] { files };
+                    // fullPath = drives + Constant.MARKS_DESIGN_FOLDER + @"\" + openFileDialog1.FileName;
+                    fullPath = openFileDialog1.FileName;
+                }
+                else
+                {
+                    cmdExecute.Focus();
+                    return;
+                }
+
+                if (!CommonLogic1.ExistsFile(fullPath))
+                {
+                    string[] embedArray = new string[1] { Path.GetFileName(fullPath) };
                     Messages1.ShowMessage("MS05020", embedArray);
                     cmbGouID.Focus();
                     return;
                 }
 
                 // Get Line Count
-                var lineCount = File.ReadLines(filePath).Count();
+                var lineCount = File.ReadLines(fullPath).Count();
 
                 // Worker Start
                 AddMessages("「マーク位置情報取込み」を開始しました。");
                 toolStripProgressBar1.Value = 0;
                 toolStripProgressBar1.Maximum = lineCount;
-                backgroundWorker1.RunWorkerAsync(filePath);
+                backgroundWorker1.RunWorkerAsync(fullPath);
 
                 cmdExecute.Enabled = false;
                 cmdCancel.Enabled = true;
@@ -425,7 +448,8 @@ namespace MARK_SHEETS
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(RETENTION.GOU_ID));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(RETENTION.KYOUKA_ID));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@ryouiki_sentaku_id", Convert.ToInt32(RETENTION.SENTAKU_ID));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@field_id", Convert.ToString(hash["field_id"]));
+                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@field_id", Convert.ToInt32(hash["field_id"]));
+                    SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@field_name", Convert.ToString(hash["field_name"]));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@number_of_marks", Convert.ToInt32(hash["number_of_marks"]));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@mark_default_value", Convert.ToString(hash["mark_default_value"]));
                     SQLARRAY.Add(SQLSTMT2);

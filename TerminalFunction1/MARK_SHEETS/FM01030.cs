@@ -60,6 +60,11 @@ namespace MARK_SHEETS
             cmbGouID.Focus();
         }
 
+        private void FM01030_Resize(object sender, EventArgs e)
+        {
+            this.Width = 980;
+        }
+
         private void FM01030_FormClosing(object sender, FormClosingEventArgs e)
         {
             RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
@@ -286,6 +291,17 @@ namespace MARK_SHEETS
                     dgvT302D.DataSource = Tables1.GetSelectRowsDataTable(SQLSTMT3);
                 }
 
+                for (int ii = 0; ii < dgvT36D.Rows.Count; ii++)
+                {
+                    if (!String.IsNullOrEmpty(Convert.ToString(dgvT36D.Rows[ii].Cells["t36d_auto_saiten"].Value)))
+                    {
+                        if (Convert.ToInt32(dgvT36D.Rows[ii].Cells["t36d_auto_saiten"].Value) != 1)
+                        {
+                            dgvT36D.Rows[ii].DefaultCellStyle.BackColor = Color.LightGray;
+                        }
+                    }
+                }
+
                 cmdLink.Enabled = true;
                 cmdUnLink.Enabled = true;
                 cmdVagueLink.Enabled = true;
@@ -351,48 +367,76 @@ namespace MARK_SHEETS
         {
             RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                string[] embedArray = new string[1] { ex.Message };
+                Messages1.ShowMessage("MS90010", embedArray);
+            }
         }
 
         private void cmdLink_Click(object sender, EventArgs e)
         {
             RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            if (dgvT36D.SelectedRows.Count >= 1 && dgvT301D.SelectedRows.Count >= 1)
+            try
             {
-                DataGridViewRow selected1 = dgvT36D.SelectedRows[0];
-                DataGridViewRow selected2 = dgvT301D.SelectedRows[0];
-
-                if (!Convert.ToString(Convert.ToString(selected2.Cells[1].Value)).Equals("1"))
+                if (dgvT36D.SelectedRows.Count >= 1 && dgvT301D.SelectedRows.Count >= 1)
                 {
-                    string[] embedArray = new string[1] { "マーク採点の設問じゃない" };
-                    Messages1.ShowMessage("MS01020", embedArray);
-                }
-                int mondai_id = Convert.ToInt32( selected1.Cells[1].Value);
-                string field_id = Convert.ToString(selected2.Cells[1].Value);
+                    DataGridViewRow selected1 = dgvT36D.SelectedRows[0];
+                    DataGridViewRow selected2 = dgvT301D.SelectedRows[0];
 
-                for (int ii = 0; ii < dgvT302D.Rows.Count; ii++)
-                {
-                    if (Convert.ToString(dgvT302D[1, ii].Value).Equals(field_id))
+                    bool saiten = false;
+                    if (!String.IsNullOrEmpty(Convert.ToString(selected1.Cells["t36d_auto_saiten"].Value)))
                     {
-                        dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value = mondai_id;
-                        dgvT302D.Rows[ii].Cells["t302d_mondai_sub_no"].Value = 0;
-                        DoChange = true;
-                        break;
+                        if (Convert.ToInt32(selected1.Cells["t36d_auto_saiten"].Value) == 1)
+                        {
+                            saiten = true;
+                        }
                     }
-                }
-            }
-            else
-            {
-                string[] embedArray = new string[1] { "候補が選択されていない" };
-                Messages1.ShowMessage("MS01020", embedArray);
-                if (dgvT36D.SelectedRows.Count >= 1)
-                {
-                    dgvT301D.Focus();
+                    if (saiten == false)
+                    {
+                        string[] embedArray = new string[1] { "マーク採点の設問じゃない" };
+                        Messages1.ShowMessage("MS01020", embedArray);
+                        return;
+                    }
+
+                    int mondai_id = Convert.ToInt32(selected1.Cells["t36d_mondai_id"].Value);
+                    string field_name = Convert.ToString(selected2.Cells["t301d_field_name"].Value);
+
+                    for (int ii = 0; ii < dgvT302D.Rows.Count; ii++)
+                    {
+                        if (Convert.ToString(dgvT302D["t302d_field_name", ii].Value).Equals(field_name))
+                        {
+                            dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value = mondai_id;
+                            dgvT302D.Rows[ii].Cells["t302d_mondai_sub_no"].Value = 0;
+                            DoChange = true;
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    dgvT36D.Focus();
+                    string[] embedArray = new string[1] { "候補が選択されていない" };
+                    Messages1.ShowMessage("MS01020", embedArray);
+                    if (dgvT36D.SelectedRows.Count >= 1)
+                    {
+                        dgvT301D.Focus();
+                    }
+                    else
+                    {
+                        dgvT36D.Focus();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                string[] embedArray = new string[1] { ex.Message };
+                Messages1.ShowMessage("MS90010", embedArray);
             }
         }
 
@@ -400,18 +444,27 @@ namespace MARK_SHEETS
         {
             RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            if (dgvT302D.SelectedRows.Count >= 1)
+            try
             {
-                DataGridViewRow selected = dgvT302D.SelectedRows[0];
-                selected.Cells["t302d_mondai_id"].Value = "";
-                selected.Cells["t302d_mondai_sub_no"].Value = "";
-                selected.Cells["t302d_auto_scoring_disable"].Value = "";
+                if (dgvT302D.SelectedRows.Count >= 1)
+                {
+                    DataGridViewRow selected = dgvT302D.SelectedRows[0];
+                    selected.Cells["t302d_mondai_id"].Value = null;
+                    selected.Cells["t302d_mondai_sub_no"].Value = null;
+                    selected.Cells["t302d_auto_scoring_disable"].Value = null;
+                }
+                else
+                {
+                    string[] embedArray = new string[1] { "候補が選択されていない" };
+                    Messages1.ShowMessage("MS01020", embedArray);
+                    dgvT302D.Focus();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                string[] embedArray = new string[1] { "候補が選択されていない" };
-                Messages1.ShowMessage("MS01020", embedArray);
-                dgvT302D.Focus();
+                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                string[] embedArray = new string[1] { ex.Message };
+                Messages1.ShowMessage("MS90010", embedArray);
             }
         }
 
@@ -419,6 +472,80 @@ namespace MARK_SHEETS
         {
             RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
+            try
+            {
+                for (int ii = 0; ii < dgvT302D.Rows.Count; ii++)
+                {
+                    for (int jj = 0; jj < dgvT36D.Rows.Count; jj++)
+                    {
+                        string field_name = "S"
+                            + string.Format("00", dgvT36D.Rows[jj].Cells["t36d_mondai_id"].Value)
+                            + "-"
+                            + string.Format("00", dgvT36D.Rows[jj].Cells["t36d_daimon"].Value)
+                            + "-"
+                            + string.Format("00", dgvT36D.Rows[jj].Cells["t36d_syoumon"].Value);
+
+                        if (dgvT36D.Rows[jj].Cells["t36d_auto_saiten"].Value.Equals("1"))
+                        {
+                            if (Convert.ToString(dgvT302D["t302d_field_name", ii].Value).Equals(field_name))
+                            {
+                                dgvT302D.Rows[ii].Cells["t302d_mondai_name"].Value = dgvT36D.Rows[jj].Cells["t36d_mondai_name"].Value;
+                                dgvT302D.Rows[ii].Cells["t302d_mondai_sub_no"].Value = 0;
+                                DoChange = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                string[] embedArray = new string[1] { ex.Message };
+                Messages1.ShowMessage("MS90010", embedArray);
+            }
+        }
+
+        private void dgvT36D_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            if (e.ColumnIndex == 0)
+            {
+                return;
+            }
+
+            bool saiten = false;
+            if (!String.IsNullOrEmpty(Convert.ToString(dgvT36D.Rows[e.RowIndex].Cells["t36d_auto_saiten"].Value)))
+            {
+                if (Convert.ToInt32(dgvT36D.Rows[e.RowIndex].Cells["t36d_auto_saiten"].Value) == 1)
+                {
+                    saiten = true;
+                }
+            }
+            if (saiten)
+            {
+                dgvT36D.Rows[e.RowIndex].Selected = true;
+            }
+            else
+            {
+                string[] embedArray = new string[1] { "マーク採点の設問じゃない" };
+                Messages1.ShowMessage("MS01020", embedArray);
+                dgvT36D.Rows[e.RowIndex].Selected = false;
+            }
+        }
+
+        private void dgvT301D_Scroll(object sender, ScrollEventArgs e)
+        {
+            dgvT302D.FirstDisplayedScrollingRowIndex = dgvT301D.FirstDisplayedScrollingRowIndex;
+        }
+
+        private void dgvT302D_Scroll(object sender, ScrollEventArgs e)
+        {
+            dgvT301D.FirstDisplayedScrollingRowIndex = dgvT302D.FirstDisplayedScrollingRowIndex;
         }
 
         private void Common_Enter(object sender, EventArgs e)

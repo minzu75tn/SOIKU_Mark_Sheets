@@ -101,6 +101,7 @@ SELECT *
 SELECT
     ROW_NUMBER() OVER(ORDER BY field_id ASC) as t301d_seq
   , field_id as t301d_field_id
+  , field_name as t301d_field_name
   , number_of_marks as t301d_number_of_marks
   FROM t301d_mark_locate_data 
  WHERE gou_id=@gou_id
@@ -115,6 +116,7 @@ INSERT INTO t301d_mark_locate_data (
   , kyouka_id
   , ryouiki_sentaku_id
   , field_id
+  , field_name
   , number_of_marks
   , mark_default_value
 ) 
@@ -123,6 +125,7 @@ VALUES (
   , @kyouka_id
   , @ryouiki_sentaku_id
   , @field_id
+  , @field_name
   , @number_of_marks
   , @mark_default_value
 )
@@ -155,6 +158,7 @@ SELECT *
 SELECT
     ROW_NUMBER() OVER(ORDER BY field_id ASC) as t302d_seq
   , field_id as t302d_field_id
+  , field_name as t302d_field_name
   , mondai_id as t302d_mondai_id
   , mondai_sub_no as t302d_mondai_sub_no
   , auto_scoring_disable as t302d_auto_scoring_disable
@@ -173,6 +177,7 @@ INSERT INTO t302d_mark_link_data (
   , mondai_id
   , mondai_sub_no
   , field_id
+  , field_name
   , auto_scoring_disable
 ) 
 VALUES ( 
@@ -180,6 +185,7 @@ VALUES (
   , @kyouka_id
   , @ryouiki_sentaku_id
   , @field_id
+  , @field_name
   , @number_of_marks
   , @mark_default_value
 )
@@ -191,12 +197,14 @@ INSERT INTO t302d_mark_link_data (
   , kyouka_id
   , ryouiki_sentaku_id
   , field_id
+  , field_name
 )
 SELECT 
     gou_id
   , kyouka_id
   , ryouiki_sentaku_id
   , field_id
+  , field_name
   FROM t301d_mark_locate_data as target
  WHERE target.gou_id=@gou_id
    AND target.kyouka_id=@kyouka_id

@@ -52,15 +52,17 @@ namespace MARK_SHEETS
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dgvT302D = new System.Windows.Forms.DataGridView();
             this.t302d_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t302d_field_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_field_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.t302d_mondai_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.t302d_mondai_sub_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.t302d_auto_scoring_disable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_field_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dgvT301D = new System.Windows.Forms.DataGridView();
             this.t301d_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t301d_field_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t301d_field_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.t301d_number_of_marks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t301d_field_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnlGouKyoukaSentaku = new System.Windows.Forms.Panel();
@@ -132,6 +134,7 @@ namespace MARK_SHEETS
             this.dgvT36D.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvT36D.Size = new System.Drawing.Size(254, 269);
             this.dgvT36D.TabIndex = 5;
+            this.dgvT36D.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvT36D_CellClick);
             // 
             // t36d_seq
             // 
@@ -287,10 +290,11 @@ namespace MARK_SHEETS
             this.dgvT302D.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvT302D.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.t302d_seq,
-            this.t302d_field_id,
+            this.t302d_field_name,
             this.t302d_mondai_id,
             this.t302d_mondai_sub_no,
-            this.t302d_auto_scoring_disable});
+            this.t302d_auto_scoring_disable,
+            this.t302d_field_id});
             this.dgvT302D.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvT302D.Location = new System.Drawing.Point(3, 21);
             this.dgvT302D.MultiSelect = false;
@@ -301,6 +305,7 @@ namespace MARK_SHEETS
             this.dgvT302D.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvT302D.Size = new System.Drawing.Size(298, 269);
             this.dgvT302D.TabIndex = 7;
+            this.dgvT302D.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvT302D_Scroll);
             // 
             // t302d_seq
             // 
@@ -310,12 +315,12 @@ namespace MARK_SHEETS
             this.t302d_seq.ReadOnly = true;
             this.t302d_seq.Width = 35;
             // 
-            // t302d_field_id
+            // t302d_field_name
             // 
-            this.t302d_field_id.DataPropertyName = "t302d_field_id";
-            this.t302d_field_id.HeaderText = "フィールドID";
-            this.t302d_field_id.Name = "t302d_field_id";
-            this.t302d_field_id.ReadOnly = true;
+            this.t302d_field_name.DataPropertyName = "t302d_field_name";
+            this.t302d_field_name.HeaderText = "フィールド名";
+            this.t302d_field_name.Name = "t302d_field_name";
+            this.t302d_field_name.ReadOnly = true;
             // 
             // t302d_mondai_id
             // 
@@ -344,6 +349,14 @@ namespace MARK_SHEETS
             this.t302d_auto_scoring_disable.Name = "t302d_auto_scoring_disable";
             this.t302d_auto_scoring_disable.Width = 40;
             // 
+            // t302d_field_id
+            // 
+            this.t302d_field_id.DataPropertyName = "t302d_field_id";
+            this.t302d_field_id.HeaderText = "フィールドID";
+            this.t302d_field_id.Name = "t302d_field_id";
+            this.t302d_field_id.ReadOnly = true;
+            this.t302d_field_id.Visible = false;
+            // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -366,8 +379,9 @@ namespace MARK_SHEETS
             this.dgvT301D.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvT301D.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.t301d_seq,
-            this.t301d_field_id,
-            this.t301d_number_of_marks});
+            this.t301d_field_name,
+            this.t301d_number_of_marks,
+            this.t301d_field_id});
             this.dgvT301D.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvT301D.Location = new System.Drawing.Point(3, 21);
             this.dgvT301D.MultiSelect = false;
@@ -379,6 +393,7 @@ namespace MARK_SHEETS
             this.dgvT301D.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvT301D.Size = new System.Drawing.Size(234, 269);
             this.dgvT301D.TabIndex = 6;
+            this.dgvT301D.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvT301D_Scroll);
             // 
             // t301d_seq
             // 
@@ -388,12 +403,12 @@ namespace MARK_SHEETS
             this.t301d_seq.ReadOnly = true;
             this.t301d_seq.Width = 35;
             // 
-            // t301d_field_id
+            // t301d_field_name
             // 
-            this.t301d_field_id.DataPropertyName = "t301d_field_id";
-            this.t301d_field_id.HeaderText = "フィールドID";
-            this.t301d_field_id.Name = "t301d_field_id";
-            this.t301d_field_id.ReadOnly = true;
+            this.t301d_field_name.DataPropertyName = "t301d_field_name";
+            this.t301d_field_name.HeaderText = "フィールド名";
+            this.t301d_field_name.Name = "t301d_field_name";
+            this.t301d_field_name.ReadOnly = true;
             // 
             // t301d_number_of_marks
             // 
@@ -404,6 +419,14 @@ namespace MARK_SHEETS
             this.t301d_number_of_marks.Name = "t301d_number_of_marks";
             this.t301d_number_of_marks.ReadOnly = true;
             this.t301d_number_of_marks.Width = 40;
+            // 
+            // t301d_field_id
+            // 
+            this.t301d_field_id.DataPropertyName = "t301d_field_id";
+            this.t301d_field_id.HeaderText = "フィールドID";
+            this.t301d_field_id.Name = "t301d_field_id";
+            this.t301d_field_id.ReadOnly = true;
+            this.t301d_field_id.Visible = false;
             // 
             // groupBox3
             // 
@@ -616,12 +639,14 @@ namespace MARK_SHEETS
             this.Controls.Add(this.cmdExecute);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(980, 488);
+            this.MaximumSize = new System.Drawing.Size(980, 1000);
+            this.MinimumSize = new System.Drawing.Size(980, 488);
             this.Name = "FM01030";
             this.Text = "設問＆マーク紐付け登録";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01030_FormClosing);
             this.Load += new System.EventHandler(this.FM01030_Load);
             this.Shown += new System.EventHandler(this.FM01030_Shown);
+            this.Resize += new System.EventHandler(this.FM01030_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvT36D)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -675,14 +700,16 @@ namespace MARK_SHEETS
         private DataGridViewTextBoxColumn t36d_daimon;
         private DataGridViewTextBoxColumn t36d_syoumon;
         private DataGridViewTextBoxColumn t36d_auto_saiten;
+        private DataGridViewTextBoxColumn t301d_seq;
+        private DataGridViewTextBoxColumn t301d_field_name;
+        private DataGridViewTextBoxColumn t301d_number_of_marks;
+        private DataGridViewTextBoxColumn t301d_field_id;
         private DataGridViewTextBoxColumn t302d_seq;
-        private DataGridViewTextBoxColumn t302d_field_id;
+        private DataGridViewTextBoxColumn t302d_field_name;
         private DataGridViewTextBoxColumn t302d_mondai_id;
         private DataGridViewTextBoxColumn t302d_mondai_sub_no;
         private DataGridViewTextBoxColumn t302d_auto_scoring_disable;
-        private DataGridViewTextBoxColumn t301d_seq;
-        private DataGridViewTextBoxColumn t301d_field_id;
-        private DataGridViewTextBoxColumn t301d_number_of_marks;
+        private DataGridViewTextBoxColumn t302d_field_id;
     }
 }
 

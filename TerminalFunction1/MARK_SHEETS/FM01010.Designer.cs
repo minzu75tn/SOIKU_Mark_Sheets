@@ -48,6 +48,7 @@ namespace MARK_SHEETS
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.pnlGouKyoukaSentaku.SuspendLayout();
             this.pnlGouKyouka.SuspendLayout();
@@ -271,6 +272,10 @@ namespace MARK_SHEETS
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // FM01010
             // 
             this.AcceptButton = this.cmdExecute;
@@ -321,6 +326,7 @@ namespace MARK_SHEETS
         private ToolStripStatusLabel toolStripStatusLabel3;
         private ToolStripProgressBar toolStripProgressBar1;
         private StatusStrip statusStrip1;
+        private OpenFileDialog openFileDialog1;
     }
 }
 

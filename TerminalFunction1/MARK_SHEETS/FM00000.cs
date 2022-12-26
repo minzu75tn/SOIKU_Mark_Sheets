@@ -3,16 +3,11 @@ using System.Windows.Forms;
 
 using CommonBase;
 using CommonBase.BaseForms;
-using CommonBase.Alerts;
-using CommonBase.XMLparser;
-using Microsoft.VisualBasic;
 
 namespace MARK_SHEETS
 {
     public partial class FM00000 : BaseForm
     {
-        public Retention RETENTION { get; set; } = null;
-
         public FM00000()
         {
             base.InitializeComponent();
@@ -21,9 +16,9 @@ namespace MARK_SHEETS
 
         private void FM00000_Load(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            txtServer.Text = RETENTION.DB_DATA_SOURCE.Substring(0, 5).ToUpper() + "-" + RETENTION.DB_DATA_SOURCE.Substring(5);
+            txtServer.Text = Global.RETENTION.DB_DATA_SOURCE.Substring(0, 5).ToUpper() + "-" + Global.RETENTION.DB_DATA_SOURCE.Substring(5);
             tsmMenu3_sub1.Checked = true;
 
             this.toolStripStatusLabel1.Text = "v1.0";
@@ -35,7 +30,7 @@ namespace MARK_SHEETS
 
         private void FM00000_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
             if (cmdGetMarks.Enabled == false)
             {
                 e.Cancel = true;
@@ -52,9 +47,46 @@ namespace MARK_SHEETS
             this.statusStrip1.Visible = tsmMenu3_sub1.Checked ? true : false;
         }
 
-        private void Common_Enter(object sender, EventArgs e)
+        private void cmdGetMarks_Click(object sender, EventArgs e)
         {
-            SetSelectALL(sender as Control);
+            FM01010 LOWER = new FM01010();
+            LOWER.PARRENT_FORM = this;
+            LOWER.ShowDialog();
+        }
+
+        private void cmdEntryMarkLink_Click(object sender, EventArgs e)
+        {
+            FM01030 LOWER = new FM01030();
+            LOWER.PARRENT_FORM = this;
+            LOWER.ShowDialog();
+        }
+
+        private void cmdGetModelAnswer_Click(object sender, EventArgs e)
+        {
+            FM01040 LOWER = new FM01040();
+            LOWER.PARRENT_FORM = this;
+            LOWER.ShowDialog();
+        }
+
+        private void cmdCheckAutoScoreing_Click(object sender, EventArgs e)
+        {
+            FM01060 LOWER = new FM01060();
+            LOWER.PARRENT_FORM = this;
+            LOWER.ShowDialog();
+        }
+
+        private void cmdGetAnswer_Click(object sender, EventArgs e)
+        {
+            FM02010 LOWER = new FM02010();
+            LOWER.PARRENT_FORM = this;
+            LOWER.ShowDialog();
+        }
+
+        private void cmdAutoScoreing_Click(object sender, EventArgs e)
+        {
+            FM02020 LOWER = new FM02020();
+            LOWER.PARRENT_FORM = this;
+            LOWER.ShowDialog();
         }
 
         private void Button_Enter(object sender, EventArgs e)
@@ -78,54 +110,6 @@ namespace MARK_SHEETS
             {
                 ButtonColorDisabled(button);
             }
-        }
-
-        private void cmdGetMarks_Click(object sender, EventArgs e)
-        {
-            FM01010 LOWER = new FM01010();
-            LOWER.PARRENT_FORM = this;
-            LOWER.RETENTION = this.RETENTION;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdEntryMarkLink_Click(object sender, EventArgs e)
-        {
-            FM01030 LOWER = new FM01030();
-            LOWER.PARRENT_FORM = this;
-            LOWER.RETENTION = this.RETENTION;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdGetModelAnswer_Click(object sender, EventArgs e)
-        {
-            FM01040 LOWER = new FM01040();
-            LOWER.PARRENT_FORM = this;
-            LOWER.RETENTION = this.RETENTION;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdCheckAutoScoreing_Click(object sender, EventArgs e)
-        {
-            FM01060 LOWER = new FM01060();
-            LOWER.PARRENT_FORM = this;
-            LOWER.RETENTION = this.RETENTION;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdGetAnswer_Click(object sender, EventArgs e)
-        {
-            FM02010 LOWER = new FM02010();
-            LOWER.PARRENT_FORM = this;
-            LOWER.RETENTION = this.RETENTION;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdAutoScoreing_Click(object sender, EventArgs e)
-        {
-            FM02020 LOWER = new FM02020();
-            LOWER.PARRENT_FORM = this;
-            LOWER.RETENTION = this.RETENTION;
-            LOWER.ShowDialog();
         }
 
     }

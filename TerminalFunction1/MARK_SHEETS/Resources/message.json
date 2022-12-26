@@ -255,6 +255,51 @@
 	}
 ,
 	{
+		"Code":"MS80010",
+		"Type":"information",
+		"Caption":"INFORMATION",
+		"Message":"{0}",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS80020",
+		"Type":"question",
+		"Caption":"CONFIRM",
+		"Message":"{0}",
+		"ButtonType":"YesNo",
+		"DefaultButton":"Button2"
+	}
+,
+	{
+		"Code":"MS80030",
+		"Type":"warning",
+		"Caption":"WARNING",
+		"Message":"{0}",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS80040",
+		"Type":"error",
+		"Caption":"INPUT ERROR",
+		"Message":"{0}",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
+		"Code":"MS80050",
+		"Type":"error",
+		"Caption":"SYSTEM ERROR",
+		"Message":"{0}",
+		"ButtonType":"",
+		"DefaultButton":""
+	}
+,
+	{
 		"Code":"MS90010",
 		"Type":"error",
 		"Caption":"SYSTEM ERROR",

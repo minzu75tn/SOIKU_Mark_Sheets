@@ -29,38 +29,350 @@ namespace MARK_SHEETS
         /// </summary>
         private new void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.cmdExecute = new System.Windows.Forms.Button();
             this.lstMessages = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbKyoukaID = new System.Windows.Forms.ComboBox();
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.cmdCLose = new System.Windows.Forms.Button();
-            this.txtGouIDName = new System.Windows.Forms.TextBox();
-            this.txtGroupIDName = new System.Windows.Forms.TextBox();
+            this.txtGroupKaijyouName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtGouID = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtNendo = new System.Windows.Forms.TextBox();
+            this.pnlGouKyoukaSentaku = new System.Windows.Forms.Panel();
+            this.cmbNendo = new System.Windows.Forms.ComboBox();
+            this.pnlGouKyouka = new System.Windows.Forms.Panel();
+            this.cmbKyoukaID = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtGouIDName = new System.Windows.Forms.TextBox();
+            this.cmbGouID = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbRyouiki = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdbGakou = new System.Windows.Forms.RadioButton();
             this.rdbJuku = new System.Windows.Forms.RadioButton();
-            this.txtGroupID = new System.Windows.Forms.TextBox();
-            this.lblGroupID = new System.Windows.Forms.Label();
-            this.txtKaijyouID = new System.Windows.Forms.TextBox();
-            this.lblKaijyouID = new System.Windows.Forms.Label();
-            this.txtKaijyouIDName = new System.Windows.Forms.TextBox();
+            this.txtGroupKaijyou = new System.Windows.Forms.TextBox();
+            this.lblGroupKaijyou = new System.Windows.Forms.Label();
+            this.chkDifferent = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.statusStrip1.SuspendLayout();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.groupBox1.SuspendLayout();
+            this.pnlGouKyoukaSentaku.SuspendLayout();
+            this.pnlGouKyouka.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // cmdExecute
+            // 
+            this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdExecute.Location = new System.Drawing.Point(590, 313);
+            this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdExecute.Name = "cmdExecute";
+            this.cmdExecute.Size = new System.Drawing.Size(118, 32);
+            this.cmdExecute.TabIndex = 2;
+            this.cmdExecute.Text = "実 行";
+            this.cmdExecute.UseVisualStyleBackColor = true;
+            this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
+            this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
+            this.cmdExecute.Leave += new System.EventHandler(this.Button_Leave);
+            // 
+            // lstMessages
+            // 
+            this.lstMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstMessages.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lstMessages.FormattingEnabled = true;
+            this.lstMessages.Location = new System.Drawing.Point(12, 171);
+            this.lstMessages.Margin = new System.Windows.Forms.Padding(4);
+            this.lstMessages.Name = "lstMessages";
+            this.lstMessages.Size = new System.Drawing.Size(874, 225);
+            this.lstMessages.TabIndex = 2;
+            this.lstMessages.TabStop = false;
+            // 
+            // cmdCancel
+            // 
+            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
+            this.cmdCancel.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdCancel.Location = new System.Drawing.Point(751, 118);
+            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdCancel.Name = "cmdCancel";
+            this.cmdCancel.Size = new System.Drawing.Size(118, 32);
+            this.cmdCancel.TabIndex = 5;
+            this.cmdCancel.TabStop = false;
+            this.cmdCancel.Text = "キャンセル";
+            this.cmdCancel.UseVisualStyleBackColor = false;
+            this.cmdCancel.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
+            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            this.cmdCancel.Enter += new System.EventHandler(this.Button_Enter);
+            this.cmdCancel.Leave += new System.EventHandler(this.Button_Leave);
+            // 
+            // txtGroupKaijyouName
+            // 
+            this.txtGroupKaijyouName.Location = new System.Drawing.Point(456, 36);
+            this.txtGroupKaijyouName.Name = "txtGroupKaijyouName";
+            this.txtGroupKaijyouName.ReadOnly = true;
+            this.txtGroupKaijyouName.Size = new System.Drawing.Size(223, 25);
+            this.txtGroupKaijyouName.TabIndex = 3;
+            this.txtGroupKaijyouName.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.pnlGouKyoukaSentaku);
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.txtGroupKaijyouName);
+            this.groupBox1.Controls.Add(this.txtGroupKaijyou);
+            this.groupBox1.Controls.Add(this.lblGroupKaijyou);
+            this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(712, 149);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "処理条件";
+            // 
+            // pnlGouKyoukaSentaku
+            // 
+            this.pnlGouKyoukaSentaku.Controls.Add(this.cmbNendo);
+            this.pnlGouKyoukaSentaku.Controls.Add(this.pnlGouKyouka);
+            this.pnlGouKyoukaSentaku.Controls.Add(this.label4);
+            this.pnlGouKyoukaSentaku.Controls.Add(this.cmbRyouiki);
+            this.pnlGouKyoukaSentaku.Controls.Add(this.label2);
+            this.pnlGouKyoukaSentaku.Location = new System.Drawing.Point(27, 70);
+            this.pnlGouKyoukaSentaku.Name = "pnlGouKyoukaSentaku";
+            this.pnlGouKyoukaSentaku.Size = new System.Drawing.Size(652, 73);
+            this.pnlGouKyoukaSentaku.TabIndex = 41;
+            this.pnlGouKyoukaSentaku.Leave += new System.EventHandler(this.pnlGouKyoukaSentaku_Leave);
+            // 
+            // cmbNendo
+            // 
+            this.cmbNendo.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbNendo.FormattingEnabled = true;
+            this.cmbNendo.Location = new System.Drawing.Point(59, 12);
+            this.cmbNendo.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbNendo.MaxLength = 3;
+            this.cmbNendo.Name = "cmbNendo";
+            this.cmbNendo.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cmbNendo.Size = new System.Drawing.Size(60, 21);
+            this.cmbNendo.TabIndex = 1;
+            // 
+            // pnlGouKyouka
+            // 
+            this.pnlGouKyouka.Controls.Add(this.cmbKyoukaID);
+            this.pnlGouKyouka.Controls.Add(this.label1);
+            this.pnlGouKyouka.Controls.Add(this.label3);
+            this.pnlGouKyouka.Controls.Add(this.txtGouIDName);
+            this.pnlGouKyouka.Controls.Add(this.cmbGouID);
+            this.pnlGouKyouka.Location = new System.Drawing.Point(138, 6);
+            this.pnlGouKyouka.Name = "pnlGouKyouka";
+            this.pnlGouKyouka.Size = new System.Drawing.Size(331, 63);
+            this.pnlGouKyouka.TabIndex = 2;
+            this.pnlGouKyouka.Leave += new System.EventHandler(this.pnlGouKyouka_Leave);
+            // 
+            // cmbKyoukaID
+            // 
+            this.cmbKyoukaID.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbKyoukaID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKyoukaID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbKyoukaID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbKyoukaID.FormattingEnabled = true;
+            this.cmbKyoukaID.Location = new System.Drawing.Point(238, 6);
+            this.cmbKyoukaID.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbKyoukaID.MaxLength = 3;
+            this.cmbKyoukaID.Name = "cmbKyoukaID";
+            this.cmbKyoukaID.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cmbKyoukaID.Size = new System.Drawing.Size(62, 21);
+            this.cmbKyoukaID.TabIndex = 3;
+            this.cmbKyoukaID.SelectedIndexChanged += new System.EventHandler(this.cmbKyoukaID_SelectedIndexChanged);
+            this.cmbKyoukaID.Enter += new System.EventHandler(this.Common_Enter);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(169, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "教科コード :";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "号 数 :";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtGouIDName
+            // 
+            this.txtGouIDName.Location = new System.Drawing.Point(60, 34);
+            this.txtGouIDName.Name = "txtGouIDName";
+            this.txtGouIDName.ReadOnly = true;
+            this.txtGouIDName.Size = new System.Drawing.Size(252, 25);
+            this.txtGouIDName.TabIndex = 4;
+            this.txtGouIDName.TabStop = false;
+            // 
+            // cmbGouID
+            // 
+            this.cmbGouID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbGouID.FormattingEnabled = true;
+            this.cmbGouID.Location = new System.Drawing.Point(60, 6);
+            this.cmbGouID.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbGouID.MaxLength = 3;
+            this.cmbGouID.Name = "cmbGouID";
+            this.cmbGouID.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cmbGouID.Size = new System.Drawing.Size(54, 21);
+            this.cmbGouID.TabIndex = 1;
+            this.cmbGouID.SelectedIndexChanged += new System.EventHandler(this.cmbGouID_SelectedIndexChanged);
+            this.cmbGouID.Enter += new System.EventHandler(this.Common_Enter);
+            this.cmbGouID.Leave += new System.EventHandler(this.cmbGouID_Leave);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(486, 15);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "領域選択 :";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cmbRyouiki
+            // 
+            this.cmbRyouiki.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbRyouiki.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRyouiki.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbRyouiki.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbRyouiki.FormattingEnabled = true;
+            this.cmbRyouiki.Location = new System.Drawing.Point(554, 12);
+            this.cmbRyouiki.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbRyouiki.MaxLength = 3;
+            this.cmbRyouiki.Name = "cmbRyouiki";
+            this.cmbRyouiki.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cmbRyouiki.Size = new System.Drawing.Size(62, 21);
+            this.cmbRyouiki.TabIndex = 4;
+            this.cmbRyouiki.Enter += new System.EventHandler(this.Common_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(16, 15);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "年度 :";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rdbGakou);
+            this.groupBox2.Controls.Add(this.rdbJuku);
+            this.groupBox2.Location = new System.Drawing.Point(27, 20);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(241, 45);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "実施種別";
+            // 
+            // rdbGakou
+            // 
+            this.rdbGakou.AutoSize = true;
+            this.rdbGakou.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rdbGakou.Location = new System.Drawing.Point(37, 18);
+            this.rdbGakou.Name = "rdbGakou";
+            this.rdbGakou.Size = new System.Drawing.Size(65, 21);
+            this.rdbGakou.TabIndex = 0;
+            this.rdbGakou.TabStop = true;
+            this.rdbGakou.Text = "学校系";
+            this.rdbGakou.UseVisualStyleBackColor = true;
+            this.rdbGakou.CheckedChanged += new System.EventHandler(this.rdbGakou_CheckedChanged);
+            // 
+            // rdbJuku
+            // 
+            this.rdbJuku.AutoSize = true;
+            this.rdbJuku.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rdbJuku.Location = new System.Drawing.Point(127, 18);
+            this.rdbJuku.Name = "rdbJuku";
+            this.rdbJuku.Size = new System.Drawing.Size(85, 21);
+            this.rdbJuku.TabIndex = 1;
+            this.rdbJuku.TabStop = true;
+            this.rdbJuku.Text = "塾・会場系";
+            this.rdbJuku.UseVisualStyleBackColor = true;
+            this.rdbJuku.CheckedChanged += new System.EventHandler(this.rdbJuku_CheckedChanged);
+            // 
+            // txtGroupKaijyou
+            // 
+            this.txtGroupKaijyou.Location = new System.Drawing.Point(371, 36);
+            this.txtGroupKaijyou.Name = "txtGroupKaijyou";
+            this.txtGroupKaijyou.Size = new System.Drawing.Size(71, 25);
+            this.txtGroupKaijyou.TabIndex = 2;
+            this.txtGroupKaijyou.Enter += new System.EventHandler(this.Common_Enter);
+            this.txtGroupKaijyou.Leave += new System.EventHandler(this.txtGroupKaijyou_Leave);
+            // 
+            // lblGroupKaijyou
+            // 
+            this.lblGroupKaijyou.AutoSize = true;
+            this.lblGroupKaijyou.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblGroupKaijyou.Location = new System.Drawing.Point(299, 40);
+            this.lblGroupKaijyou.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblGroupKaijyou.Name = "lblGroupKaijyou";
+            this.lblGroupKaijyou.Size = new System.Drawing.Size(73, 13);
+            this.lblGroupKaijyou.TabIndex = 1;
+            this.lblGroupKaijyou.Text = "会場・団体 :";
+            this.lblGroupKaijyou.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // chkDifferent
+            // 
+            this.chkDifferent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDifferent.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
+            this.chkDifferent.Location = new System.Drawing.Point(737, 56);
+            this.chkDifferent.Name = "chkDifferent";
+            this.chkDifferent.Size = new System.Drawing.Size(149, 53);
+            this.chkDifferent.TabIndex = 4;
+            this.chkDifferent.TabStop = false;
+            this.chkDifferent.Text = "処理条件を満たすものすべて再取込み";
+            this.chkDifferent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkDifferent.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
+            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(751, 32);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 32);
+            this.button1.TabIndex = 3;
+            this.button1.TabStop = false;
+            this.button1.Text = "実 行";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
+            this.button1.Click += new System.EventHandler(this.cmdExecute_Click);
+            this.button1.Enter += new System.EventHandler(this.Button_Enter);
+            this.button1.Leave += new System.EventHandler(this.Button_Leave);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // statusStrip1
             // 
@@ -68,13 +380,12 @@ namespace MARK_SHEETS
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
+            this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 407);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Size = new System.Drawing.Size(899, 22);
+            this.statusStrip1.TabIndex = 32;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
@@ -93,285 +404,27 @@ namespace MARK_SHEETS
             // 
             this.toolStripStatusLabel3.AutoSize = false;
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(100, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(355, 17);
+            this.toolStripStatusLabel3.Spring = true;
             // 
-            // toolStripStatusLabel4
+            // toolStripProgressBar1
             // 
-            this.toolStripStatusLabel4.AutoSize = false;
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(100, 17);
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(408, 17);
-            this.toolStripStatusLabel5.Spring = true;
-            // 
-            // cmdExecute
-            // 
-            this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdExecute.Location = new System.Drawing.Point(491, 313);
-            this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdExecute.Name = "cmdExecute";
-            this.cmdExecute.Size = new System.Drawing.Size(118, 32);
-            this.cmdExecute.TabIndex = 2;
-            this.cmdExecute.Text = "実 行";
-            this.cmdExecute.UseVisualStyleBackColor = true;
-            this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
-            this.cmdExecute.Click += new System.EventHandler(this.cmdExecute_Click);
-            this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
-            this.cmdExecute.Leave += new System.EventHandler(this.Button_Leave);
-            // 
-            // lstMessages
-            // 
-            this.lstMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstMessages.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lstMessages.FormattingEnabled = true;
-            this.lstMessages.Location = new System.Drawing.Point(12, 171);
-            this.lstMessages.Margin = new System.Windows.Forms.Padding(4);
-            this.lstMessages.Name = "lstMessages";
-            this.lstMessages.Size = new System.Drawing.Size(775, 186);
-            this.lstMessages.TabIndex = 14;
-            this.lstMessages.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(449, 81);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "教科コード :";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cmbKyoukaID
-            // 
-            this.cmbKyoukaID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmbKyoukaID.FormattingEnabled = true;
-            this.cmbKyoukaID.Items.AddRange(new object[] {
-            "数学"});
-            this.cmbKyoukaID.Location = new System.Drawing.Point(520, 75);
-            this.cmbKyoukaID.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbKyoukaID.MaxLength = 3;
-            this.cmbKyoukaID.Name = "cmbKyoukaID";
-            this.cmbKyoukaID.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cmbKyoukaID.Size = new System.Drawing.Size(62, 21);
-            this.cmbKyoukaID.TabIndex = 19;
-            // 
-            // cmdCancel
-            // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCancel.Location = new System.Drawing.Point(669, 60);
-            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(118, 32);
-            this.cmdCancel.TabIndex = 21;
-            this.cmdCancel.Text = "キャンセル";
-            this.cmdCancel.UseVisualStyleBackColor = true;
-            // 
-            // cmdCLose
-            // 
-            this.cmdCLose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCLose.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCLose.Location = new System.Drawing.Point(669, 365);
-            this.cmdCLose.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdCLose.Name = "cmdCLose";
-            this.cmdCLose.Size = new System.Drawing.Size(118, 32);
-            this.cmdCLose.TabIndex = 22;
-            this.cmdCLose.Text = "閉じる";
-            this.cmdCLose.UseVisualStyleBackColor = true;
-            // 
-            // txtGouIDName
-            // 
-            this.txtGouIDName.Location = new System.Drawing.Point(87, 106);
-            this.txtGouIDName.Name = "txtGouIDName";
-            this.txtGouIDName.Size = new System.Drawing.Size(211, 25);
-            this.txtGouIDName.TabIndex = 25;
-            this.txtGouIDName.Text = "号数名称";
-            // 
-            // txtGroupIDName
-            // 
-            this.txtGroupIDName.Location = new System.Drawing.Point(349, 106);
-            this.txtGroupIDName.Name = "txtGroupIDName";
-            this.txtGroupIDName.Size = new System.Drawing.Size(223, 25);
-            this.txtGroupIDName.TabIndex = 26;
-            this.txtGroupIDName.Text = "団体名称";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtGouID);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtNendo);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.txtGroupID);
-            this.groupBox1.Controls.Add(this.lblGroupID);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtGroupIDName);
-            this.groupBox1.Controls.Add(this.cmbKyoukaID);
-            this.groupBox1.Controls.Add(this.txtGouIDName);
-            this.groupBox1.Controls.Add(this.txtKaijyouID);
-            this.groupBox1.Controls.Add(this.lblKaijyouID);
-            this.groupBox1.Controls.Add(this.txtKaijyouIDName);
-            this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(12, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(622, 149);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "処理条件";
-            // 
-            // txtGouID
-            // 
-            this.txtGouID.Location = new System.Drawing.Point(191, 75);
-            this.txtGouID.Name = "txtGouID";
-            this.txtGouID.Size = new System.Drawing.Size(46, 25);
-            this.txtGouID.TabIndex = 39;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(147, 79);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
-            this.label5.TabIndex = 38;
-            this.label5.Text = "号数 :";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtNendo
-            // 
-            this.txtNendo.Location = new System.Drawing.Point(87, 75);
-            this.txtNendo.Name = "txtNendo";
-            this.txtNendo.Size = new System.Drawing.Size(46, 25);
-            this.txtNendo.TabIndex = 35;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(43, 79);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "年度 :";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rdbGakou);
-            this.groupBox2.Controls.Add(this.rdbJuku);
-            this.groupBox2.Location = new System.Drawing.Point(27, 20);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(241, 45);
-            this.groupBox2.TabIndex = 32;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "実施種別";
-            // 
-            // rdbGakou
-            // 
-            this.rdbGakou.AutoSize = true;
-            this.rdbGakou.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdbGakou.Location = new System.Drawing.Point(37, 18);
-            this.rdbGakou.Name = "rdbGakou";
-            this.rdbGakou.Size = new System.Drawing.Size(65, 21);
-            this.rdbGakou.TabIndex = 30;
-            this.rdbGakou.TabStop = true;
-            this.rdbGakou.Text = "学校系";
-            this.rdbGakou.UseVisualStyleBackColor = true;
-            this.rdbGakou.CheckedChanged += new System.EventHandler(this.rdbGakou_CheckedChanged);
-            // 
-            // rdbJuku
-            // 
-            this.rdbJuku.AutoSize = true;
-            this.rdbJuku.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdbJuku.Location = new System.Drawing.Point(127, 18);
-            this.rdbJuku.Name = "rdbJuku";
-            this.rdbJuku.Size = new System.Drawing.Size(85, 21);
-            this.rdbJuku.TabIndex = 31;
-            this.rdbJuku.TabStop = true;
-            this.rdbJuku.Text = "塾・会場系";
-            this.rdbJuku.UseVisualStyleBackColor = true;
-            this.rdbJuku.CheckedChanged += new System.EventHandler(this.rdbJuku_CheckedChanged);
-            // 
-            // txtGroupID
-            // 
-            this.txtGroupID.Location = new System.Drawing.Point(347, 74);
-            this.txtGroupID.Name = "txtGroupID";
-            this.txtGroupID.Size = new System.Drawing.Size(71, 25);
-            this.txtGroupID.TabIndex = 29;
-            // 
-            // lblGroupID
-            // 
-            this.lblGroupID.AutoSize = true;
-            this.lblGroupID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblGroupID.Location = new System.Drawing.Point(271, 78);
-            this.lblGroupID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblGroupID.Name = "lblGroupID";
-            this.lblGroupID.Size = new System.Drawing.Size(69, 13);
-            this.lblGroupID.TabIndex = 28;
-            this.lblGroupID.Text = "団体コード :";
-            this.lblGroupID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtKaijyouID
-            // 
-            this.txtKaijyouID.Location = new System.Drawing.Point(347, 74);
-            this.txtKaijyouID.Name = "txtKaijyouID";
-            this.txtKaijyouID.Size = new System.Drawing.Size(71, 25);
-            this.txtKaijyouID.TabIndex = 37;
-            // 
-            // lblKaijyouID
-            // 
-            this.lblKaijyouID.AutoSize = true;
-            this.lblKaijyouID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblKaijyouID.Location = new System.Drawing.Point(271, 78);
-            this.lblKaijyouID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblKaijyouID.Name = "lblKaijyouID";
-            this.lblKaijyouID.Size = new System.Drawing.Size(69, 13);
-            this.lblKaijyouID.TabIndex = 36;
-            this.lblKaijyouID.Text = "会場コード :";
-            this.lblKaijyouID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtKaijyouIDName
-            // 
-            this.txtKaijyouIDName.Location = new System.Drawing.Point(349, 106);
-            this.txtKaijyouIDName.Name = "txtKaijyouIDName";
-            this.txtKaijyouIDName.Size = new System.Drawing.Size(223, 25);
-            this.txtKaijyouIDName.TabIndex = 40;
-            this.txtKaijyouIDName.Text = "会場名称";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(669, 20);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 32);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "実 行";
-            this.button1.UseVisualStyleBackColor = true;
+            this.toolStripProgressBar1.AutoSize = false;
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(350, 16);
             // 
             // FM02010
             // 
             this.AcceptButton = this.cmdExecute;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 429);
+            this.ClientSize = new System.Drawing.Size(899, 429);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.chkDifferent);
             this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.cmdCLose);
             this.Controls.Add(this.lstMessages);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdExecute);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -380,46 +433,52 @@ namespace MARK_SHEETS
             this.Text = "解答データ取込み";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM02010_FormClosing);
             this.Load += new System.EventHandler(this.FM02010_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Shown += new System.EventHandler(this.FM02010_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.pnlGouKyoukaSentaku.ResumeLayout(false);
+            this.pnlGouKyoukaSentaku.PerformLayout();
+            this.pnlGouKyouka.ResumeLayout(false);
+            this.pnlGouKyouka.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button cmdExecute;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         internal System.Windows.Forms.ListBox lstMessages;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-        private Label label3;
-        private ComboBox cmbKyoukaID;
         private Button cmdCancel;
-        private Button cmdCLose;
-        private TextBox txtGouIDName;
-        private TextBox txtGroupIDName;
+        private TextBox txtGroupKaijyouName;
         private GroupBox groupBox1;
         private Button button1;
-        private TextBox txtGroupID;
-        private Label lblGroupID;
-        private TextBox txtGouID;
-        private Label label5;
-        private TextBox txtKaijyouID;
-        private Label lblKaijyouID;
-        private TextBox txtNendo;
+        private TextBox txtGroupKaijyou;
+        private Label lblGroupKaijyou;
         private Label label2;
         private GroupBox groupBox2;
         private RadioButton rdbGakou;
         private RadioButton rdbJuku;
-        private TextBox txtKaijyouIDName;
+        private CheckBox chkDifferent;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Panel pnlGouKyoukaSentaku;
+        private Panel pnlGouKyouka;
+        private ComboBox cmbKyoukaID;
+        private Label label1;
+        private Label label3;
+        private TextBox txtGouIDName;
+        private ComboBox cmbGouID;
+        private Label label4;
+        private ComboBox cmbRyouiki;
+        private ComboBox cmbNendo;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+        private ToolStripStatusLabel toolStripStatusLabel3;
+        private ToolStripProgressBar toolStripProgressBar1;
     }
 }
 

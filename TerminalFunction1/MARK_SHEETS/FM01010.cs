@@ -11,15 +11,12 @@ using CommonBase.Alerts;
 using CommonBase.Commons;
 using CommonBase.CsvFiles;
 using CommonBase.Tables;
-using NPOI.HPSF;
-using NPOI.Util;
 
 namespace MARK_SHEETS
 {
     public partial class FM01010 : BaseForm
     {
         public FM00000 PARRENT_FORM { get; set; } = null;
-        public Retention RETENTION { get; set; } = null;
 
         private bool DoClose { get; set; } = false;
         private bool DoExecute { get; set; } = false;
@@ -32,7 +29,7 @@ namespace MARK_SHEETS
 
         private void FM01010_Load(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -48,7 +45,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -61,7 +58,7 @@ namespace MARK_SHEETS
 
         private void FM01010_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
             if (DoExecute)
             {
                 e.Cancel = true;
@@ -69,19 +66,19 @@ namespace MARK_SHEETS
             DoClose = true;
 
             // Processing Results
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", "started.");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", "started.");
             for (int ii = 0; ii < lstMessages.Items.Count; ii++)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", lstMessages.Items[ii]);
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", lstMessages.Items[ii]);
             }
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", "ended.");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", "ended.");
         }
 
         private void cmbGouID_Leave(object sender, EventArgs e)
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
 
             try
             {
@@ -102,7 +99,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -112,7 +109,7 @@ namespace MARK_SHEETS
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
 
             try
             {
@@ -129,7 +126,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -139,13 +136,13 @@ namespace MARK_SHEETS
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbKyoukaID.Text);
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbKyoukaID.Text);
             cmbRyouiki.DataSource = null;
         }
 
         private void pnlGouKyouka_Leave(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -165,7 +162,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -173,7 +170,7 @@ namespace MARK_SHEETS
 
         private void pnlGouKyoukaSentaku_Leave(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -185,7 +182,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -270,7 +267,7 @@ namespace MARK_SHEETS
 
         private void cmdExecute_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             if (cmbGouID.SelectedIndex <= 0 || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
             {
@@ -282,16 +279,16 @@ namespace MARK_SHEETS
 
             try
             {
-                RETENTION.GOU_ID = cmbGouID.Text;
-                RETENTION.KYOUKA_ID = cmbKyoukaID.SelectedValue.ToString();
-                RETENTION.SENTAKU_ID = cmbRyouiki.Text;
+                Global.RETENTION.GOU_ID = cmbGouID.Text;
+                Global.RETENTION.KYOUKA_ID = cmbKyoukaID.SelectedValue.ToString();
+                Global.RETENTION.SENTAKU_ID = cmbRyouiki.Text;
 
                 // file
 
                 DateTime dtNow = DateTime.Now;
                 string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
                 string filePath = drives + Constant.MARKS_DESIGN_FOLDER;
-                string filename = $"{Constant.MARKS_LOCATE_FILE}_{RETENTION.GOU_ID}_{RETENTION.KYOUKA_ID}-{RETENTION.SENTAKU_ID}_{dtNow.ToString("yyyyMMdd")}{Constant.FILE_EXTENTION_CSV}";
+                string filename = $"{Constant.MARKS_LOCATE_FILE}_{Global.RETENTION.GOU_ID}_{Global.RETENTION.KYOUKA_ID}-{Global.RETENTION.SENTAKU_ID}_{dtNow.ToString("yyyyMMdd")}{Constant.FILE_EXTENTION_CSV}";
                 string fullPath = "";
 
                 openFileDialog1.Title = "ファイルの選択";
@@ -302,7 +299,6 @@ namespace MARK_SHEETS
                 DialogResult results = openFileDialog1.ShowDialog();
                 if (results == DialogResult.OK)
                 {
-                    // fullPath = drives + Constant.MARKS_DESIGN_FOLDER + @"\" + openFileDialog1.FileName;
                     fullPath = openFileDialog1.FileName;
                 }
                 else
@@ -334,7 +330,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -342,9 +338,9 @@ namespace MARK_SHEETS
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            cmdCancel.Enabled = true;
+            cmdCancel.Enabled = false;
             if (backgroundWorker1.IsBusy)
             {
                 backgroundWorker1.CancelAsync();
@@ -353,7 +349,7 @@ namespace MARK_SHEETS
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs args)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             // Get Parameter
             string filePath = (string)args.Argument;
@@ -385,7 +381,7 @@ namespace MARK_SHEETS
 
         void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             cmdCancel.Enabled = false;
             DoExecute = false;
@@ -393,7 +389,7 @@ namespace MARK_SHEETS
             // On Error or Cancel
             if (e.Error != null)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, e.Error.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, e.Error.ToString());
                 string[] embedArray1 = new string[1] { e.Error.ToString() };
                 Messages1.ShowMessage("MS90010", embedArray1);
                 return;
@@ -422,7 +418,7 @@ namespace MARK_SHEETS
         /// <returns></returns>
         private bool Insert_mark_locate_data(string filePath, BackgroundWorker Worker)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -430,9 +426,9 @@ namespace MARK_SHEETS
 
                 // delete
                 string SQLSTMT = SQL.RELATED_T301D.DELETE_T301D;
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(RETENTION.GOU_ID));
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(RETENTION.KYOUKA_ID));
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(RETENTION.SENTAKU_ID));
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
                 bool deleted = Tables1.ExecuteDelete(SQLSTMT);
 
                 // insert
@@ -445,9 +441,9 @@ namespace MARK_SHEETS
                     Hashtable hash = (Hashtable)arrayList[ii];
 
                     string SQLSTMT2 = SQL.RELATED_T301D.INSERT_T301D;
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(RETENTION.GOU_ID));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(RETENTION.KYOUKA_ID));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@ryouiki_sentaku_id", Convert.ToInt32(RETENTION.SENTAKU_ID));
+                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@field_id", Convert.ToInt32(hash["field_id"]));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@field_name", Convert.ToString(hash["field_name"]));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@number_of_marks", Convert.ToInt32(hash["number_of_marks"]));
@@ -457,7 +453,7 @@ namespace MARK_SHEETS
                 bool results2 = Tables1.ExecuteModifyMultiple(SQLARRAY);
                 if (!results2)
                 {
-                    throw new Exception("テーブル登録処理で異常を検出しました。" + "(301d_mark_locate_data)");
+                    throw new Exception("テーブル登録処理で異常を検出しました。" + "(t301d_mark_locate_data)");
                 }
 
                 Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みが完了しました。", Path.GetFileName(filePath)));
@@ -470,7 +466,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みに失敗しました。", Path.GetFileName(filePath)));
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);

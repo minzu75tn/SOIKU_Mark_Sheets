@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Data;
 using System.Windows.Forms;
 
@@ -8,14 +7,14 @@ using CommonBase.BaseForms;
 using CommonBase.Alerts;
 using CommonBase.Commons;
 using CommonBase.Tables;
-
+using System.Collections;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace MARK_SHEETS
 {
     public partial class FM01030 : BaseForm
     {
         public FM00000 PARRENT_FORM { get; set; } = null;
-        public Retention RETENTION { get; set; } = null;
 
         private bool DoClose { get; set; } = false;
         private bool DoChange { get; set; } = false;
@@ -28,7 +27,7 @@ namespace MARK_SHEETS
 
         private void FM01030_Load(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -49,7 +48,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -57,6 +56,7 @@ namespace MARK_SHEETS
 
         private void FM01030_Shown(object sender, EventArgs e)
         {
+            this.Height = 500;
             cmbGouID.Focus();
         }
 
@@ -67,7 +67,7 @@ namespace MARK_SHEETS
 
         private void FM01030_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
             if (DoChange)
             {
                 DialogResult results = Messages1.ShowMessage("MS04010");
@@ -82,7 +82,7 @@ namespace MARK_SHEETS
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
 
             try
             {
@@ -103,7 +103,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -113,7 +113,7 @@ namespace MARK_SHEETS
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbGouID.Text);
 
             try
             {
@@ -130,7 +130,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -140,13 +140,13 @@ namespace MARK_SHEETS
         {
             if (DoClose) return;
 
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbKyoukaID.Text);
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, cmbKyoukaID.Text);
             cmbRyouiki.DataSource = null;
         }
 
         private void pnlGouKyouka_Leave(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -166,7 +166,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -174,7 +174,7 @@ namespace MARK_SHEETS
 
         private void pnlGouKyoukaSentaku_Leave(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -185,7 +185,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -256,7 +256,7 @@ namespace MARK_SHEETS
 
         private void cmdQuery_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -283,7 +283,21 @@ namespace MARK_SHEETS
                 DataTable dt = Tables1.GetSelectRowsDataTable(SQLSTMT3);
                 if (dt.Rows.Count >= 1)
                 {
-                    dgvT302D.DataSource = dt;
+                    string SQLSTMT7 = SQL.RELATED_T302D.EXCEPT_T301D_T302D;
+                    SQLSTMT7 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT7, "@gou_id", Convert.ToInt32(cmbGouID.Text));
+                    SQLSTMT7 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT7, "@kyouka_id", Convert.ToInt32(cmbKyoukaID.SelectedValue));
+                    SQLSTMT7 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT7, "@ryouiki_sentaku_id", Convert.ToInt32(cmbRyouiki.Text));
+                    DataTable dt7 = Tables1.GetSelectRowsDataTable(SQLSTMT7);
+                    if (dt7.Rows.Count >= 1)
+                    {
+                        Delete_mark_link_data();
+                        Create_mark_link_data();
+                        dgvT302D.DataSource = Tables1.GetSelectRowsDataTable(SQLSTMT3);
+                    }
+                    else
+                    {
+                        dgvT302D.DataSource = dt;
+                    }
                 }
                 else
                 {
@@ -293,7 +307,11 @@ namespace MARK_SHEETS
 
                 for (int ii = 0; ii < dgvT36D.Rows.Count; ii++)
                 {
-                    if (!String.IsNullOrEmpty(Convert.ToString(dgvT36D.Rows[ii].Cells["t36d_auto_saiten"].Value)))
+                    if (String.IsNullOrEmpty(Convert.ToString(dgvT36D.Rows[ii].Cells["t36d_auto_saiten"].Value)))
+                    {
+                        dgvT36D.Rows[ii].DefaultCellStyle.BackColor = Color.LightGray;
+                    }
+                    else
                     {
                         if (Convert.ToInt32(dgvT36D.Rows[ii].Cells["t36d_auto_saiten"].Value) != 1)
                         {
@@ -308,7 +326,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -321,7 +339,7 @@ namespace MARK_SHEETS
         /// <returns></returns>
         private void Create_mark_link_data()
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -342,9 +360,37 @@ namespace MARK_SHEETS
             return;
         }
 
+        /// <summary>
+        /// 「マーク紐付けデータ」の削除
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
+        private void Delete_mark_link_data()
+        {
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+
+            try
+            {
+                string SQLSTMT = SQL.RELATED_T302D.DELETE_T302D;
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(cmbGouID.Text));
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(cmbKyoukaID.SelectedValue));
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(cmbRyouiki.Text));
+                bool results = Tables1.ExecuteModify(SQLSTMT);
+                if (!results)
+                {
+                    throw new Exception("テーブル削除処理で異常を検出しました。" + "(t302d_mark_link_data)");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return;
+        }
+
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             cmbGouID.SelectedIndex = 0;
             txtGouIDName.Text = "";
@@ -361,26 +407,85 @@ namespace MARK_SHEETS
             cmdLink.Enabled = false;
             cmdUnLink.Enabled = false;
             cmdVagueLink.Enabled = false;
+
+            DoChange = false;
         }
 
         private void cmdExecute_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
+                // check
+                bool insufficient = false;
+                for (int ii = 0; ii < dgvT302D.Rows.Count; ii++)
+                {
+                    if (String.IsNullOrEmpty(Convert.ToString(dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value)))
+                    {
+                        insufficient = true;
+                        break;
+                    }
+                }
+                if (insufficient)
+                {
+                    string[] embedArray = new string[1] { "入力項目が不足しています。\n（紐付けされていない設問あり）" };
+                    DialogResult confirm = Messages1.ShowMessage("MS80020", embedArray);
+                    if (confirm != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+
+                // update    
+                ArrayList SQLARRAY = new ArrayList();
+                for (int ii = 0; ii < dgvT302D.Rows.Count; ii++)
+                {
+                    if (!String.IsNullOrEmpty(Convert.ToString(dgvT302D.Rows[ii].Cells["t302d_updated"].Value)))
+                    {
+                        string SQLSTMT = SQL.RELATED_T302D.UPDATE_T302D;
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(cmbGouID.Text));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(cmbKyoukaID.SelectedValue));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(cmbRyouiki.Text));
+                        SQLSTMT = CommonLogic1.ReplaceStatementString(SQLSTMT, "@field_name", Convert.ToString(dgvT302D.Rows[ii].Cells["t302d_field_name"].Value));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@mondai_id", dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value);
+                        int scoring_disable = 0;
+                        if (!String.IsNullOrEmpty(Convert.ToString(dgvT302D.Rows[ii].Cells["t302d_auto_scoring_disable"].Value)))
+                        {
+                            if (!Convert.ToString(dgvT302D.Rows[ii].Cells["t302d_auto_scoring_disable"].Value).Equals("0"))
+                            {
+                                scoring_disable = 1;
+                            }
+                        }
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@auto_scoring_disable", scoring_disable);
+                        SQLARRAY.Add(SQLSTMT);
+                    }
+                }
+                if (SQLARRAY.Count != 0)
+                {
+                    bool results = Tables1.ExecuteModifyMultiple(SQLARRAY);
+                    if (!results)
+                    {
+                        cmdExecute.Enabled = false;
+                        throw new Exception("テーブル更新処理で異常を検出しました。" + "(302d_mark_locate_data)");
+                    }
+                    Messages1.ShowMessage("MS03010");
+                    cmdExecute.Enabled = false;
+                    cmdCancel.PerformClick();
+                }
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
+                cmdExecute.Enabled = false;
             }
         }
 
         private void cmdLink_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -412,29 +517,33 @@ namespace MARK_SHEETS
                         if (Convert.ToString(dgvT302D["t302d_field_name", ii].Value).Equals(field_name))
                         {
                             dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value = mondai_id;
-                            dgvT302D.Rows[ii].Cells["t302d_mondai_sub_no"].Value = 0;
+                            dgvT302D.Rows[ii].Cells["t302d_auto_scoring_disable"].Value = 0;
+                            dgvT302D.Rows[ii].Cells["t302d_updated"].Value = "updated";
                             DoChange = true;
+                            cmdExecute.Enabled = true;
                             break;
                         }
                     }
                 }
                 else
                 {
-                    string[] embedArray = new string[1] { "候補が選択されていない" };
-                    Messages1.ShowMessage("MS01020", embedArray);
                     if (dgvT36D.SelectedRows.Count >= 1)
                     {
+                        string[] embedArray = new string[1] { "候補が選択されていない〔301〕" };
+                        Messages1.ShowMessage("MS01020", embedArray);
                         dgvT301D.Focus();
                     }
                     else
                     {
+                        string[] embedArray = new string[1] { "候補が選択されていない〔36〕" };
+                        Messages1.ShowMessage("MS01020", embedArray);
                         dgvT36D.Focus();
                     }
                 }
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -442,7 +551,7 @@ namespace MARK_SHEETS
 
         private void cmdUnLink_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
@@ -450,19 +559,21 @@ namespace MARK_SHEETS
                 {
                     DataGridViewRow selected = dgvT302D.SelectedRows[0];
                     selected.Cells["t302d_mondai_id"].Value = null;
-                    selected.Cells["t302d_mondai_sub_no"].Value = null;
-                    selected.Cells["t302d_auto_scoring_disable"].Value = null;
+                    selected.Cells["t302d_auto_scoring_disable"].Value = 0;
+                    selected.Cells["t302d_updated"].Value = "updated";
+                    DoChange = true;
+                    cmdExecute.Enabled = true;
                 }
                 else
                 {
-                    string[] embedArray = new string[1] { "候補が選択されていない" };
+                    string[] embedArray = new string[1] { "候補が選択されていない〔302〕" };
                     Messages1.ShowMessage("MS01020", embedArray);
                     dgvT302D.Focus();
                 }
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -470,29 +581,36 @@ namespace MARK_SHEETS
 
         private void cmdVagueLink_Click(object sender, EventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
-                for (int ii = 0; ii < dgvT302D.Rows.Count; ii++)
+                for (int ii = 0; ii < dgvT301D.Rows.Count; ii++)
                 {
                     for (int jj = 0; jj < dgvT36D.Rows.Count; jj++)
                     {
                         string field_name = "S"
-                            + string.Format("00", dgvT36D.Rows[jj].Cells["t36d_mondai_id"].Value)
+                            + Convert.ToInt32(dgvT36D.Rows[jj].Cells["t36d_mondai_id"].Value).ToString("00")
                             + "-"
-                            + string.Format("00", dgvT36D.Rows[jj].Cells["t36d_daimon"].Value)
+                            + Convert.ToInt32(dgvT36D.Rows[jj].Cells["t36d_daimon"].Value).ToString("00")
                             + "-"
-                            + string.Format("00", dgvT36D.Rows[jj].Cells["t36d_syoumon"].Value);
+                            + Convert.ToInt32(dgvT36D.Rows[jj].Cells["t36d_syoumon"].Value).ToString("00");
 
-                        if (dgvT36D.Rows[jj].Cells["t36d_auto_saiten"].Value.Equals("1"))
+                        if (!String.IsNullOrEmpty(Convert.ToString(dgvT36D.Rows[jj].Cells["t36d_auto_saiten"].Value)))
                         {
-                            if (Convert.ToString(dgvT302D["t302d_field_name", ii].Value).Equals(field_name))
+                            if (Convert.ToInt32(dgvT36D.Rows[jj].Cells["t36d_auto_saiten"].Value) == 1)
                             {
-                                dgvT302D.Rows[ii].Cells["t302d_mondai_name"].Value = dgvT36D.Rows[jj].Cells["t36d_mondai_name"].Value;
-                                dgvT302D.Rows[ii].Cells["t302d_mondai_sub_no"].Value = 0;
-                                DoChange = true;
-                                break;
+                                if (Convert.ToString(dgvT301D["t301d_field_name", ii].Value).Substring(0, field_name.Length).Equals(field_name))
+                                {
+                                    dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value = dgvT36D.Rows[jj].Cells["t36d_mondai_id"].Value;
+                                    string tmp = Convert.ToString(dgvT301D["t301d_field_name", ii].Value);
+                                    dgvT302D.Rows[ii].Cells["t302d_updated"].Value = "updated";
+                                    dgvT302D.Rows[ii].Cells["t302d_mondai_id"].Value = dgvT36D.Rows[jj].Cells["t36d_mondai_id"].Value;
+                                    dgvT302D.Rows[ii].Cells["t302d_auto_scoring_disable"].Value = 0;
+                                    DoChange = true;
+                                    cmdExecute.Enabled = true;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -500,7 +618,7 @@ namespace MARK_SHEETS
             }
             catch (Exception ex)
             {
-                RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
@@ -508,7 +626,8 @@ namespace MARK_SHEETS
 
         private void dgvT36D_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+
             if (e.RowIndex < 0)
             {
                 return;
@@ -546,6 +665,28 @@ namespace MARK_SHEETS
         private void dgvT302D_Scroll(object sender, ScrollEventArgs e)
         {
             dgvT301D.FirstDisplayedScrollingRowIndex = dgvT302D.FirstDisplayedScrollingRowIndex;
+        }
+
+        private void dgvT302D_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            if (e.ColumnIndex == 5)
+            {
+                dgvT302D.Rows[e.RowIndex].Cells["t302d_updated"].Value = "updated";
+                DoChange = true;
+                cmdExecute.Enabled = true;
+            }
+        }
+
+        private void dgvT302D_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvT302D.CurrentCellAddress.X == 5 && dgvT302D.IsCurrentCellDirty)
+            {
+                dgvT302D.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
 
         private void Common_Enter(object sender, EventArgs e)

@@ -36,8 +36,6 @@ namespace MARK_SHEETS
             this.toolStripStatusLabel1.Text = "";
             this.toolStripStatusLabel2.Text = "";
             this.toolStripStatusLabel3.Text = "";
-            this.toolStripStatusLabel4.Text = "";
-            this.toolStripStatusLabel5.Text = "";
         }
 
         private void FM02020_FormClosing(object sender, FormClosingEventArgs e)

@@ -61,7 +61,7 @@ namespace MARK_SHEETS
 			try
 			{
 				RETENTION.LOGGER = LOGGER;
-				FM00000X.RETENTION = RETENTION;
+				Global.RETENTION = RETENTION;
 				Application.Run(FM00000X);
 			}
 			catch (Exception ex)

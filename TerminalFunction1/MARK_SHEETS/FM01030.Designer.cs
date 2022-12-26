@@ -33,10 +33,9 @@ namespace MARK_SHEETS
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmdExecute = new System.Windows.Forms.Button();
             this.dgvT36D = new System.Windows.Forms.DataGridView();
             this.t36d_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,12 +50,6 @@ namespace MARK_SHEETS
             this.cmdVagueLink = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dgvT302D = new System.Windows.Forms.DataGridView();
-            this.t302d_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t302d_field_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t302d_mondai_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t302d_mondai_sub_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t302d_auto_scoring_disable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.t302d_field_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dgvT301D = new System.Windows.Forms.DataGridView();
             this.t301d_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,6 +73,12 @@ namespace MARK_SHEETS
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.cmdCancel = new System.Windows.Forms.Button();
+            this.t302d_seq = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_field_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_mondai_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_auto_scoring_disable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_field_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.t302d_updated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvT36D)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -96,15 +95,16 @@ namespace MARK_SHEETS
             // cmdExecute
             // 
             this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdExecute.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdExecute.Location = new System.Drawing.Point(799, 58);
+            this.cmdExecute.Location = new System.Drawing.Point(786, 58);
             this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
             this.cmdExecute.Name = "cmdExecute";
             this.cmdExecute.Size = new System.Drawing.Size(118, 32);
             this.cmdExecute.TabIndex = 2;
             this.cmdExecute.TabStop = false;
             this.cmdExecute.Text = "登 録";
-            this.cmdExecute.UseVisualStyleBackColor = true;
+            this.cmdExecute.UseVisualStyleBackColor = false;
             this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdExecute.Click += new System.EventHandler(this.cmdExecute_Click);
             this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
@@ -188,15 +188,16 @@ namespace MARK_SHEETS
             // cmdQuery
             // 
             this.cmdQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdQuery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdQuery.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdQuery.Location = new System.Drawing.Point(660, 18);
+            this.cmdQuery.Location = new System.Drawing.Point(647, 18);
             this.cmdQuery.Margin = new System.Windows.Forms.Padding(4);
             this.cmdQuery.Name = "cmdQuery";
             this.cmdQuery.Size = new System.Drawing.Size(118, 32);
             this.cmdQuery.TabIndex = 34;
             this.cmdQuery.TabStop = false;
             this.cmdQuery.Text = "照 会";
-            this.cmdQuery.UseVisualStyleBackColor = true;
+            this.cmdQuery.UseVisualStyleBackColor = false;
             this.cmdQuery.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdQuery.Click += new System.EventHandler(this.cmdQuery_Click);
             this.cmdQuery.Enter += new System.EventHandler(this.Button_Enter);
@@ -204,6 +205,7 @@ namespace MARK_SHEETS
             // 
             // cmdLink
             // 
+            this.cmdLink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdLink.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdLink.Location = new System.Drawing.Point(526, 68);
             this.cmdLink.Margin = new System.Windows.Forms.Padding(4);
@@ -212,7 +214,7 @@ namespace MARK_SHEETS
             this.cmdLink.TabIndex = 37;
             this.cmdLink.TabStop = false;
             this.cmdLink.Text = "紐付け";
-            this.cmdLink.UseVisualStyleBackColor = true;
+            this.cmdLink.UseVisualStyleBackColor = false;
             this.cmdLink.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdLink.Click += new System.EventHandler(this.cmdLink_Click);
             this.cmdLink.Enter += new System.EventHandler(this.Button_Enter);
@@ -220,6 +222,7 @@ namespace MARK_SHEETS
             // 
             // cmdUnLink
             // 
+            this.cmdUnLink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdUnLink.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdUnLink.Location = new System.Drawing.Point(526, 118);
             this.cmdUnLink.Margin = new System.Windows.Forms.Padding(4);
@@ -228,7 +231,7 @@ namespace MARK_SHEETS
             this.cmdUnLink.TabIndex = 38;
             this.cmdUnLink.TabStop = false;
             this.cmdUnLink.Text = "紐付け解除";
-            this.cmdUnLink.UseVisualStyleBackColor = true;
+            this.cmdUnLink.UseVisualStyleBackColor = false;
             this.cmdUnLink.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdUnLink.Click += new System.EventHandler(this.cmdUnLink_Click);
             this.cmdUnLink.Enter += new System.EventHandler(this.Button_Enter);
@@ -248,12 +251,13 @@ namespace MARK_SHEETS
             this.groupBox2.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox2.Location = new System.Drawing.Point(12, 103);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(940, 313);
+            this.groupBox2.Size = new System.Drawing.Size(910, 313);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             // 
             // cmdVagueLink
             // 
+            this.cmdVagueLink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdVagueLink.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdVagueLink.Location = new System.Drawing.Point(526, 184);
             this.cmdVagueLink.Margin = new System.Windows.Forms.Padding(4);
@@ -262,7 +266,7 @@ namespace MARK_SHEETS
             this.cmdVagueLink.TabIndex = 40;
             this.cmdVagueLink.TabStop = false;
             this.cmdVagueLink.Text = "曖昧紐付け";
-            this.cmdVagueLink.UseVisualStyleBackColor = true;
+            this.cmdVagueLink.UseVisualStyleBackColor = false;
             this.cmdVagueLink.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdVagueLink.Click += new System.EventHandler(this.cmdVagueLink_Click);
             this.cmdVagueLink.Enter += new System.EventHandler(this.Button_Enter);
@@ -276,7 +280,7 @@ namespace MARK_SHEETS
             this.groupBox5.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox5.Location = new System.Drawing.Point(628, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(304, 293);
+            this.groupBox5.Size = new System.Drawing.Size(275, 293);
             this.groupBox5.TabIndex = 42;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "〔302〕マーク紐付けデータ";
@@ -292,9 +296,9 @@ namespace MARK_SHEETS
             this.t302d_seq,
             this.t302d_field_name,
             this.t302d_mondai_id,
-            this.t302d_mondai_sub_no,
             this.t302d_auto_scoring_disable,
-            this.t302d_field_id});
+            this.t302d_field_id,
+            this.t302d_updated});
             this.dgvT302D.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvT302D.Location = new System.Drawing.Point(3, 21);
             this.dgvT302D.MultiSelect = false;
@@ -303,59 +307,11 @@ namespace MARK_SHEETS
             this.dgvT302D.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvT302D.RowTemplate.Height = 25;
             this.dgvT302D.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvT302D.Size = new System.Drawing.Size(298, 269);
+            this.dgvT302D.Size = new System.Drawing.Size(269, 269);
             this.dgvT302D.TabIndex = 7;
+            this.dgvT302D.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvT302D_CellValueChanged);
+            this.dgvT302D.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvT302D_CurrentCellDirtyStateChanged);
             this.dgvT302D.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvT302D_Scroll);
-            // 
-            // t302d_seq
-            // 
-            this.t302d_seq.DataPropertyName = "t302d_seq";
-            this.t302d_seq.HeaderText = "#";
-            this.t302d_seq.Name = "t302d_seq";
-            this.t302d_seq.ReadOnly = true;
-            this.t302d_seq.Width = 35;
-            // 
-            // t302d_field_name
-            // 
-            this.t302d_field_name.DataPropertyName = "t302d_field_name";
-            this.t302d_field_name.HeaderText = "フィールド名";
-            this.t302d_field_name.Name = "t302d_field_name";
-            this.t302d_field_name.ReadOnly = true;
-            // 
-            // t302d_mondai_id
-            // 
-            this.t302d_mondai_id.DataPropertyName = "t302d_mondai_id";
-            dataGridViewCellStyle5.Format = "00";
-            this.t302d_mondai_id.DefaultCellStyle = dataGridViewCellStyle5;
-            this.t302d_mondai_id.HeaderText = "問題ID";
-            this.t302d_mondai_id.Name = "t302d_mondai_id";
-            this.t302d_mondai_id.Width = 40;
-            // 
-            // t302d_mondai_sub_no
-            // 
-            this.t302d_mondai_sub_no.DataPropertyName = "t302d_mondai_sub_no";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.t302d_mondai_sub_no.DefaultCellStyle = dataGridViewCellStyle6;
-            this.t302d_mondai_sub_no.HeaderText = "枝番";
-            this.t302d_mondai_sub_no.Name = "t302d_mondai_sub_no";
-            this.t302d_mondai_sub_no.Width = 30;
-            // 
-            // t302d_auto_scoring_disable
-            // 
-            this.t302d_auto_scoring_disable.DataPropertyName = "t302d_auto_scoring_disable";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.t302d_auto_scoring_disable.DefaultCellStyle = dataGridViewCellStyle7;
-            this.t302d_auto_scoring_disable.HeaderText = "自動抑止";
-            this.t302d_auto_scoring_disable.Name = "t302d_auto_scoring_disable";
-            this.t302d_auto_scoring_disable.Width = 40;
-            // 
-            // t302d_field_id
-            // 
-            this.t302d_field_id.DataPropertyName = "t302d_field_id";
-            this.t302d_field_id.HeaderText = "フィールドID";
-            this.t302d_field_id.Name = "t302d_field_id";
-            this.t302d_field_id.ReadOnly = true;
-            this.t302d_field_id.Visible = false;
             // 
             // groupBox4
             // 
@@ -413,8 +369,8 @@ namespace MARK_SHEETS
             // t301d_number_of_marks
             // 
             this.t301d_number_of_marks.DataPropertyName = "t301d_number_of_marks";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.t301d_number_of_marks.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.t301d_number_of_marks.DefaultCellStyle = dataGridViewCellStyle7;
             this.t301d_number_of_marks.HeaderText = "個数";
             this.t301d_number_of_marks.Name = "t301d_number_of_marks";
             this.t301d_number_of_marks.ReadOnly = true;
@@ -579,7 +535,7 @@ namespace MARK_SHEETS
             this.statusStrip1.Location = new System.Drawing.Point(0, 427);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(964, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(934, 22);
             this.statusStrip1.TabIndex = 41;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -599,7 +555,7 @@ namespace MARK_SHEETS
             // 
             this.toolStripStatusLabel3.AutoSize = false;
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(420, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(390, 17);
             this.toolStripStatusLabel3.Spring = true;
             // 
             // toolStripProgressBar1
@@ -611,26 +567,75 @@ namespace MARK_SHEETS
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdCancel.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCancel.Location = new System.Drawing.Point(660, 58);
+            this.cmdCancel.Location = new System.Drawing.Point(647, 58);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(118, 32);
             this.cmdCancel.TabIndex = 42;
             this.cmdCancel.TabStop = false;
             this.cmdCancel.Text = "キャンセル";
-            this.cmdCancel.UseVisualStyleBackColor = true;
+            this.cmdCancel.UseVisualStyleBackColor = false;
             this.cmdCancel.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             this.cmdCancel.Enter += new System.EventHandler(this.Button_Enter);
             this.cmdCancel.Leave += new System.EventHandler(this.Button_Leave);
             // 
+            // t302d_seq
+            // 
+            this.t302d_seq.DataPropertyName = "t302d_seq";
+            this.t302d_seq.HeaderText = "#";
+            this.t302d_seq.Name = "t302d_seq";
+            this.t302d_seq.ReadOnly = true;
+            this.t302d_seq.Width = 35;
+            // 
+            // t302d_field_name
+            // 
+            this.t302d_field_name.DataPropertyName = "t302d_field_name";
+            this.t302d_field_name.HeaderText = "フィールド名";
+            this.t302d_field_name.Name = "t302d_field_name";
+            this.t302d_field_name.ReadOnly = true;
+            // 
+            // t302d_mondai_id
+            // 
+            this.t302d_mondai_id.DataPropertyName = "t302d_mondai_id";
+            dataGridViewCellStyle5.Format = "00";
+            this.t302d_mondai_id.DefaultCellStyle = dataGridViewCellStyle5;
+            this.t302d_mondai_id.HeaderText = "問題ID";
+            this.t302d_mondai_id.Name = "t302d_mondai_id";
+            this.t302d_mondai_id.ReadOnly = true;
+            this.t302d_mondai_id.Width = 40;
+            // 
+            // t302d_auto_scoring_disable
+            // 
+            this.t302d_auto_scoring_disable.DataPropertyName = "t302d_auto_scoring_disable";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.t302d_auto_scoring_disable.DefaultCellStyle = dataGridViewCellStyle6;
+            this.t302d_auto_scoring_disable.HeaderText = "自動抑止";
+            this.t302d_auto_scoring_disable.Name = "t302d_auto_scoring_disable";
+            this.t302d_auto_scoring_disable.Width = 40;
+            // 
+            // t302d_field_id
+            // 
+            this.t302d_field_id.DataPropertyName = "t302d_field_id";
+            this.t302d_field_id.HeaderText = "フィールドID";
+            this.t302d_field_id.Name = "t302d_field_id";
+            this.t302d_field_id.ReadOnly = true;
+            this.t302d_field_id.Visible = false;
+            // 
+            // t302d_updated
+            // 
+            this.t302d_updated.HeaderText = "updated";
+            this.t302d_updated.Name = "t302d_updated";
+            this.t302d_updated.ReadOnly = true;
+            this.t302d_updated.Visible = false;
+            // 
             // FM01030
             // 
-            this.AcceptButton = this.cmdQuery;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 449);
+            this.ClientSize = new System.Drawing.Size(934, 449);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
@@ -639,8 +644,8 @@ namespace MARK_SHEETS
             this.Controls.Add(this.cmdExecute);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(980, 1000);
-            this.MinimumSize = new System.Drawing.Size(980, 488);
+            this.MaximumSize = new System.Drawing.Size(950, 1000);
+            this.MinimumSize = new System.Drawing.Size(950, 488);
             this.Name = "FM01030";
             this.Text = "設問＆マーク紐付け登録";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01030_FormClosing);
@@ -707,9 +712,9 @@ namespace MARK_SHEETS
         private DataGridViewTextBoxColumn t302d_seq;
         private DataGridViewTextBoxColumn t302d_field_name;
         private DataGridViewTextBoxColumn t302d_mondai_id;
-        private DataGridViewTextBoxColumn t302d_mondai_sub_no;
         private DataGridViewTextBoxColumn t302d_auto_scoring_disable;
         private DataGridViewTextBoxColumn t302d_field_id;
+        private DataGridViewTextBoxColumn t302d_updated;
     }
 }
 

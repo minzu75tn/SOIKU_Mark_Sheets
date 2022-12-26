@@ -170,9 +170,36 @@ namespace CommonBase.Commons
         /// <param name="Values"></param>
         /// <returns>Change After Statements</returns>
         /// <remarks></remarks>
-        public static string ReplaceStatementString(string Statements, string Target, string Values)
+        public static string ReplaceStatementString(string Statements, string Target, string Values, bool null2blank = false)
         {
-            return Statements.Replace(Target, EncircleSingleQuote(Values));
+            if (String.IsNullOrEmpty(Values))
+            {
+                if (null2blank)
+                {
+                    return Statements.Replace(Target, "");
+                }
+                else
+                {
+                    return Statements.Replace(Target, "null");
+                }
+            }
+            else
+            {
+                return Statements.Replace(Target, EncircleSingleQuote(Values));
+            }
+        }
+
+        /// <summary>
+        ///  SQLコマンド行の指定された項目を置き換える（文字列版）
+        ///  </summary>
+        /// <param name="Statements"></param>
+        /// <param name="Target"></param>
+        /// <param name="Values"></param>
+        /// <returns>Change After Statements</returns>
+        /// <remarks></remarks>
+        public static string ReplaceStatementString(string Statements, string Target, object Values, bool null2blank = false)
+        {
+            return ReplaceStatementString(Statements, Target, Convert.ToString(Values), null2blank);
         }
 
         /// <summary>
@@ -186,6 +213,26 @@ namespace CommonBase.Commons
         public static string ReplaceStatementNumeric(string Statements, string Target, int Values)
         {
             return Statements.Replace(Target, Convert.ToString(Values));
+        }
+
+        /// <summary>
+        ///  SQLコマンド行の指定された項目を置き換える（数値版）
+        ///  </summary>
+        /// <param name="Statements"></param>
+        /// <param name="Target"></param>
+        /// <param name="Values"></param>
+        /// <returns>Change After Statements</returns>
+        /// <remarks></remarks>
+        public static string ReplaceStatementNumeric(string Statements, string Target, object Values)
+        {
+            if (String.IsNullOrEmpty(Convert.ToString(Values)))
+            {
+                return Statements.Replace(Target, "null");
+            }
+            else
+            {
+                return Statements.Replace(Target, Convert.ToString(Values));
+            }
         }
 
         /// <summary>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using NPOI.SS.Formula.Functions;
+using System;
+using static NPOI.HSSF.Util.HSSFColor;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using System.Windows.Forms;
 
 namespace MARK_SHEETS
 {
@@ -50,6 +54,11 @@ SELECT gou_id, test_name FROM t01m_gou WHERE gou_id = @gou_id
             /// 「団体コード」名の取得
             internal static readonly string GET_GROUPID_NAME = $@"
 SELECT group_id, name FROM t03m_group WHERE group_id=@group_id
+";
+
+            /// 「会場コード」名の取得
+            internal static readonly string GET_KAIJYOUID_NAME = $@"
+SELECT kaijyou_id, kaijyou_name FROM t07m_kaijyou_name WHERE kaijyou_id=@kaijyou_id
 ";
         }
 
@@ -160,7 +169,6 @@ SELECT
   , field_id as t302d_field_id
   , field_name as t302d_field_name
   , mondai_id as t302d_mondai_id
-  , mondai_sub_no as t302d_mondai_sub_no
   , auto_scoring_disable as t302d_auto_scoring_disable
   FROM t302d_mark_link_data 
  WHERE gou_id=@gou_id
@@ -175,7 +183,6 @@ INSERT INTO t302d_mark_link_data (
   , kyouka_id
   , ryouiki_sentaku_id
   , mondai_id
-  , mondai_sub_no
   , field_id
   , field_name
   , auto_scoring_disable
@@ -184,10 +191,10 @@ VALUES (
     @gou_id
   , @kyouka_id
   , @ryouiki_sentaku_id
+  , @mondai_id
   , @field_id
   , @field_name
-  , @number_of_marks
-  , @mark_default_value
+  , @auto_scoring_disable
 )
 ";
 
@@ -210,10 +217,139 @@ SELECT
    AND target.kyouka_id=@kyouka_id
    AND target.ryouiki_sentaku_id=@ryouiki_sentaku_id
 ";
+           
+            internal static readonly string UPDATE_T302D = $@"
+UPDATE t302d_mark_link_data
+   SET
+    mondai_id=@mondai_id
+  , auto_scoring_disable=@auto_scoring_disable
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+   AND field_name=@field_name
+";
 
             internal static readonly string DELETE_T302D = $@"
 DELETE 
   FROM t302d_mark_link_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+
+
+        internal static readonly string EXCEPT_T301D_T302D = $@"
+SELECT field_name
+  FROM t301d_mark_locate_data
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+  EXCEPT
+SELECT field_name
+  FROM t302d_mark_link_data
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+
+        }
+        /// <summary>
+        /// 〔303〕マーク模範データ
+        /// </summary>
+        internal class RELATED_T303D
+        {
+            internal static readonly string SELECT_T303D = $@"
+SELECT *
+  FROM t303d_mark_mohan_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ ORDER BY field_id
+";
+
+            internal static readonly string INSERT_T303D = $@"
+INSERT INTO t303d_mark_mohan_data ( 
+    gou_id
+  , kyouka_id
+  , ryouiki_sentaku_id
+  , field_id
+  , field_name
+  , mark_value
+) 
+VALUES ( 
+    @gou_id
+  , @kyouka_id
+  , @ryouiki_sentaku_id
+  , @field_id
+  , @field_name
+  , @mark_value
+)
+";
+
+            internal static readonly string DELETE_T303D = $@"
+DELETE 
+  FROM t303d_mark_mohan_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+        }
+
+        /// <summary>
+        /// 〔304〕マーク解答データ
+        /// </summary>
+        internal class RELATED_T304D
+        {
+            internal static readonly string SELECT_T304D = $@"
+SELECT *
+  FROM t304d_mark_answer_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ ORDER BY field_id
+";
+
+            internal static readonly string INSERT_T304D = $@"
+INSERT 
+INTO t304d_mark_answer_data( 
+    nendo
+  , gou_id
+  , kaijyou_id
+  , group_id
+  , class_id
+  , grade
+  , kubun
+  , siwake
+  , juken_id
+  , kyouka_id
+  , ryouiki_sentaku_id
+  , field_id
+  , field_name
+  , mark_value
+  , status
+) 
+VALUES ( 
+    @nendo
+  , @gou_id
+  , @kaijyou_id
+  , @group_id
+  , @class_id
+  , @grade
+  , @kubun
+  , @siwake
+  , @juken_id
+  , @kyouka_id
+  , @ryouiki_sentaku_id
+  , @field_id
+  , @field_name
+  , @mark_value
+  , @status
+)
+";
+
+            internal static readonly string DELETE_T304D = $@"
+DELETE 
+  FROM t304d_mark_answer_data 
  WHERE gou_id=@gou_id
    AND kyouka_id=@kyouka_id
    AND ryouiki_sentaku_id=@ryouiki_sentaku_id

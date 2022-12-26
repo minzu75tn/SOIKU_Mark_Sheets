@@ -58,6 +58,7 @@ namespace MARK_SHEETS
             // cmdExecute
             // 
             this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdExecute.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdExecute.Location = new System.Drawing.Point(602, 20);
             this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
@@ -66,7 +67,7 @@ namespace MARK_SHEETS
             this.cmdExecute.TabIndex = 5;
             this.cmdExecute.TabStop = false;
             this.cmdExecute.Text = "実 行";
-            this.cmdExecute.UseVisualStyleBackColor = true;
+            this.cmdExecute.UseVisualStyleBackColor = false;
             this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdExecute.Click += new System.EventHandler(this.cmdExecute_Click);
             this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
@@ -88,6 +89,7 @@ namespace MARK_SHEETS
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdCancel.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdCancel.Location = new System.Drawing.Point(602, 60);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
@@ -96,8 +98,11 @@ namespace MARK_SHEETS
             this.cmdCancel.TabIndex = 6;
             this.cmdCancel.TabStop = false;
             this.cmdCancel.Text = "キャンセル";
-            this.cmdCancel.UseVisualStyleBackColor = true;
+            this.cmdCancel.UseVisualStyleBackColor = false;
+            this.cmdCancel.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            this.cmdCancel.Enter += new System.EventHandler(this.Button_Enter);
+            this.cmdCancel.Leave += new System.EventHandler(this.Button_Leave);
             // 
             // groupBox1
             // 
@@ -278,7 +283,6 @@ namespace MARK_SHEETS
             // 
             // FM01010
             // 
-            this.AcceptButton = this.cmdExecute;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 383);

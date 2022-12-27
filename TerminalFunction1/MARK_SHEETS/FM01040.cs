@@ -196,7 +196,7 @@ namespace MARK_SHEETS
         /// <returns></returns>
         private void SetCmdGouID()
         {
-            string SQLSTMT = SQL.GET_LIST.GET_GOUID_LIST;
+            string SQLSTMT = SQL.GET_LIST.GET_GOUID_LIST_JUKUKAIJYOU;
             cmbGouID.DataSource = Tables1.GetSelectRowsDataTable(SQLSTMT);
             cmbGouID.DisplayMember = "gou_id_display";
             cmbGouID.ValueMember = "gou_id";

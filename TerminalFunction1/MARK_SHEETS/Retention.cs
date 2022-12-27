@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Configuration;
 using CommonBase.Logs;
 
@@ -41,16 +42,6 @@ namespace MARK_SHEETS
         public ConnectionStringSettings DB_CONNECTION_STRING { get; set; } = new ConnectionStringSettings();
 
         /// <summary>
-        /// Worker Prosessで利用する変数など 
-        /// </summary>
-        public string GOU_ID { get; set; } = null;
-        public string KYOUKA_ID { get; set; } = null;
-        public string SENTAKU_ID { get; set; } = null;
-        public string NENDO { get; set; } = null;
-        public string GROUP_ID { get; set; } = null;
-        public string KAIJYOU_ID { get; set; } = null;
-
-        /// <summary>
         /// Current Path です。
         /// </summary>
         public string GetLoggingLocation()
@@ -81,6 +72,18 @@ namespace MARK_SHEETS
         {
             return CURRENT_PATH + @"\" + @"Output";
         }
+
+        /// <summary>
+        /// Worker Prosessで利用する変数など 
+        /// </summary>
+        public string GOU_ID { get; set; } = null;
+        public string KYOUKA_ID { get; set; } = null;
+        public string SENTAKU_ID { get; set; } = null;
+        public string NENDO { get; set; } = null;
+        public string GROUPKAIJYOU_ID { get; set; } = null;
+
+        public bool DIFFERRENT { get; set; } = false;
+        public ArrayList UPTREATED { get; set; } = null;
 
     }
 }

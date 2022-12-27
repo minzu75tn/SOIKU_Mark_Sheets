@@ -3,6 +3,7 @@ using System;
 using static NPOI.HSSF.Util.HSSFColor;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace MARK_SHEETS
 {
@@ -16,11 +17,21 @@ namespace MARK_SHEETS
         /// </summary>
         internal class GET_LIST
         {
-            /// 「号数」一覧の取得
-            internal static readonly string GET_GOUID_LIST = $@"
+            /// 「号数」一覧の取得（すべて）
+            internal static readonly string GET_GOUID_LIST_ALL = $@"
 SELECT 0 as gou_id, '' as gou_id_display
   UNION ALL
-SELECT gou_id, FORMAT(gou_id, '000') as gou_id_display FROM t01m_gou ORDER BY gou_id
+SELECT gou_id, FORMAT(gou_id, '000') as gou_id_display FROM t01m_gou
+ GROUP BY gou_id ORDER BY gou_id
+";
+
+            /// 「号数」一覧の取得（塾・会場系）
+            internal static readonly string GET_GOUID_LIST_JUKUKAIJYOU= $@"
+SELECT 0 as gou_id, '' as gou_id_display
+  UNION ALL
+SELECT gou_id, FORMAT(gou_id, '000') as gou_id_display FROM t01m_gou
+ WHERE gou_id >= 200
+ GROUP BY gou_id ORDER BY gou_id
 ";
 
             /// 「教科」一覧の取得
@@ -300,21 +311,60 @@ DELETE
         /// </summary>
         internal class RELATED_T304D
         {
-            internal static readonly string SELECT_T304D = $@"
-SELECT *
-  FROM t304d_mark_answer_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
- ORDER BY field_id
+            internal static readonly string SELECT_T304D_LIST = $@"
+SELECT target.juken_id
+  FROM t304d_mark_answer_data as target
+  LEFT JOIN (
+    SELECT nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
+      FROM t304d_mark_answer_data 
+     WHERE nendo=@nendo
+       AND gou_id=@gou_id
+       AND kaijyou_id=@kaijyou_id
+       AND kyouka_id=@kyouka_id
+       AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+     GROUP BY nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
+  ) as subject ON
+       target.nendo = subject.nendo    
+   AND target.gou_id = subject.gou_id
+   AND target.kaijyou_id = subject.kaijyou_id
+   AND target.kyouka_id = subject.kyouka_id
+   AND target.ryouiki_sentaku_id = subject.ryouiki_sentaku_id
+ ORDER BY juken_id
 ";
 
-            internal static readonly string INSERT_T304D = $@"
+            internal static readonly string INSERT_T304D_KAIJYOU = $@"
 INSERT 
 INTO t304d_mark_answer_data( 
     nendo
   , gou_id
   , kaijyou_id
+  , juken_id
+  , kyouka_id
+  , ryouiki_sentaku_id
+  , field_id
+  , field_name
+  , mark_value
+  , status
+) 
+VALUES ( 
+    @nendo
+  , @gou_id
+  , @kaijyou_id
+  , @juken_id
+  , @kyouka_id
+  , @ryouiki_sentaku_id
+  , @field_id
+  , @field_name
+  , @mark_value
+  , @status
+)
+";
+
+            internal static readonly string INSERT_T304D_GROUP = $@"
+INSERT 
+INTO t304d_mark_answer_data( 
+    nendo
+  , gou_id
   , group_id
   , class_id
   , grade
@@ -331,7 +381,6 @@ INTO t304d_mark_answer_data(
 VALUES ( 
     @nendo
   , @gou_id
-  , @kaijyou_id
   , @group_id
   , @class_id
   , @grade
@@ -347,10 +396,24 @@ VALUES (
 )
 ";
 
-            internal static readonly string DELETE_T304D = $@"
+            internal static readonly string DELETE_T304D_KAIJYOU = $@"
 DELETE 
   FROM t304d_mark_answer_data 
- WHERE gou_id=@gou_id
+ WHERE nendo=@nendo
+   AND gou_id=@gou_id
+   AND kaijyou_id=@kaijyou_id
+   AND juken_id=@juken_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+
+            internal static readonly string DELETE_T304D_GROUP = $@"
+DELETE 
+  FROM t304d_mark_answer_data 
+ WHERE nendo=@nendo
+   AND gou_id=@gou_id
+   AND group_id=@group_id
+   AND juken_id=@juken_id
    AND kyouka_id=@kyouka_id
    AND ryouiki_sentaku_id=@ryouiki_sentaku_id
 ";

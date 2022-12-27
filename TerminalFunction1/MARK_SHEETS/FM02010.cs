@@ -9,11 +9,10 @@ using CommonBase;
 using CommonBase.BaseForms;
 using CommonBase.Alerts;
 using CommonBase.Tables;
-using Microsoft.VisualBasic;
-using System.Data.SqlClient;
 
 using CommonBase.Commons;
 using CommonBase.CsvFiles;
+using System.Text;
 
 namespace MARK_SHEETS
 {
@@ -40,7 +39,8 @@ namespace MARK_SHEETS
                 SetCmdGouID();
                 SetcmbKyoukaID();
 
-                rdbGakou.Checked = true;
+                rdbJuku.Checked = true;
+                rdbGakou.Enabled = false;
 
                 cmdExecute.Enabled = false;
                 cmdCancel.Enabled = false;
@@ -80,13 +80,6 @@ namespace MARK_SHEETS
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "List Messages.", "ended.");
         }
 
-        private void rdbGakou_CheckedChanged(object sender, EventArgs e)
-        {
-            lblGroupKaijyou.Text = "団体コード";
-            txtGroupKaijyou.Text = "";
-            txtGroupKaijyouName.Text = "";
-        }
-
         private void rdbJuku_CheckedChanged(object sender, EventArgs e)
         {
             lblGroupKaijyou.Text = "会場コード";
@@ -100,13 +93,13 @@ namespace MARK_SHEETS
 
             if (txtGroupKaijyou.TextLength != 0)
             {
-                if (this.rdbGakou.Checked)
+                if (this.rdbJuku.Checked)
                 {
-                    txtGroupKaijyouName.Text = GetGroupName();
+                    txtGroupKaijyouName.Text = GetKaijyouName();
                 }
                 else
                 {
-                    txtGroupKaijyouName.Text = GetKaijyouName();
+                    txtGroupKaijyouName.Text = GetGroupName();
                 }
             }
         }
@@ -252,10 +245,18 @@ namespace MARK_SHEETS
         private void pnlGouKyoukaSentaku_Leave(object sender, EventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+        }
+
+        private void grpShoriJoken_Leave(object sender, EventArgs e)
+        {
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             try
             {
-                if (cmbGouID.SelectedIndex >= 1 && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
+                
+                if (txtGroupKaijyouName.Text.Length != 0
+                    && cmbNendo.SelectedIndex >= 0 && cmbGouID.SelectedIndex >= 1
+                    && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
                 {
                     cmdExecute.Enabled = true;
                     DoExecute = !cmdExecute.Enabled;
@@ -291,7 +292,7 @@ namespace MARK_SHEETS
         /// <returns></returns>
         private void SetCmdGouID()
         {
-            string SQLSTMT = SQL.GET_LIST.GET_GOUID_LIST;
+            string SQLSTMT = SQL.GET_LIST.GET_GOUID_LIST_JUKUKAIJYOU;
             cmbGouID.DataSource = Tables1.GetSelectRowsDataTable(SQLSTMT);
             cmbGouID.DisplayMember = "gou_id_display";
             cmbGouID.ValueMember = "gou_id";
@@ -365,7 +366,9 @@ namespace MARK_SHEETS
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            if (cmbGouID.SelectedIndex <= 0 || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
+            if (txtGroupKaijyouName.Text.Length == 0
+                || cmbGouID.SelectedIndex <= 0
+                || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
             {
                 string[] embedArray = new string[1] { "号数・教科・領域選択" };
                 Messages1.ShowMessage("MS01010", embedArray);
@@ -373,36 +376,88 @@ namespace MARK_SHEETS
                 return;
             }
 
+            DialogResult confirm = DialogResult.No;
+            if (chkDifferent.Checked)
+            {
+                string[] embedArray = new string[1] { "処理条件を満たす、すべての解答を取込みし直します。\n実行してよろしいですか？" };
+                confirm = Messages1.ShowMessage("MS80020", embedArray);
+                if (confirm == DialogResult.No) return;
+            }
+            else
+            {
+                string[] embedArray = new string[1] { "処理条件を満たす、未取込みのもののみ対象とします。\n実行してよろしいですか？" };
+                confirm = Messages1.ShowMessage("MS80020", embedArray);
+                if (confirm == DialogResult.No) return;
+            }
+
             try
             {
                 Global.RETENTION.GOU_ID = cmbGouID.Text;
                 Global.RETENTION.KYOUKA_ID = cmbKyoukaID.SelectedValue.ToString();
                 Global.RETENTION.SENTAKU_ID = cmbRyouiki.Text;
+                Global.RETENTION.NENDO = cmbRyouiki.Text;
+                Global.RETENTION.GROUPKAIJYOU_ID = txtGroupKaijyou.Text;
+                Global.RETENTION.DIFFERRENT = chkDifferent.Checked;
 
-                // file
+                // 登録済み取得
+                DataTable retrieved = GetRetrievedList();
 
+                // Folder (\号数\Marks\)
                 DateTime dtNow = DateTime.Now;
                 string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
-                string filePath = drives + Constant.MARKS_DESIGN_FOLDER;
-                string filename = $"{Constant.MARKS_ANSWER_FILE}_{Global.RETENTION.GOU_ID}_{Global.RETENTION.KYOUKA_ID}-{Global.RETENTION.SENTAKU_ID}_{dtNow.ToString("yyyyMMdd")}{Constant.FILE_EXTENTION_CSV}";
-                string fullPath = "";
+                StringBuilder filePath = new StringBuilder();
+                filePath.Append(drives);
+                filePath.Append(@"\");
+                filePath.Append(Convert.ToInt32(Global.RETENTION.GOU_ID).ToString("000"));
+                filePath.Append(@"\");
+                filePath.Append(Constant.MARKS_PRODUCT_FOLDER);
 
-                if (!CommonLogic1.ExistsFile(fullPath))
+                // File   (20212019010001_2021201100000.jpg)
+                StringBuilder filename = new StringBuilder();
+                filename.Append(Global.RETENTION.NENDO);
+                filename.Append(Convert.ToInt32(Global.RETENTION.GOU_ID).ToString("000"));
+                filename.Append(Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID).ToString("000"));
+                filename.Append("*");
+                filename.Append("_");
+                filename.Append(Global.RETENTION.NENDO);
+                filename.Append(Convert.ToInt32(Global.RETENTION.GOU_ID).ToString("000"));
+                filename.Append(Convert.ToInt32(Global.RETENTION.KYOUKA_ID).ToString("000"));
+                filename.Append("0000");
+                filename.Append(Constant.FILE_EXTENTION_CSV);
+
+                // Get Files
+                DirectoryInfo di = new DirectoryInfo(filePath.ToString());
+                IEnumerable<FileInfo> patterns = di.EnumerateFiles(filename.ToString());
+
+                // 未処理分の抽出
+                ArrayList untreated = new ArrayList();
+                foreach (FileInfo ff in patterns)
                 {
-                    string[] embedArray = new string[1] { Path.GetFileName(fullPath) };
-                    Messages1.ShowMessage("MS05020", embedArray);
-                    cmbGouID.Focus();
-                    return;
-                }
+                    Console.WriteLine(ff.Name + ", " + ff.FullName);
 
-                // Get Line Count
-                var lineCount = File.ReadLines(fullPath).Count();
+                    StringBuilder wheres = new StringBuilder();
+                    wheres.Append("nendo=" + ff.Name.Substring(0, 4));
+                    wheres.Append(" and ");
+                    wheres.Append("gou_id=" + ff.Name.Substring(4, 3));
+                    wheres.Append(" and ");
+                    wheres.Append("kaijyou_id=" + ff.Name.Substring(7, 3));
+                    wheres.Append(" and ");
+                    wheres.Append("kyouka_id=" + ff.Name.Substring(22, 2));
+                    wheres.Append(" and ");
+                    wheres.Append("juken_id=" + ff.Name.Substring(10, 4));
+                    DataRow[] dr = retrieved.Select(wheres.ToString());
+                    if (dr.Length == 0)
+                    {
+                        untreated.Add(ff.FullName);
+                    }
+                }
 
                 // Worker Start
                 AddMessages("「模範解答データ取込み」を開始しました。");
+                Global.RETENTION.UPTREATED = untreated;
                 toolStripProgressBar1.Value = 0;
-                toolStripProgressBar1.Maximum = lineCount;
-                backgroundWorker1.RunWorkerAsync(fullPath);
+                toolStripProgressBar1.Maximum = untreated.Count;
+                backgroundWorker1.RunWorkerAsync(untreated.Count);
 
                 cmdExecute.Enabled = false;
                 cmdCancel.Enabled = true;
@@ -414,6 +469,23 @@ namespace MARK_SHEETS
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
+        }
+
+        /// <summary>
+        /// 登録済み「解答データ」一覧を取得
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
+        private DataTable GetRetrievedList()
+        {
+            string SQLSTMT = SQL.RELATED_T304D.SELECT_T304D_LIST;
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@nendo", Convert.ToInt32(Global.RETENTION.NENDO));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kaijyou_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
+            DataTable dt = Tables1.GetSelectRowsDataTable(SQLSTMT);
+            return dt;
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
@@ -432,7 +504,7 @@ namespace MARK_SHEETS
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             // Get Parameter
-            string filePath = (string)args.Argument;
+            int untreated = (int)args.Argument;
 
             // Get Worker Object
             BackgroundWorker Worker = sender as BackgroundWorker;
@@ -441,7 +513,7 @@ namespace MARK_SHEETS
                 throw new Exception("「Background Worker」の取得に失敗しました。");
             }
 
-            var results = Insert_mark_locate_data(filePath, Worker);
+            var results = Insert_mark_answer_data(Global.RETENTION.UPTREATED, Worker);
             if (!results)
             {
                 args.Cancel = true;
@@ -492,61 +564,78 @@ namespace MARK_SHEETS
         }
 
         /// <summary>
-        /// 「模範解答データ取込み」の実施
+        /// 「解答データ取込み」の実施
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private bool Insert_mark_locate_data(string filePath, BackgroundWorker Worker)
+        private bool Insert_mark_answer_data(ArrayList untreated, BackgroundWorker Worker)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
+            int PROGRESS = 0;
+            string fullpath = null;
+
             try
             {
-                Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みを開始しました。", Path.GetFileName(filePath)));
 
-                // delete
-                string SQLSTMT = SQL.RELATED_T303D.DELETE_T303D;
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
-                bool deleted = Tables1.ExecuteDelete(SQLSTMT);
-
-                // insert
-                string results = null;
-                ArrayList arrayList = CsvFile1.Csv2Hash(filePath, true, ref results);
-
-                ArrayList SQLARRAY = new ArrayList();
-                for (int ii = 0; ii < arrayList.Count; ii++)
+                for (int nn = 0; nn < untreated.Count; nn++)
                 {
-                    Hashtable hash = (Hashtable)arrayList[ii];
+                    PROGRESS++;
+                    fullpath = Convert.ToString(untreated[nn]);
+                    Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みを開始しました。", Path.GetFileName(fullpath)));
 
-                    string SQLSTMT2 = SQL.RELATED_T303D.INSERT_T303D;
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@field_id", Convert.ToInt32(hash["field_id"]));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@field_name", Convert.ToString(hash["field_name"]));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@mark_value", Convert.ToString(hash["mark_value"]));
-                    SQLARRAY.Add(SQLSTMT2);
+                    // delete
+                    if (Global.RETENTION.DIFFERRENT)
+                    {
+                        string SQLSTMT = SQL.RELATED_T304D.DELETE_T304D_KAIJYOU;
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@nendo", Convert.ToInt32(Global.RETENTION.NENDO));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kaijyou_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@juken_id", Convert.ToInt32((Path.GetFileName(fullpath)).Substring(10, 4)));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+                        SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
+                        bool deleted = Tables1.ExecuteDelete(SQLSTMT);
+                    }
+
+                    // insert
+                    string results = null;
+                    ArrayList arrayList = CsvFile1.Csv2Hash(fullpath, true, ref results);
+
+                    ArrayList SQLARRAY = new ArrayList();
+                    for (int ii = 0; ii < arrayList.Count; ii++)
+                    {
+                        Hashtable hash = (Hashtable)arrayList[ii];
+
+                        string SQLSTMT2 = SQL.RELATED_T304D.INSERT_T304D_KAIJYOU;
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@nendo", Convert.ToInt32(Global.RETENTION.NENDO));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kaijyou_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@juken_id", Convert.ToInt32((Path.GetFileName(fullpath)).Substring(10, 4)));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@field_id", Convert.ToInt32(hash["field_id"]));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@field_name", Convert.ToString(hash["field_name"]));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@mark_value", Convert.ToString(hash["mark_value"]));
+                        SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@status", Convert.ToInt32(hash["status"]));
+                        SQLARRAY.Add(SQLSTMT2);
+                    }
+                    bool results2 = Tables1.ExecuteModifyMultiple(SQLARRAY);
+                    if (!results2)
+                    {
+                        throw new Exception("テーブル登録処理で異常を検出しました。" + "(t304d_mark_answer_data)");
+                    }
+
+                    Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みが完了しました。", Path.GetFileName(fullpath)));
+
+                    // 進行状況の更新
+                    int Percents = Convert.ToInt32(((double)PROGRESS / (double)toolStripProgressBar1.Maximum) * 100);
+                    Worker.ReportProgress(Percents);
                 }
-                bool results2 = Tables1.ExecuteModifyMultiple(SQLARRAY);
-                if (!results2)
-                {
-                    throw new Exception("テーブル登録処理で異常を検出しました。" + "(t303d_mark_mohan_data)");
-                }
-
-                Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みが完了しました。", Path.GetFileName(filePath)));
-
-                // 進行状況の更新
-                // int PROGRESS = 0;
-                // int Percents = Convert.ToInt32(((double)PROGRESS / (double)toolStripProgressBar1.Maximum) * 100);
-                // Worker.ReportProgress(Percents);
-
             }
             catch (Exception ex)
             {
                 Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
-                Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みに失敗しました。", Path.GetFileName(filePath)));
+                Invoke(new delegate1(AddMessages_Thread), String.Format("[{0}]の取込みに失敗しました。", Path.GetFileName(fullpath)));
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
                 return false;

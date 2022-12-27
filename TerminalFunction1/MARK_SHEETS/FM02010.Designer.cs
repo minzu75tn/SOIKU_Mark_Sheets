@@ -29,11 +29,10 @@ namespace MARK_SHEETS
         /// </summary>
         private new void InitializeComponent()
         {
-            this.cmdExecute = new System.Windows.Forms.Button();
             this.lstMessages = new System.Windows.Forms.ListBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.txtGroupKaijyouName = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpShoriJoken = new System.Windows.Forms.GroupBox();
             this.pnlGouKyoukaSentaku = new System.Windows.Forms.Panel();
             this.cmbNendo = new System.Windows.Forms.ComboBox();
             this.pnlGouKyouka = new System.Windows.Forms.Panel();
@@ -51,34 +50,19 @@ namespace MARK_SHEETS
             this.txtGroupKaijyou = new System.Windows.Forms.TextBox();
             this.lblGroupKaijyou = new System.Windows.Forms.Label();
             this.chkDifferent = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cmdExecute = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.groupBox1.SuspendLayout();
+            this.grpShoriJoken.SuspendLayout();
             this.pnlGouKyoukaSentaku.SuspendLayout();
             this.pnlGouKyouka.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cmdExecute
-            // 
-            this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdExecute.Location = new System.Drawing.Point(590, 313);
-            this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdExecute.Name = "cmdExecute";
-            this.cmdExecute.Size = new System.Drawing.Size(118, 32);
-            this.cmdExecute.TabIndex = 2;
-            this.cmdExecute.Text = "実 行";
-            this.cmdExecute.UseVisualStyleBackColor = true;
-            this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
-            this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
-            this.cmdExecute.Leave += new System.EventHandler(this.Button_Leave);
             // 
             // lstMessages
             // 
@@ -87,12 +71,11 @@ namespace MARK_SHEETS
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstMessages.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lstMessages.FormattingEnabled = true;
-            this.lstMessages.Location = new System.Drawing.Point(12, 171);
+            this.lstMessages.Location = new System.Drawing.Point(12, 168);
             this.lstMessages.Margin = new System.Windows.Forms.Padding(4);
             this.lstMessages.Name = "lstMessages";
             this.lstMessages.Size = new System.Drawing.Size(874, 225);
             this.lstMessages.TabIndex = 2;
-            this.lstMessages.TabStop = false;
             // 
             // cmdCancel
             // 
@@ -121,20 +104,21 @@ namespace MARK_SHEETS
             this.txtGroupKaijyouName.TabIndex = 3;
             this.txtGroupKaijyouName.TabStop = false;
             // 
-            // groupBox1
+            // grpShoriJoken
             // 
-            this.groupBox1.Controls.Add(this.pnlGouKyoukaSentaku);
-            this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.txtGroupKaijyouName);
-            this.groupBox1.Controls.Add(this.txtGroupKaijyou);
-            this.groupBox1.Controls.Add(this.lblGroupKaijyou);
-            this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(712, 149);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "処理条件";
+            this.grpShoriJoken.Controls.Add(this.pnlGouKyoukaSentaku);
+            this.grpShoriJoken.Controls.Add(this.groupBox2);
+            this.grpShoriJoken.Controls.Add(this.txtGroupKaijyouName);
+            this.grpShoriJoken.Controls.Add(this.txtGroupKaijyou);
+            this.grpShoriJoken.Controls.Add(this.lblGroupKaijyou);
+            this.grpShoriJoken.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.grpShoriJoken.Location = new System.Drawing.Point(12, 12);
+            this.grpShoriJoken.Name = "grpShoriJoken";
+            this.grpShoriJoken.Size = new System.Drawing.Size(712, 149);
+            this.grpShoriJoken.TabIndex = 1;
+            this.grpShoriJoken.TabStop = false;
+            this.grpShoriJoken.Text = "処理条件";
+            this.grpShoriJoken.Leave += new System.EventHandler(this.grpShoriJoken_Leave);
             // 
             // pnlGouKyoukaSentaku
             // 
@@ -294,20 +278,19 @@ namespace MARK_SHEETS
             // 
             this.rdbGakou.AutoSize = true;
             this.rdbGakou.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdbGakou.Location = new System.Drawing.Point(37, 18);
+            this.rdbGakou.Location = new System.Drawing.Point(144, 18);
             this.rdbGakou.Name = "rdbGakou";
             this.rdbGakou.Size = new System.Drawing.Size(65, 21);
             this.rdbGakou.TabIndex = 0;
             this.rdbGakou.TabStop = true;
             this.rdbGakou.Text = "学校系";
             this.rdbGakou.UseVisualStyleBackColor = true;
-            this.rdbGakou.CheckedChanged += new System.EventHandler(this.rdbGakou_CheckedChanged);
             // 
             // rdbJuku
             // 
             this.rdbJuku.AutoSize = true;
             this.rdbJuku.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdbJuku.Location = new System.Drawing.Point(127, 18);
+            this.rdbJuku.Location = new System.Drawing.Point(34, 18);
             this.rdbJuku.Name = "rdbJuku";
             this.rdbJuku.Size = new System.Drawing.Size(85, 21);
             this.rdbJuku.TabIndex = 1;
@@ -340,8 +323,9 @@ namespace MARK_SHEETS
             // chkDifferent
             // 
             this.chkDifferent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDifferent.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkDifferent.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
-            this.chkDifferent.Location = new System.Drawing.Point(737, 56);
+            this.chkDifferent.Location = new System.Drawing.Point(735, 57);
             this.chkDifferent.Name = "chkDifferent";
             this.chkDifferent.Size = new System.Drawing.Size(149, 53);
             this.chkDifferent.TabIndex = 4;
@@ -350,23 +334,23 @@ namespace MARK_SHEETS
             this.chkDifferent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDifferent.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // cmdExecute
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
-            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(751, 32);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 32);
-            this.button1.TabIndex = 3;
-            this.button1.TabStop = false;
-            this.button1.Text = "実 行";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
-            this.button1.Click += new System.EventHandler(this.cmdExecute_Click);
-            this.button1.Enter += new System.EventHandler(this.Button_Enter);
-            this.button1.Leave += new System.EventHandler(this.Button_Leave);
+            this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdExecute.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
+            this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdExecute.Location = new System.Drawing.Point(751, 32);
+            this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdExecute.Name = "cmdExecute";
+            this.cmdExecute.Size = new System.Drawing.Size(118, 32);
+            this.cmdExecute.TabIndex = 3;
+            this.cmdExecute.TabStop = false;
+            this.cmdExecute.Text = "実 行";
+            this.cmdExecute.UseVisualStyleBackColor = false;
+            this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
+            this.cmdExecute.Click += new System.EventHandler(this.cmdExecute_Click);
+            this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
+            this.cmdExecute.Leave += new System.EventHandler(this.Button_Leave);
             // 
             // backgroundWorker1
             // 
@@ -415,17 +399,15 @@ namespace MARK_SHEETS
             // 
             // FM02010
             // 
-            this.AcceptButton = this.cmdExecute;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 429);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.cmdExecute);
+            this.Controls.Add(this.grpShoriJoken);
             this.Controls.Add(this.chkDifferent);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.lstMessages);
-            this.Controls.Add(this.cmdExecute);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(618, 422);
@@ -434,8 +416,8 @@ namespace MARK_SHEETS
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM02010_FormClosing);
             this.Load += new System.EventHandler(this.FM02010_Load);
             this.Shown += new System.EventHandler(this.FM02010_Shown);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpShoriJoken.ResumeLayout(false);
+            this.grpShoriJoken.PerformLayout();
             this.pnlGouKyoukaSentaku.ResumeLayout(false);
             this.pnlGouKyoukaSentaku.PerformLayout();
             this.pnlGouKyouka.ResumeLayout(false);
@@ -450,12 +432,11 @@ namespace MARK_SHEETS
         }
 
         #endregion
-        private System.Windows.Forms.Button cmdExecute;
         internal System.Windows.Forms.ListBox lstMessages;
         private Button cmdCancel;
         private TextBox txtGroupKaijyouName;
-        private GroupBox groupBox1;
-        private Button button1;
+        private GroupBox grpShoriJoken;
+        private Button cmdExecute;
         private TextBox txtGroupKaijyou;
         private Label lblGroupKaijyou;
         private Label label2;

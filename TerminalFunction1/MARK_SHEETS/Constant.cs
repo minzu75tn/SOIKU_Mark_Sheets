@@ -19,6 +19,10 @@ namespace MARK_SHEETS
         /// Marks_Design Folder   
         /// </summary>
         public static string MARKS_DESIGN_FOLDER { get; } = @"\Marks_Design\Design";
+        /// <summary>
+        /// Marks Folder   
+        /// </summary>
+        public static string MARKS_PRODUCT_FOLDER { get; } = @"\Marks";
 
         /// <summary>
         /// マーク位置情報データ   

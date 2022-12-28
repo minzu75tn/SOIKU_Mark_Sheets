@@ -131,7 +131,6 @@ namespace CommonBase.Tables
             {
                 using (var command = new SqlCommand(SqlCommandText, SQL_CONNECTION))
                 {
-                    command.ExecuteNonQuery();
                     results = (int)command.ExecuteScalar();
                 }
             }

@@ -410,7 +410,8 @@ namespace MARK_SHEETS
             this.Controls.Add(this.lstMessages);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(618, 422);
+            this.MaximumSize = new System.Drawing.Size(915, 1000);
+            this.MinimumSize = new System.Drawing.Size(915, 468);
             this.Name = "FM02010";
             this.Text = "解答データ取込み";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM02010_FormClosing);

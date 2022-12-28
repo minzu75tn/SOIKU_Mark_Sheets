@@ -47,65 +47,6 @@ namespace MARK_SHEETS
             }
         }
 
-        private void txtGroupID_Leave(object sender, EventArgs e)
-        {
-            RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, $"{Name} {(sender as Control).Name} Leave: |{(sender as TextBox).Text}|");
-            if (String.IsNullOrEmpty(txtGroupID.Text))
-            {
-                txtGroupIDName.Text = "";
-            }
-            else
-            {
-                txtGroupIDName.Text = GetGroupIDName();
-            }
-        }
-
-        /// <summary>
-        /// 「団体コード」名称を取得
-        /// </summary>
-        /// <param name></param>
-        /// <returns></returns>
-        private string GetGroupIDName()
-        {
-            var result = Tables1.ExecuteSql(conn =>
-            {
-                using (var command = conn.CreateCommand())
-                {
-                    command.CommandText = SQL.GET_NAME.GET_GROUPID_NAME;
-                    command.Parameters.Add(new SqlParameter("@GROUP_ID", txtGroupID.Text));
-                    using (var reader = command.ExecuteReader())
-                    {
-                        string names = null;
-                        if (reader.Read())
-                        {
-                            names = reader["name"] as string;
-                        }
-                        return names;
-                    }
-                }
-            });
-            return result;
-        }
-
-        /// <summary>
-        /// 処理経過メッセージの表示
-        /// </summary>
-        /// <param name=">Messages">メッセージです。</param>
-        /// <returns></returns>
-        private void AddMessages(string Messages)
-        {
-            DateTime dtNow = DateTime.Now;
-            var strDate = dtNow.Year + "/" + Strings.Format(dtNow.Month, "00") + "/" + Strings.Format(dtNow.Day, "00") + " " + Strings.Format(dtNow.Hour, "00") + ":" + Strings.Format(dtNow.Minute, "00") + ":" + Strings.Format(dtNow.Second, "00");
-            lstMessages.Items.Add(strDate + " " + Messages);
-            lstMessages.Refresh();
-            lstMessages.SelectedIndex = lstMessages.Items.Count - 1;
-        }
-
-        private void cmdExecute_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Common_Enter(object sender, EventArgs e)
         {
             SetSelectALL(sender as Control);
@@ -132,26 +73,6 @@ namespace MARK_SHEETS
             {
                 ButtonColorDisabled(button);
             }
-        }
-
-        private void rdbGakou_CheckedChanged(object sender, EventArgs e)
-        {
-            lblGroupID.Visible = true;
-            txtGroupID.Visible = true;
-            txtGroupIDName.Visible = true;
-            lblKaijyouID.Visible = false;
-            txtKaijyouID.Visible = false;
-            txtKaijyouIDName.Visible = false;
-        }
-
-        private void rdbJuku_CheckedChanged(object sender, EventArgs e)
-        {
-            lblGroupID.Visible = false;
-            txtGroupID.Visible = false;
-            txtGroupIDName.Visible = false;
-            lblKaijyouID.Visible = true;
-            txtKaijyouID.Visible = true;
-            txtKaijyouIDName.Visible = true;
         }
 
     }

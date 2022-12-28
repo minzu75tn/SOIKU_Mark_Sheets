@@ -220,7 +220,7 @@ namespace MARK_SHEETS
 
             try
             {
-                if (cmbGouID.SelectedIndex >= 1 && cmbKyoukaID.SelectedIndex >= 1)
+                if (cmbGouID.Text.Length != 0 && cmbKyoukaID.SelectedIndex >= 1)
                 {
                     if (cmbRyouiki.Items.Count <= 0)
                     {
@@ -255,8 +255,8 @@ namespace MARK_SHEETS
             {
                 
                 if (txtGroupKaijyouName.Text.Length != 0
-                    && cmbNendo.SelectedIndex >= 0 && cmbGouID.SelectedIndex >= 1
-                    && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
+                    && cmbNendo.SelectedIndex >= 0
+                    && cmbGouID.Text.Length != 0 && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
                 {
                     cmdExecute.Enabled = true;
                     DoExecute = !cmdExecute.Enabled;
@@ -367,8 +367,7 @@ namespace MARK_SHEETS
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
             if (txtGroupKaijyouName.Text.Length == 0
-                || cmbGouID.SelectedIndex <= 0
-                || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
+                || cmbGouID.Text.Length == 0 || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
             {
                 string[] embedArray = new string[1] { "号数・教科・領域選択" };
                 Messages1.ShowMessage("MS01010", embedArray);
@@ -453,7 +452,7 @@ namespace MARK_SHEETS
                 }
 
                 // Worker Start
-                AddMessages("「模範解答データ取込み」を開始しました。");
+                AddMessages("「自動採点事前チェック」を開始しました。");
                 Global.RETENTION.UPTREATED = untreated;
                 toolStripProgressBar1.Value = 0;
                 toolStripProgressBar1.Maximum = untreated.Count;
@@ -547,19 +546,19 @@ namespace MARK_SHEETS
                 return;
             }
 
-            string[] embedArray2 = new string[1] { "模範解答データ取込み" };
+            string[] embedArray2 = new string[1] { "自動採点事前チェック" };
 
             // Canceled
             if (e.Cancelled)
             {
-                AddMessages("「模範解答データ取込み」がキャンセルされました。");
+                AddMessages("「自動採点事前チェック」がキャンセルされました。");
                 Messages1.ShowMessage("MS02020", embedArray2);
                 Close();
                 return;
             }
 
             // Normal Completed
-            AddMessages("「模範解答データ取込み」が完了しました。");
+            AddMessages("「自動採点事前チェック」が完了しました。");
             Messages1.ShowMessage("MS02010", embedArray2);
         }
 

@@ -150,7 +150,7 @@ namespace MARK_SHEETS
 
             try
             {
-                if (cmbGouID.SelectedIndex >= 1 && cmbKyoukaID.SelectedIndex >= 1)
+                if (cmbGouID.Text.Length != 0 && cmbKyoukaID.SelectedIndex >= 1)
                 {
                     if (cmbRyouiki.Items.Count <= 0)
                     {
@@ -178,7 +178,7 @@ namespace MARK_SHEETS
 
             try
             {
-                if (cmbGouID.SelectedIndex >= 1 && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
+                if (cmbGouID.Text.Length != 0 && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
                 {
                     cmdQuery.Enabled = true;
                 }

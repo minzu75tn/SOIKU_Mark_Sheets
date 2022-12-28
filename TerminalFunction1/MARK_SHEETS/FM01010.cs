@@ -146,7 +146,7 @@ namespace MARK_SHEETS
 
             try
             {
-                if (cmbGouID.SelectedIndex >= 1 && cmbKyoukaID.SelectedIndex >= 1)
+                if (cmbGouID.Text.Length != 0 && cmbKyoukaID.SelectedIndex >= 1)
                 {
                     if (cmbRyouiki.Items.Count <= 0)
                     {
@@ -174,7 +174,7 @@ namespace MARK_SHEETS
 
             try
             {
-                if (cmbGouID.SelectedIndex >= 1 && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
+                if (cmbGouID.Text.Length != 0 && cmbKyoukaID.SelectedIndex >= 1 && cmbRyouiki.SelectedIndex >= 1)
                 {
                     cmdExecute.Enabled = true;
                     DoExecute = !cmdExecute.Enabled;
@@ -269,7 +269,7 @@ namespace MARK_SHEETS
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            if (cmbGouID.SelectedIndex <= 0 || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
+            if (cmbGouID.Text.Length == 0 || cmbKyoukaID.SelectedIndex <= 0 || cmbRyouiki.SelectedIndex <= 0)
             {
                 string[] embedArray = new string[1] { "号数・教科・領域選択" };
                 Messages1.ShowMessage("MS01010", embedArray);
@@ -284,7 +284,6 @@ namespace MARK_SHEETS
                 Global.RETENTION.SENTAKU_ID = cmbRyouiki.Text;
 
                 // file
-
                 DateTime dtNow = DateTime.Now;
                 string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
                 string filePath = drives + Constant.MARKS_DESIGN_FOLDER;
@@ -294,7 +293,7 @@ namespace MARK_SHEETS
                 openFileDialog1.Title = "ファイルの選択";
                 openFileDialog1.InitialDirectory = filePath;
                 openFileDialog1.FileName = filename;
-                openFileDialog1.Filter = "CSVファイル(*.csv;*.csv)|*.*";
+                openFileDialog1.Filter = $"CSVファイル({Constant.MARKS_LOCATE_FILE}_*.csv)|{Constant.MARKS_LOCATE_FILE}_*.csv";
                 openFileDialog1.FilterIndex = 1;
                 DialogResult results = openFileDialog1.ShowDialog();
                 if (results == DialogResult.OK)

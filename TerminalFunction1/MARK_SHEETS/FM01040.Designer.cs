@@ -294,8 +294,10 @@ namespace MARK_SHEETS
             this.Controls.Add(this.cmdExecute);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(747, 1000);
+            this.MinimumSize = new System.Drawing.Size(747, 427);
             this.Name = "FM01040";
-            this.Text = "模範解答データ取込み";
+            this.Text = "自動採点事前チェック";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01040_FormClosing);
             this.Load += new System.EventHandler(this.FM01040_Load);
             this.Shown += new System.EventHandler(this.FM01040_Shown);

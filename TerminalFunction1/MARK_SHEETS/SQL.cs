@@ -9,9 +9,6 @@ namespace MARK_SHEETS
 {
     internal class SQL
     {
-        // BASE KAITOU DATA
-        private const string BASE_TABLE = "t05d_tokuten_data";
-
         /// <summary>
         /// 号数の取得
         /// </summary>
@@ -50,7 +47,8 @@ SELECT CAST(ryouiki_sentaku_id as varchar) as ryouiki_sentaku_id FROM t36d_setum
  WHERE gou_id=@gou_id AND kyouka_id=@kyouka_id AND ryouiki_sentaku_id != -1
  GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
 ";
-}
+        
+        }
 
         /// <summary>
         /// 名称の取得
@@ -72,7 +70,6 @@ SELECT group_id, name FROM t03m_group WHERE group_id=@group_id
 SELECT kaijyou_id, kaijyou_name FROM t07m_kaijyou_name WHERE kaijyou_id=@kaijyou_id
 ";
         }
-
 
         /// <summary>
         /// 〔36〕設問別データ
@@ -416,6 +413,42 @@ DELETE
    AND juken_id=@juken_id
    AND kyouka_id=@kyouka_id
    AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+        }
+
+        /// <summary>
+        /// 相関情報の取得
+        /// </summary>
+        internal class GET_CORRELATION
+        {
+            /// 「相関」の取得
+            internal static readonly string GET_CONSISTENCY = $@"
+SELECT
+     target.gou_id, target.kyouka_id, target.ryouiki_sentaku_id
+   , max(CASE WHEN target.type = 't36d'  THEN target.CT END) AS t36d_CT
+   , max(CASE WHEN target.type = 't301d' THEN target.CT END) AS t301d_CT
+   , max(CASE WHEN target.type = 't302d' THEN target.CT END) AS t302d_CT
+   , max(CASE WHEN target.type = 't303d' THEN target.CT END) AS t303d_CT
+  FROM (
+    SELECT 't36d' as type, gou_id, kyouka_id, ryouiki_sentaku_id, COUNT(*) as CT
+      FROM t36d_setumonbetu
+     WHERE auto_saiten=1 AND ryouiki_sentaku_id<>-1
+     GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
+      UNION ALL
+    SELECT 't301d' as type, gou_id, kyouka_id, ryouiki_sentaku_id, COUNT(*) as CT
+      FROM t301d_mark_locate_data
+     GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
+      UNION ALL
+    SELECT 't302d' as type, gou_id, kyouka_id, ryouiki_sentaku_id, COUNT(*) as CT
+      FROM t302d_mark_link_data
+     GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
+      UNION ALL
+    SELECT 't303d' as type, gou_id, kyouka_id, ryouiki_sentaku_id, COUNT(*) as CT
+      FROM t303d_mark_mohan_data
+     GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
+  ) as target
+ @condition
+ GROUP BY target.gou_id, target.kyouka_id, target.ryouiki_sentaku_id
 ";
         }
 

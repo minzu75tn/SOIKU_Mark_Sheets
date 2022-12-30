@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Configuration;
+using System.Data;
 using CommonBase.Logs;
 
 namespace MARK_SHEETS
@@ -84,6 +85,11 @@ namespace MARK_SHEETS
 
         public bool DIFFERRENT { get; set; } = false;
         public ArrayList UPTREATED { get; set; } = null;
+
+        public DataTable T36D { get; set; } = null;
+        public DataTable T302D { get; set; } = null;
+        public DataTable T303D { get; set; } = null;
+        public DataTable T304D { get; set; } = null;
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace MARK_SHEETS
 {
-    partial class FM01040
+    partial class FM01050
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -282,7 +282,7 @@ namespace MARK_SHEETS
             this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
             this.cmdExecute.Leave += new System.EventHandler(this.Button_Leave);
             // 
-            // FM01040
+            // FM01050
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -296,11 +296,11 @@ namespace MARK_SHEETS
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(747, 1000);
             this.MinimumSize = new System.Drawing.Size(747, 427);
-            this.Name = "FM01040";
-            this.Text = "自動採点事前チェック";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01040_FormClosing);
-            this.Load += new System.EventHandler(this.FM01040_Load);
-            this.Shown += new System.EventHandler(this.FM01040_Shown);
+            this.Name = "FM01050";
+            this.Text = "模範解答データ取込み";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01050_FormClosing);
+            this.Load += new System.EventHandler(this.FM01050_Load);
+            this.Shown += new System.EventHandler(this.FM01050_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.pnlGouKyouka.ResumeLayout(false);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.ComponentModel;
 using System.Configuration;
 using System.Collections;
@@ -283,6 +282,19 @@ namespace MARK_SHEETS
                 Global.RETENTION.KYOUKA_ID = cmbKyoukaID.SelectedValue.ToString();
                 Global.RETENTION.SENTAKU_ID = cmbRyouiki.Text;
 
+                // t36d_setumonbetu 存在チェック
+                int counts = GetSetsumonExists();
+                if (counts == 0)
+                {
+                    string[] embedArray = new string[1] { "「設問別データ」が登録されていません。" };
+                    DialogResult confirm = Messages1.ShowMessage("MS80030", embedArray);
+                    if (confirm != DialogResult.OK)
+                    {
+                        cmbGouID.Focus();
+                        return;
+                    }
+                }
+
                 // file
                 DateTime dtNow = DateTime.Now;
                 string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
@@ -333,6 +345,20 @@ namespace MARK_SHEETS
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
+        }
+
+        /// <summary>
+        /// 「設問別データ」存在チェック
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
+        private int GetSetsumonExists()
+        {
+            string SQLSTMT = SQL.RELATED_T36D.SELECT_T36D_COUNT;
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+            int results = Tables1.GetSelectCount(SQLSTMT);
+            return results;
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)

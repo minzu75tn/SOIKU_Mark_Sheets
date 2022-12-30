@@ -195,7 +195,7 @@ namespace MARK_SHEETS
             this.cmdGetModelAnswer.Name = "cmdGetModelAnswer";
             this.cmdGetModelAnswer.Size = new System.Drawing.Size(196, 32);
             this.cmdGetModelAnswer.TabIndex = 25;
-            this.cmdGetModelAnswer.Text = "自動採点事前チェック";
+            this.cmdGetModelAnswer.Text = "模範解答データ取込み";
             this.cmdGetModelAnswer.UseVisualStyleBackColor = false;
             this.cmdGetModelAnswer.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.cmdGetModelAnswer.Click += new System.EventHandler(this.cmdGetModelAnswer_Click);

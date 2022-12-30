@@ -1,7 +1,7 @@
 ﻿
 namespace MARK_SHEETS
 {
-    partial class FM01060
+    partial class FM01070
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -276,7 +276,7 @@ namespace MARK_SHEETS
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(350, 16);
             // 
-            // FM01060
+            // FM01070
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -290,11 +290,11 @@ namespace MARK_SHEETS
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.MinimumSize = new System.Drawing.Size(798, 422);
-            this.Name = "FM01060";
+            this.Name = "FM01070";
             this.Text = "自動採点事前チェック";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01060_FormClosing);
-            this.Load += new System.EventHandler(this.FM01060_Load);
-            this.Shown += new System.EventHandler(this.FM01060_Shown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM01070_FormClosing);
+            this.Load += new System.EventHandler(this.FM01070_Load);
+            this.Shown += new System.EventHandler(this.FM01070_Shown);
             this.pnlGouKyouka.ResumeLayout(false);
             this.pnlGouKyouka.PerformLayout();
             this.pnlGouKyoukaSentaku.ResumeLayout(false);

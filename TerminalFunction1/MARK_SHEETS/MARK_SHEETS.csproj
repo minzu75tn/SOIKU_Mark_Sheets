@@ -13,13 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="FM01060.cs" />
-    <Compile Update="FM02020.cs" />
+    <Compile Update="FM01070.cs" />
+    <Compile Update="FM02030.cs" />
     <Compile Update="FM08020.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FM02010.cs" />
-    <Compile Update="FM01040.cs" />
+    <Compile Update="FM01050.cs" />
     <Compile Update="FM01030.cs" />
     <Compile Update="FM01010.cs" />
     <Compile Update="FM00000.cs" />

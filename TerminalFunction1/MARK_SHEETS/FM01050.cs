@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.ComponentModel;
 using System.Configuration;
 using System.Collections;
@@ -15,20 +14,20 @@ using CommonBase.Tables;
 namespace MARK_SHEETS
 {
 
-    public partial class FM01040 : BaseForm
+    public partial class FM01050 : BaseForm
     {
         public FM00000 PARRENT_FORM { get; set; } = null;
 
         private bool DoClose { get; set; } = false;
         private bool DoExecute { get; set; } = false;
 
-        public FM01040()
+        public FM01050()
         {
             base.InitializeComponent();
             InitializeComponent();
         }
 
-        private void FM01040_Load(object sender, EventArgs e)
+        private void FM01050_Load(object sender, EventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
@@ -52,12 +51,12 @@ namespace MARK_SHEETS
             }
         }
 
-        private void FM01040_Shown(object sender, EventArgs e)
+        private void FM01050_Shown(object sender, EventArgs e)
         {
             cmbGouID.Focus();
         }
 
-        private void FM01040_FormClosing(object sender, FormClosingEventArgs e)
+        private void FM01050_FormClosing(object sender, FormClosingEventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
             if (DoExecute)
@@ -284,6 +283,19 @@ namespace MARK_SHEETS
                 Global.RETENTION.KYOUKA_ID = cmbKyoukaID.SelectedValue.ToString();
                 Global.RETENTION.SENTAKU_ID = cmbRyouiki.Text;
 
+                // 「マーク紐付けデータ」存在チェック
+                int counts = GetMarkLinkExists();
+                if (counts == 0)
+                {
+                    string[] embedArray = new string[1] { "「マーク紐付けデータ」が登録されていません。" };
+                    DialogResult confirm = Messages1.ShowMessage("MS80030", embedArray);
+                    if (confirm != DialogResult.OK)
+                    {
+                        cmbGouID.Focus();
+                        return;
+                    }
+                }
+
                 // file
                 DateTime dtNow = DateTime.Now;
                 string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
@@ -319,7 +331,7 @@ namespace MARK_SHEETS
                 var lineCount = File.ReadLines(fullPath).Count();
 
                 // Worker Start
-                AddMessages("「自動採点事前チェック」を開始しました。");
+                AddMessages("「模範解答データ取込み」を開始しました。");
                 toolStripProgressBar1.Value = 0;
                 toolStripProgressBar1.Maximum = lineCount;
                 backgroundWorker1.RunWorkerAsync(fullPath);
@@ -334,6 +346,21 @@ namespace MARK_SHEETS
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
             }
+        }
+
+        /// <summary>
+        /// 「マーク紐付けデータ」存在チェック
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
+        private int GetMarkLinkExists()
+        {
+            string SQLSTMT = SQL.RELATED_T302D.SELECT_T302D_COUNT;
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
+            int results = Tables1.GetSelectCount(SQLSTMT);
+            return results;
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
@@ -395,24 +422,24 @@ namespace MARK_SHEETS
                 return;
             }
 
-            string[] embedArray2 = new string[1] { "自動採点事前チェック" };
+            string[] embedArray2 = new string[1] { "模範解答データ取込み" };
 
             // Canceled
             if (e.Cancelled)
             {
-                AddMessages("「自動採点事前チェック」がキャンセルされました。");
+                AddMessages("「模範解答データ取込み」がキャンセルされました。");
                 Messages1.ShowMessage("MS02020", embedArray2);
                 Close();
                 return;
             }
 
             // Normal Completed
-            AddMessages("「自動採点事前チェック」が完了しました。");
+            AddMessages("「模範解答データ取込み」が完了しました。");
             Messages1.ShowMessage("MS02010", embedArray2);
         }
 
         /// <summary>
-        /// 「自動採点事前チェック」の実施
+        /// 「模範解答データ取込み」の実施
         /// </summary>
         /// <param name></param>
         /// <returns></returns>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 
 using CommonBase;
 using CommonBase.BaseForms;
@@ -8,7 +7,6 @@ using CommonBase.Alerts;
 using CommonBase.Commons;
 using CommonBase.Tables;
 using System.Collections;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace MARK_SHEETS
 {

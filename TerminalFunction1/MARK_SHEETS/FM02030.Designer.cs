@@ -1,7 +1,7 @@
 ﻿
 namespace MARK_SHEETS
 {
-    partial class FM02020
+    partial class FM02030
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -43,7 +43,6 @@ namespace MARK_SHEETS
             this.txtGouIDName = new System.Windows.Forms.TextBox();
             this.cmbGouID = new System.Windows.Forms.ComboBox();
             this.cmdExecute = new System.Windows.Forms.Button();
-            this.chkDifferent = new System.Windows.Forms.CheckBox();
             this.txtGroupKaijyou = new System.Windows.Forms.TextBox();
             this.lblGroupKaijyou = new System.Windows.Forms.Label();
             this.rdbJuku = new System.Windows.Forms.RadioButton();
@@ -107,13 +106,14 @@ namespace MARK_SHEETS
             // 
             this.cmbNendo.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbNendo.FormattingEnabled = true;
-            this.cmbNendo.Location = new System.Drawing.Point(59, 12);
+            this.cmbNendo.Location = new System.Drawing.Point(59, 10);
             this.cmbNendo.Margin = new System.Windows.Forms.Padding(4);
             this.cmbNendo.MaxLength = 3;
             this.cmbNendo.Name = "cmbNendo";
             this.cmbNendo.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbNendo.Size = new System.Drawing.Size(60, 21);
             this.cmbNendo.TabIndex = 1;
+            this.cmbNendo.Enter += new System.EventHandler(this.Common_Enter);
             // 
             // pnlGouKyouka
             // 
@@ -122,10 +122,11 @@ namespace MARK_SHEETS
             this.pnlGouKyouka.Controls.Add(this.label3);
             this.pnlGouKyouka.Controls.Add(this.txtGouIDName);
             this.pnlGouKyouka.Controls.Add(this.cmbGouID);
-            this.pnlGouKyouka.Location = new System.Drawing.Point(138, 6);
+            this.pnlGouKyouka.Location = new System.Drawing.Point(138, 4);
             this.pnlGouKyouka.Name = "pnlGouKyouka";
             this.pnlGouKyouka.Size = new System.Drawing.Size(331, 63);
             this.pnlGouKyouka.TabIndex = 2;
+            this.pnlGouKyouka.Leave += new System.EventHandler(this.pnlGouKyouka_Leave);
             // 
             // cmbKyoukaID
             // 
@@ -134,19 +135,21 @@ namespace MARK_SHEETS
             this.cmbKyoukaID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbKyoukaID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbKyoukaID.FormattingEnabled = true;
-            this.cmbKyoukaID.Location = new System.Drawing.Point(238, 6);
+            this.cmbKyoukaID.Location = new System.Drawing.Point(238, 4);
             this.cmbKyoukaID.Margin = new System.Windows.Forms.Padding(4);
             this.cmbKyoukaID.MaxLength = 3;
             this.cmbKyoukaID.Name = "cmbKyoukaID";
             this.cmbKyoukaID.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbKyoukaID.Size = new System.Drawing.Size(62, 21);
             this.cmbKyoukaID.TabIndex = 3;
+            this.cmbKyoukaID.SelectedIndexChanged += new System.EventHandler(this.cmbKyoukaID_SelectedIndexChanged);
+            this.cmbKyoukaID.Enter += new System.EventHandler(this.Common_Enter);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(169, 9);
+            this.label1.Location = new System.Drawing.Point(169, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 13);
@@ -158,7 +161,7 @@ namespace MARK_SHEETS
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Location = new System.Drawing.Point(12, 7);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
@@ -168,7 +171,7 @@ namespace MARK_SHEETS
             // 
             // txtGouIDName
             // 
-            this.txtGouIDName.Location = new System.Drawing.Point(60, 34);
+            this.txtGouIDName.Location = new System.Drawing.Point(60, 32);
             this.txtGouIDName.Name = "txtGouIDName";
             this.txtGouIDName.ReadOnly = true;
             this.txtGouIDName.Size = new System.Drawing.Size(252, 25);
@@ -179,20 +182,23 @@ namespace MARK_SHEETS
             // 
             this.cmbGouID.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbGouID.FormattingEnabled = true;
-            this.cmbGouID.Location = new System.Drawing.Point(60, 6);
+            this.cmbGouID.Location = new System.Drawing.Point(60, 4);
             this.cmbGouID.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGouID.MaxLength = 3;
             this.cmbGouID.Name = "cmbGouID";
             this.cmbGouID.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbGouID.Size = new System.Drawing.Size(54, 21);
             this.cmbGouID.TabIndex = 1;
+            this.cmbGouID.SelectedIndexChanged += new System.EventHandler(this.cmbKyoukaID_SelectedIndexChanged);
+            this.cmbGouID.Enter += new System.EventHandler(this.Common_Enter);
+            this.cmbGouID.Leave += new System.EventHandler(this.cmbGouID_Leave);
             // 
             // cmdExecute
             // 
             this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdExecute.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdExecute.Location = new System.Drawing.Point(751, 26);
+            this.cmdExecute.Location = new System.Drawing.Point(751, 43);
             this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
             this.cmdExecute.Name = "cmdExecute";
             this.cmdExecute.Size = new System.Drawing.Size(118, 32);
@@ -200,33 +206,25 @@ namespace MARK_SHEETS
             this.cmdExecute.TabStop = false;
             this.cmdExecute.Text = "実 行";
             this.cmdExecute.UseVisualStyleBackColor = false;
-            // 
-            // chkDifferent
-            // 
-            this.chkDifferent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkDifferent.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDifferent.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
-            this.chkDifferent.Location = new System.Drawing.Point(735, 51);
-            this.chkDifferent.Name = "chkDifferent";
-            this.chkDifferent.Size = new System.Drawing.Size(149, 53);
-            this.chkDifferent.TabIndex = 36;
-            this.chkDifferent.TabStop = false;
-            this.chkDifferent.Text = "処理条件を満たすものすべて再実施";
-            this.chkDifferent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkDifferent.UseVisualStyleBackColor = true;
+            this.cmdExecute.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
+            this.cmdExecute.Click += new System.EventHandler(this.cmdExecute_Click);
+            this.cmdExecute.Enter += new System.EventHandler(this.Button_Enter);
+            this.cmdExecute.Leave += new System.EventHandler(this.Button_Leave);
             // 
             // txtGroupKaijyou
             // 
-            this.txtGroupKaijyou.Location = new System.Drawing.Point(371, 36);
+            this.txtGroupKaijyou.Location = new System.Drawing.Point(371, 34);
             this.txtGroupKaijyou.Name = "txtGroupKaijyou";
             this.txtGroupKaijyou.Size = new System.Drawing.Size(71, 25);
             this.txtGroupKaijyou.TabIndex = 2;
+            this.txtGroupKaijyou.Enter += new System.EventHandler(this.Common_Enter);
+            this.txtGroupKaijyou.Leave += new System.EventHandler(this.txtGroupKaijyou_Leave);
             // 
             // lblGroupKaijyou
             // 
             this.lblGroupKaijyou.AutoSize = true;
             this.lblGroupKaijyou.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblGroupKaijyou.Location = new System.Drawing.Point(299, 40);
+            this.lblGroupKaijyou.Location = new System.Drawing.Point(299, 38);
             this.lblGroupKaijyou.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblGroupKaijyou.Name = "lblGroupKaijyou";
             this.lblGroupKaijyou.Size = new System.Drawing.Size(73, 13);
@@ -238,19 +236,20 @@ namespace MARK_SHEETS
             // 
             this.rdbJuku.AutoSize = true;
             this.rdbJuku.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdbJuku.Location = new System.Drawing.Point(34, 18);
+            this.rdbJuku.Location = new System.Drawing.Point(34, 16);
             this.rdbJuku.Name = "rdbJuku";
             this.rdbJuku.Size = new System.Drawing.Size(85, 21);
             this.rdbJuku.TabIndex = 1;
             this.rdbJuku.TabStop = true;
             this.rdbJuku.Text = "塾・会場系";
             this.rdbJuku.UseVisualStyleBackColor = true;
+            this.rdbJuku.CheckedChanged += new System.EventHandler(this.rdbJuku_CheckedChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(486, 15);
+            this.label4.Location = new System.Drawing.Point(486, 13);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(66, 13);
@@ -262,7 +261,7 @@ namespace MARK_SHEETS
             // 
             this.rdbGakou.AutoSize = true;
             this.rdbGakou.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdbGakou.Location = new System.Drawing.Point(144, 18);
+            this.rdbGakou.Location = new System.Drawing.Point(144, 16);
             this.rdbGakou.Name = "rdbGakou";
             this.rdbGakou.Size = new System.Drawing.Size(65, 21);
             this.rdbGakou.TabIndex = 0;
@@ -274,7 +273,7 @@ namespace MARK_SHEETS
             // 
             this.groupBox2.Controls.Add(this.rdbGakou);
             this.groupBox2.Controls.Add(this.rdbJuku);
-            this.groupBox2.Location = new System.Drawing.Point(27, 20);
+            this.groupBox2.Location = new System.Drawing.Point(27, 18);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(241, 45);
             this.groupBox2.TabIndex = 0;
@@ -288,13 +287,14 @@ namespace MARK_SHEETS
             this.cmbRyouiki.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbRyouiki.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbRyouiki.FormattingEnabled = true;
-            this.cmbRyouiki.Location = new System.Drawing.Point(554, 12);
+            this.cmbRyouiki.Location = new System.Drawing.Point(554, 10);
             this.cmbRyouiki.Margin = new System.Windows.Forms.Padding(4);
             this.cmbRyouiki.MaxLength = 3;
             this.cmbRyouiki.Name = "cmbRyouiki";
             this.cmbRyouiki.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbRyouiki.Size = new System.Drawing.Size(62, 21);
             this.cmbRyouiki.TabIndex = 4;
+            this.cmbRyouiki.Enter += new System.EventHandler(this.Common_Enter);
             // 
             // pnlGouKyoukaSentaku
             // 
@@ -303,16 +303,17 @@ namespace MARK_SHEETS
             this.pnlGouKyoukaSentaku.Controls.Add(this.label4);
             this.pnlGouKyoukaSentaku.Controls.Add(this.cmbRyouiki);
             this.pnlGouKyoukaSentaku.Controls.Add(this.label2);
-            this.pnlGouKyoukaSentaku.Location = new System.Drawing.Point(27, 70);
+            this.pnlGouKyoukaSentaku.Location = new System.Drawing.Point(27, 68);
             this.pnlGouKyoukaSentaku.Name = "pnlGouKyoukaSentaku";
             this.pnlGouKyoukaSentaku.Size = new System.Drawing.Size(652, 73);
             this.pnlGouKyoukaSentaku.TabIndex = 41;
+            this.pnlGouKyoukaSentaku.Leave += new System.EventHandler(this.pnlGouKyoukaSentaku_Leave);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(16, 15);
+            this.label2.Location = new System.Drawing.Point(16, 13);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
@@ -328,16 +329,17 @@ namespace MARK_SHEETS
             this.grpShoriJoken.Controls.Add(this.txtGroupKaijyou);
             this.grpShoriJoken.Controls.Add(this.lblGroupKaijyou);
             this.grpShoriJoken.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.grpShoriJoken.Location = new System.Drawing.Point(12, 6);
+            this.grpShoriJoken.Location = new System.Drawing.Point(12, 3);
             this.grpShoriJoken.Name = "grpShoriJoken";
             this.grpShoriJoken.Size = new System.Drawing.Size(712, 149);
             this.grpShoriJoken.TabIndex = 33;
             this.grpShoriJoken.TabStop = false;
             this.grpShoriJoken.Text = "処理条件";
+            this.grpShoriJoken.Leave += new System.EventHandler(this.grpShoriJoken_Leave);
             // 
             // txtGroupKaijyouName
             // 
-            this.txtGroupKaijyouName.Location = new System.Drawing.Point(456, 36);
+            this.txtGroupKaijyouName.Location = new System.Drawing.Point(456, 34);
             this.txtGroupKaijyouName.Name = "txtGroupKaijyouName";
             this.txtGroupKaijyouName.ReadOnly = true;
             this.txtGroupKaijyouName.Size = new System.Drawing.Size(223, 25);
@@ -349,7 +351,7 @@ namespace MARK_SHEETS
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdCancel.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCancel.Location = new System.Drawing.Point(751, 112);
+            this.cmdCancel.Location = new System.Drawing.Point(751, 88);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(118, 32);
@@ -357,6 +359,10 @@ namespace MARK_SHEETS
             this.cmdCancel.TabStop = false;
             this.cmdCancel.Text = "キャンセル";
             this.cmdCancel.UseVisualStyleBackColor = false;
+            this.cmdCancel.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
+            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            this.cmdCancel.Enter += new System.EventHandler(this.Button_Enter);
+            this.cmdCancel.Leave += new System.EventHandler(this.Button_Leave);
             // 
             // lstMessages
             // 
@@ -371,14 +377,13 @@ namespace MARK_SHEETS
             this.lstMessages.Size = new System.Drawing.Size(874, 225);
             this.lstMessages.TabIndex = 34;
             // 
-            // FM02020
+            // FM02030
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 429);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdExecute);
-            this.Controls.Add(this.chkDifferent);
             this.Controls.Add(this.grpShoriJoken);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.lstMessages);
@@ -386,10 +391,11 @@ namespace MARK_SHEETS
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(915, 1000);
             this.MinimumSize = new System.Drawing.Size(915, 468);
-            this.Name = "FM02020";
+            this.Name = "FM02030";
             this.Text = "自動採点実施";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM02020_FormClosing);
-            this.Load += new System.EventHandler(this.FM02020_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM02030_FormClosing);
+            this.Load += new System.EventHandler(this.FM02030_Load);
+            this.Shown += new System.EventHandler(this.FM02030_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.pnlGouKyouka.ResumeLayout(false);
@@ -421,7 +427,6 @@ namespace MARK_SHEETS
         private TextBox txtGouIDName;
         private ComboBox cmbGouID;
         private Button cmdExecute;
-        private CheckBox chkDifferent;
         private TextBox txtGroupKaijyou;
         private Label lblGroupKaijyou;
         private RadioButton rdbJuku;

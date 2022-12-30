@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 using CommonBase;
 using CommonBase.BaseForms;
@@ -63,14 +62,14 @@ namespace MARK_SHEETS
 
         private void cmdGetModelAnswer_Click(object sender, EventArgs e)
         {
-            FM01040 LOWER = new FM01040();
+            FM01050 LOWER = new FM01050();
             LOWER.PARRENT_FORM = this;
             LOWER.ShowDialog();
         }
 
         private void cmdCheckAutoScoreing_Click(object sender, EventArgs e)
         {
-            FM01060 LOWER = new FM01060();
+            FM01070 LOWER = new FM01070();
             LOWER.PARRENT_FORM = this;
             LOWER.ShowDialog();
         }
@@ -84,7 +83,7 @@ namespace MARK_SHEETS
 
         private void cmdAutoScoreing_Click(object sender, EventArgs e)
         {
-            FM02020 LOWER = new FM02020();
+            FM02030 LOWER = new FM02030();
             LOWER.PARRENT_FORM = this;
             LOWER.ShowDialog();
         }

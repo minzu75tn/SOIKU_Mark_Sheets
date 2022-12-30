@@ -1,9 +1,4 @@
-﻿using NPOI.SS.Formula.Functions;
-using System;
-using static NPOI.HSSF.Util.HSSFColor;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
+﻿using System;
 
 namespace MARK_SHEETS
 {
@@ -47,7 +42,6 @@ SELECT CAST(ryouiki_sentaku_id as varchar) as ryouiki_sentaku_id FROM t36d_setum
  WHERE gou_id=@gou_id AND kyouka_id=@kyouka_id AND ryouiki_sentaku_id != -1
  GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
 ";
-        
         }
 
         /// <summary>
@@ -76,6 +70,14 @@ SELECT kaijyou_id, kaijyou_name FROM t07m_kaijyou_name WHERE kaijyou_id=@kaijyou
         /// </summary>
         internal class RELATED_T36D
         {
+            internal static readonly string SELECT_T36D_COUNT = $@"
+SELECT COUNT(*)
+  FROM t36d_setumonbetu 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+
             internal static readonly string SELECT_T36D = $@"
 SELECT *
   FROM t36d_setumonbetu 
@@ -92,6 +94,20 @@ SELECT
   , daimon as t36d_daimon
   , syoumon as t36d_syoumon
   , auto_saiten as t36d_auto_saiten
+  FROM t36d_setumonbetu 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ ORDER BY mondai_id
+";
+
+            internal static readonly string SELECT_T36D_SAITEN = $@"
+SELECT
+    mondai_id
+  , daimon
+  , syoumon
+  , haiten
+  , auto_saiten
   FROM t36d_setumonbetu 
  WHERE gou_id=@gou_id
    AND kyouka_id=@kyouka_id
@@ -162,13 +178,34 @@ DELETE
         /// </summary>
         internal class RELATED_T302D
         {
+            internal static readonly string SELECT_T302D_COUNT = $@"
+SELECT COUNT(*)
+  FROM t302d_mark_link_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+
             internal static readonly string SELECT_T302D = $@"
 SELECT *
   FROM t302d_mark_link_data 
  WHERE gou_id=@gou_id
    AND kyouka_id=@kyouka_id
    AND ryouiki_sentaku_id=@ryouiki_sentaku_id
- ORDER BY mondai_id, mondai_sub_no
+ ORDER BY mondai_id
+";
+
+            internal static readonly string SELECT_T302D_SAITEN = $@"
+SELECT 
+    mondai_id
+  , field_id
+  , field_name
+  , auto_scoring_disable
+  FROM t302d_mark_link_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ ORDER BY mondai_id
 ";
 
             internal static readonly string SELECT_T302D_FM01030 = $@"
@@ -266,8 +303,28 @@ SELECT field_name
         /// </summary>
         internal class RELATED_T303D
         {
+            internal static readonly string SELECT_T303D_COUNT = $@"
+SELECT COUNT(*)
+  FROM t303d_mark_mohan_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+
             internal static readonly string SELECT_T303D = $@"
 SELECT *
+  FROM t303d_mark_mohan_data 
+ WHERE gou_id=@gou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ ORDER BY field_id
+";
+
+            internal static readonly string SELECT_T303D_SAITEN = $@"
+SELECT 
+    field_id
+  , field_name
+  , mark_value
   FROM t303d_mark_mohan_data 
  WHERE gou_id=@gou_id
    AND kyouka_id=@kyouka_id
@@ -329,6 +386,22 @@ SELECT target.juken_id
  ORDER BY juken_id
 ";
 
+            internal static readonly string SELECT_T304D_SAITEN = $@"
+SELECT 
+    field_id
+  , field_name
+  , mark_value
+  , status
+  FROM t304d_mark_answer_data as target
+ WHERE nendo=@nendo
+   AND gou_id=@gou_id
+   AND kaijyou_id=@kaijyou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+   AND juken_id=@juken_id
+ ORDER BY nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
+";
+
             internal static readonly string INSERT_T304D_KAIJYOU = $@"
 INSERT 
 INTO t304d_mark_answer_data( 
@@ -359,7 +432,7 @@ VALUES (
 
             internal static readonly string INSERT_T304D_GROUP = $@"
 INSERT 
-INTO t304d_mark_answer_data( 
+INTO t304d_mark_answer_data ( 
     nendo
   , gou_id
   , group_id
@@ -413,6 +486,126 @@ DELETE
    AND juken_id=@juken_id
    AND kyouka_id=@kyouka_id
    AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+";
+        }
+
+        /// <summary>
+        /// 〔155〕プレ得点データ
+        /// </summary>
+        internal class RELATED_T155D
+        {
+            internal static readonly string SELECT_T155D = $@"
+SELECT *
+  FROM t155d_pre_tokuten
+ WHERE gou_id=@gou_id
+   AND kaijyou_id=@kaijyou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+   AND juken_id=@juken_id
+";
+
+            internal static readonly string INSERT_T155D_ALL = $@"
+INSERT 
+INTO t155d_pre_tokuten (
+    gou_id
+  , jissi_kubun
+  , kaijyou_id
+  , juken_id
+  , group_id
+  , class_id
+  , grade
+  , kubun
+  , seito_id
+  , sex
+  , kyouka_id
+  , sentaku
+  , tokuten
+  , syori_flag
+  , seigo1, seigo2, seigo3, seigo4, seigo5, seigo6, seigo7, seigo8, seigo9, seigo10
+  , seigo11, seigo12, seigo13, seigo14, seigo15, seigo16, seigo17, seigo18, seigo19, seigo20
+  , seigo21, seigo22, seigo23, seigo24, seigo25, seigo26, seigo27, seigo28, seigo29, seigo30
+  , seigo31, seigo32, seigo33, seigo34, seigo35, seigo36, seigo37, seigo38, seigo39, seigo40
+  , seigo41, seigo42, seigo43, seigo44, seigo45, seigo46, seigo47, seigo48, seigo49, seigo50
+  , seigo51, seigo52, seigo53, seigo54, seigo55, seigo56, seigo57, seigo58, seigo59, seigo60
+  , seigo61, seigo62, seigo63, seigo64, seigo65, seigo66, seigo67, seigo68, seigo69, seigo70
+  , seigo71, seigo72, seigo73, seigo74, seigo75, seigo76, seigo77, seigo78, seigo79, seigo80
+  , seigo81, seigo82, seigo83, seigo84, seigo85, seigo86, seigo87, seigo88, seigo89, seigo90
+  , seigo91, seigo92, seigo93, seigo94, seigo95, seigo96, seigo97, seigo98, seigo99
+)
+VALUES ( 
+    @gou_id
+  , @jissi_kubun
+  , @kaijyou_id
+  , @juken_id
+  , @group_id
+  , @class_id
+  , @grade
+  , @kubun
+  , @seito_id
+  , @sex
+  , @kyouka_id
+  , @sentaku
+  , @tokuten
+  , @syori_flag
+  , @seigo1, @seigo2, @seigo3, @seigo4, @seigo5, @seigo6, @seigo7, @seigo8, @seigo9, @seigo10
+  , @seigo11, @seigo12, @seigo13, @seigo14, @seigo15, @seigo16, @seigo17, @seigo18, @seigo19, @seigo20
+  , @seigo21, @seigo22, @seigo23, @seigo24, @seigo25, @seigo26, @seigo27, @seigo28, @seigo29, @seigo30
+  , @seigo31, @seigo32, @seigo33, @seigo34, @seigo35, @seigo36, @seigo37, @seigo38, @seigo39, @seigo40
+  , @seigo41, @seigo42, @seigo43, @seigo44, @seigo45, @seigo46, @seigo47, @seigo48, @seigo49, @seigo50
+  , @seigo51, @seigo52, @seigo53, @seigo54, @seigo55, @seigo56, @seigo57, @seigo58, @seigo59, @seigo60
+  , @seigo61, @seigo62, @seigo63, @seigo64, @seigo65, @seigo66, @seigo67, @seigo68, @seigo69, @seigo70
+  , @seigo71, @seigo72, @seigo73, @seigo74, @seigo75, @seigo76, @seigo77, @seigo78, @seigo79, @seigo80
+  , @seigo81, @seigo82, @seigo83, @seigo84, @seigo85, @seigo86, @seigo87, @seigo88, @seigo89, @seigo90
+  , @seigo91, @seigo92, @seigo93, @seigo94, @seigo95, @seigo96, @seigo97, @seigo98, @seigo99
+)
+";
+
+            internal static readonly string INSERT_T155D_PARTS = $@"
+INSERT 
+INTO t155d_pre_tokuten (
+    gou_id
+  , jissi_kubun
+  , kaijyou_id
+  , juken_id
+  , group_id
+  , class_id
+  , grade
+  , kubun
+  , seito_id
+  , sex
+  , kyouka_id
+  , sentaku
+  , tokuten
+  , syori_flag
+    @columns_define
+)
+VALUES ( 
+    @gou_id
+  , @jissi_kubun
+  , @kaijyou_id
+  , @juken_id
+  , 0
+  , 0
+  , 0
+  , 0
+  , 0
+  , 0
+  , @kyouka_id
+  , @sentaku
+  , @tokuten
+  , null
+    @values_define
+)
+";
+
+            internal static readonly string DELETE_T155D = $@"
+DELETE 
+  FROM t155d_pre_tokuten 
+ WHERE gou_id=@gou_id
+   AND kaijyou_id=@kaijyou_id
+   AND kyouka_id=@kyouka_id
+   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+   AND juken_id=@juken_id
 ";
         }
 

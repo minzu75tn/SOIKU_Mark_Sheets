@@ -14,20 +14,20 @@ using CommonBase.Tables;
 namespace MARK_SHEETS
 {
 
-    public partial class FM01060 : BaseForm
+    public partial class FM01070 : BaseForm
     {
         public FM00000 PARRENT_FORM { get; set; } = null;
 
         private bool DoClose { get; set; } = false;
         private bool DoExecute { get; set; } = false;
 
-        public FM01060()
+        public FM01070()
         {
             base.InitializeComponent();
             InitializeComponent();
         }
 
-        private void FM01060_Load(object sender, EventArgs e)
+        private void FM01070_Load(object sender, EventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
@@ -50,12 +50,12 @@ namespace MARK_SHEETS
                 Messages1.ShowMessage("MS90010", embedArray);
             }
         }
-        private void FM01060_Shown(object sender, EventArgs e)
+        private void FM01070_Shown(object sender, EventArgs e)
         {
             cmbGouID.Focus();
         }
 
-        private void FM01060_FormClosing(object sender, FormClosingEventArgs e)
+        private void FM01070_FormClosing(object sender, FormClosingEventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
             if (DoExecute)

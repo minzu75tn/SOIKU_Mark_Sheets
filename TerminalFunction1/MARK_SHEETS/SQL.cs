@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MARK_SHEETS
 {
@@ -17,12 +18,12 @@ SELECT gou_id, FORMAT(gou_id, '000') as gou_id_display FROM t01m_gou
  GROUP BY gou_id ORDER BY gou_id
 ";
 
-            /// 「号数」一覧の取得（塾・会場系）
-            internal static readonly string GET_GOUID_LIST_JUKUKAIJYOU= $@"
+            /// 「号数」一覧の取得（解答データ系を除外）
+            internal static readonly string GET_GOUID_LIST_EXCLUDE = $@"
 SELECT 0 as gou_id, '' as gou_id_display
   UNION ALL
 SELECT gou_id, FORMAT(gou_id, '000') as gou_id_display FROM t01m_gou
- WHERE gou_id >= 200
+ WHERE gou_id NOT IN (@exclude)
  GROUP BY gou_id ORDER BY gou_id
 ";
 
@@ -365,8 +366,8 @@ DELETE
         /// </summary>
         internal class RELATED_T304D
         {
-            internal static readonly string SELECT_T304D_LIST = $@"
-SELECT target.juken_id
+            internal static readonly string SELECT_T304D_LIST_KAIJYOU = $@"
+SELECT target.*
   FROM t304d_mark_answer_data as target
   LEFT JOIN (
     SELECT nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
@@ -381,6 +382,27 @@ SELECT target.juken_id
        target.nendo = subject.nendo    
    AND target.gou_id = subject.gou_id
    AND target.kaijyou_id = subject.kaijyou_id
+   AND target.kyouka_id = subject.kyouka_id
+   AND target.ryouiki_sentaku_id = subject.ryouiki_sentaku_id
+ ORDER BY juken_id
+";
+
+            internal static readonly string SELECT_T304D_LIST_GROUP = $@"
+SELECT target.*
+  FROM t304d_mark_answer_data as target
+  LEFT JOIN (
+    SELECT nendo, gou_id, group_id, kyouka_id, ryouiki_sentaku_id
+      FROM t304d_mark_answer_data 
+     WHERE nendo=@nendo
+       AND gou_id=@gou_id
+       AND group_id=@group_id
+       AND kyouka_id=@kyouka_id
+       AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+     GROUP BY nendo, gou_id, group_id, kyouka_id, ryouiki_sentaku_id
+  ) as subject ON
+       target.nendo = subject.nendo    
+   AND target.gou_id = subject.gou_id
+   AND target.group_id = subject.group_id
    AND target.kyouka_id = subject.kyouka_id
    AND target.ryouiki_sentaku_id = subject.ryouiki_sentaku_id
  ORDER BY juken_id
@@ -500,7 +522,7 @@ SELECT *
  WHERE gou_id=@gou_id
    AND kaijyou_id=@kaijyou_id
    AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+   AND sentaku=@sentaku
    AND juken_id=@juken_id
 ";
 
@@ -564,10 +586,7 @@ VALUES (
 INSERT 
 INTO t155d_pre_tokuten (
     gou_id
-  , jissi_kubun
-  , kaijyou_id
   , juken_id
-  , group_id
   , class_id
   , grade
   , kubun
@@ -581,15 +600,12 @@ INTO t155d_pre_tokuten (
 )
 VALUES ( 
     @gou_id
-  , @jissi_kubun
-  , @kaijyou_id
   , @juken_id
-  , 0
-  , 0
-  , 0
-  , 0
-  , 0
-  , 0
+  , -1
+  , -1
+  , -1
+  , -1
+  , -1
   , @kyouka_id
   , @sentaku
   , @tokuten
@@ -598,13 +614,23 @@ VALUES (
 )
 ";
 
-            internal static readonly string DELETE_T155D = $@"
+            internal static readonly string DELETE_T155D_KAIJYOU = $@"
 DELETE 
   FROM t155d_pre_tokuten 
  WHERE gou_id=@gou_id
    AND kaijyou_id=@kaijyou_id
    AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+   AND sentaku=@sentaku
+   AND juken_id=@juken_id
+";
+
+            internal static readonly string DELETE_T155D_GROUP = $@"
+DELETE 
+  FROM t155d_pre_tokuten 
+ WHERE gou_id=@gou_id
+   AND group_id=@group_id
+   AND kyouka_id=@kyouka_id
+   AND sentaku=@sentaku
    AND juken_id=@juken_id
 ";
         }

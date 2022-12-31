@@ -286,6 +286,7 @@ namespace MARK_SHEETS
             this.rdbGakou.TabStop = true;
             this.rdbGakou.Text = "学校系";
             this.rdbGakou.UseVisualStyleBackColor = true;
+            this.rdbGakou.CheckedChanged += new System.EventHandler(this.rdbGakou_CheckedChanged);
             // 
             // rdbJuku
             // 
@@ -355,6 +356,7 @@ namespace MARK_SHEETS
             // 
             // backgroundWorker1
             // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);

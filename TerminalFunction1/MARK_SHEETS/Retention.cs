@@ -83,7 +83,6 @@ namespace MARK_SHEETS
         public string NENDO { get; set; } = null;
         public string GROUPKAIJYOU_ID { get; set; } = null;
 
-        public bool DIFFERRENT { get; set; } = false;
         public ArrayList UPTREATED { get; set; } = null;
 
         public DataTable T36D { get; set; } = null;

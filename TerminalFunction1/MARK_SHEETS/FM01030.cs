@@ -7,6 +7,7 @@ using CommonBase.Alerts;
 using CommonBase.Commons;
 using CommonBase.Tables;
 using System.Collections;
+using System.Configuration;
 
 namespace MARK_SHEETS
 {
@@ -196,7 +197,9 @@ namespace MARK_SHEETS
         /// <returns></returns>
         private void SetCmdGouID()
         {
-            string SQLSTMT = SQL.GET_LIST.GET_GOUID_LIST_JUKUKAIJYOU;
+            string SQLSTMT = SQL.GET_LIST.GET_GOUID_LIST_EXCLUDE;
+            string exclude = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_EXCLUDE_TEST];
+            SQLSTMT = CommonLogic1.ReplaceStatement(SQLSTMT, "@exclude", exclude);
             cmbGouID.DataSource = Tables1.GetSelectRowsDataTable(SQLSTMT);
             cmbGouID.DisplayMember = "gou_id_display";
             cmbGouID.ValueMember = "gou_id";

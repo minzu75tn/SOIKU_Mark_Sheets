@@ -504,7 +504,7 @@ namespace MARK_SHEETS
                     condition.Append(" AND target.ryouiki_sentaku_id=" + Global.RETENTION.SENTAKU_ID);
                 }
 
-                string SQLSTMT = SQL.GET_CORRELATION.GET_CONSISTENCY;
+                string SQLSTMT = SQL.GET_CORRELATION.GET_CONSISTENCY_COUNT;
                 SQLSTMT = CommonLogic1.ReplaceStatement(SQLSTMT, "@condition", condition.ToString());
                 DataTable results = Tables1.GetSelectRowsDataTable(SQLSTMT);
                 if (results == null)

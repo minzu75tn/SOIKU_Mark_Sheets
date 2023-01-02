@@ -196,7 +196,7 @@ namespace MARK_SHEETS
             this.cmbGouID.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbGouID.Size = new System.Drawing.Size(54, 21);
             this.cmbGouID.TabIndex = 1;
-            this.cmbGouID.SelectedIndexChanged += new System.EventHandler(this.cmbKyoukaID_SelectedIndexChanged);
+            this.cmbGouID.SelectedIndexChanged += new System.EventHandler(this.cmbGouID_SelectedIndexChanged);
             this.cmbGouID.Enter += new System.EventHandler(this.Common_Enter);
             this.cmbGouID.Leave += new System.EventHandler(this.cmbGouID_Leave);
             // 

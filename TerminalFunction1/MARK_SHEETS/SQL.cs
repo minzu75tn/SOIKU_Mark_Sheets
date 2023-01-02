@@ -40,7 +40,7 @@ SELECT kyouka_id, kyouka_name FROM t14m_kyouka
 SELECT CAST('' as varchar) as ryouiki_sentaku_id
   UNION ALL
 SELECT CAST(ryouiki_sentaku_id as varchar) as ryouiki_sentaku_id FROM t36d_setumonbetu
- WHERE gou_id=@gou_id AND kyouka_id=@kyouka_id AND ryouiki_sentaku_id != -1
+ WHERE gou_id = @gou_id AND kyouka_id = @kyouka_id AND ryouiki_sentaku_id ! =  -1
  GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
 ";
         }
@@ -57,12 +57,12 @@ SELECT gou_id, test_name FROM t01m_gou WHERE gou_id = @gou_id
 
             /// 「団体コード」名の取得
             internal static readonly string GET_GROUPID_NAME = $@"
-SELECT group_id, name FROM t03m_group WHERE group_id=@group_id
+SELECT group_id, name FROM t03m_group WHERE group_id = @group_id
 ";
 
             /// 「会場コード」名の取得
             internal static readonly string GET_KAIJYOUID_NAME = $@"
-SELECT kaijyou_id, kaijyou_name FROM t07m_kaijyou_name WHERE kaijyou_id=@kaijyou_id
+SELECT kaijyou_id, kaijyou_name FROM t07m_kaijyou_name WHERE kaijyou_id = @kaijyou_id
 ";
         }
 
@@ -74,17 +74,17 @@ SELECT kaijyou_id, kaijyou_name FROM t07m_kaijyou_name WHERE kaijyou_id=@kaijyou
             internal static readonly string SELECT_T36D_COUNT = $@"
 SELECT COUNT(*)
   FROM t36d_setumonbetu 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
 
             internal static readonly string SELECT_T36D = $@"
 SELECT *
   FROM t36d_setumonbetu 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY mondai_id
 ";
 
@@ -96,9 +96,9 @@ SELECT
   , syoumon as t36d_syoumon
   , auto_saiten as t36d_auto_saiten
   FROM t36d_setumonbetu 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY mondai_id
 ";
 
@@ -110,9 +110,9 @@ SELECT
   , haiten
   , auto_saiten
   FROM t36d_setumonbetu 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY mondai_id
 ";
         }
@@ -125,9 +125,9 @@ SELECT
             internal static readonly string SELECT_T301D = $@"
 SELECT *
   FROM t301d_mark_locate_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY field_id
 ";
 
@@ -138,9 +138,9 @@ SELECT
   , field_name as t301d_field_name
   , number_of_marks as t301d_number_of_marks
   FROM t301d_mark_locate_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY field_id
 ";
 
@@ -168,9 +168,9 @@ VALUES (
             internal static readonly string DELETE_T301D = $@"
 DELETE 
   FROM t301d_mark_locate_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
         }
 
@@ -182,17 +182,17 @@ DELETE
             internal static readonly string SELECT_T302D_COUNT = $@"
 SELECT COUNT(*)
   FROM t302d_mark_link_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
 
             internal static readonly string SELECT_T302D = $@"
 SELECT *
   FROM t302d_mark_link_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY mondai_id
 ";
 
@@ -203,9 +203,9 @@ SELECT
   , field_name
   , auto_scoring_disable
   FROM t302d_mark_link_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY mondai_id
 ";
 
@@ -217,9 +217,9 @@ SELECT
   , mondai_id as t302d_mondai_id
   , auto_scoring_disable as t302d_auto_scoring_disable
   FROM t302d_mark_link_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY field_id
 ";
 
@@ -259,43 +259,43 @@ SELECT
   , field_id
   , field_name
   FROM t301d_mark_locate_data as target
- WHERE target.gou_id=@gou_id
-   AND target.kyouka_id=@kyouka_id
-   AND target.ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE target.gou_id = @gou_id
+   AND target.kyouka_id = @kyouka_id
+   AND target.ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
            
             internal static readonly string UPDATE_T302D = $@"
 UPDATE t302d_mark_link_data
    SET
-    mondai_id=@mondai_id
-  , auto_scoring_disable=@auto_scoring_disable
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
-   AND field_name=@field_name
+    mondai_id = @mondai_id
+  , auto_scoring_disable = @auto_scoring_disable
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
+   AND field_name = @field_name
 ";
 
             internal static readonly string DELETE_T302D = $@"
 DELETE 
   FROM t302d_mark_link_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
 
 
         internal static readonly string EXCEPT_T301D_T302D = $@"
 SELECT field_name
   FROM t301d_mark_locate_data
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
   EXCEPT
 SELECT field_name
   FROM t302d_mark_link_data
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
 
         }
@@ -307,17 +307,17 @@ SELECT field_name
             internal static readonly string SELECT_T303D_COUNT = $@"
 SELECT COUNT(*)
   FROM t303d_mark_mohan_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
 
             internal static readonly string SELECT_T303D = $@"
 SELECT *
   FROM t303d_mark_mohan_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY field_id
 ";
 
@@ -327,9 +327,9 @@ SELECT
   , field_name
   , mark_value
   FROM t303d_mark_mohan_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
  ORDER BY field_id
 ";
 
@@ -355,9 +355,9 @@ VALUES (
             internal static readonly string DELETE_T303D = $@"
 DELETE 
   FROM t303d_mark_mohan_data 
- WHERE gou_id=@gou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE gou_id = @gou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
         }
 
@@ -367,16 +367,16 @@ DELETE
         internal class RELATED_T304D
         {
             internal static readonly string SELECT_T304D_LIST_KAIJYOU = $@"
-SELECT target.*
+SELECT DISTINCT target.juken_id
   FROM t304d_mark_answer_data as target
   LEFT JOIN (
     SELECT nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
       FROM t304d_mark_answer_data 
-     WHERE nendo=@nendo
-       AND gou_id=@gou_id
-       AND kaijyou_id=@kaijyou_id
-       AND kyouka_id=@kyouka_id
-       AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+     WHERE nendo = @nendo
+       AND gou_id = @gou_id
+       AND kaijyou_id = @kaijyou_id
+       AND kyouka_id = @kyouka_id
+       AND ryouiki_sentaku_id = @ryouiki_sentaku_id
      GROUP BY nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
   ) as subject ON
        target.nendo = subject.nendo    
@@ -388,16 +388,16 @@ SELECT target.*
 ";
 
             internal static readonly string SELECT_T304D_LIST_GROUP = $@"
-SELECT target.*
+SELECT DISTINCT target.juken_id
   FROM t304d_mark_answer_data as target
   LEFT JOIN (
     SELECT nendo, gou_id, group_id, kyouka_id, ryouiki_sentaku_id
       FROM t304d_mark_answer_data 
-     WHERE nendo=@nendo
-       AND gou_id=@gou_id
-       AND group_id=@group_id
-       AND kyouka_id=@kyouka_id
-       AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+     WHERE nendo = @nendo
+       AND gou_id = @gou_id
+       AND group_id = @group_id
+       AND kyouka_id = @kyouka_id
+       AND ryouiki_sentaku_id = @ryouiki_sentaku_id
      GROUP BY nendo, gou_id, group_id, kyouka_id, ryouiki_sentaku_id
   ) as subject ON
        target.nendo = subject.nendo    
@@ -415,12 +415,12 @@ SELECT
   , mark_value
   , status
   FROM t304d_mark_answer_data as target
- WHERE nendo=@nendo
-   AND gou_id=@gou_id
-   AND kaijyou_id=@kaijyou_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
-   AND juken_id=@juken_id
+ WHERE nendo = @nendo
+   AND gou_id = @gou_id
+   AND kaijyou_id = @kaijyou_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
+   AND juken_id = @juken_id
  ORDER BY nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
 ";
 
@@ -491,23 +491,23 @@ VALUES (
             internal static readonly string DELETE_T304D_KAIJYOU = $@"
 DELETE 
   FROM t304d_mark_answer_data 
- WHERE nendo=@nendo
-   AND gou_id=@gou_id
-   AND kaijyou_id=@kaijyou_id
-   AND juken_id=@juken_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE nendo = @nendo
+   AND gou_id = @gou_id
+   AND kaijyou_id = @kaijyou_id
+   AND juken_id = @juken_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
 
             internal static readonly string DELETE_T304D_GROUP = $@"
 DELETE 
   FROM t304d_mark_answer_data 
- WHERE nendo=@nendo
-   AND gou_id=@gou_id
-   AND group_id=@group_id
-   AND juken_id=@juken_id
-   AND kyouka_id=@kyouka_id
-   AND ryouiki_sentaku_id=@ryouiki_sentaku_id
+ WHERE nendo = @nendo
+   AND gou_id = @gou_id
+   AND group_id = @group_id
+   AND juken_id = @juken_id
+   AND kyouka_id = @kyouka_id
+   AND ryouiki_sentaku_id = @ryouiki_sentaku_id
 ";
         }
 
@@ -519,11 +519,11 @@ DELETE
             internal static readonly string SELECT_T155D = $@"
 SELECT *
   FROM t155d_pre_tokuten
- WHERE gou_id=@gou_id
-   AND kaijyou_id=@kaijyou_id
-   AND kyouka_id=@kyouka_id
-   AND sentaku=@sentaku
-   AND juken_id=@juken_id
+ WHERE gou_id = @gou_id
+   AND kaijyou_id = @kaijyou_id
+   AND kyouka_id = @kyouka_id
+   AND sentaku = @sentaku
+   AND juken_id = @juken_id
 ";
 
             internal static readonly string INSERT_T155D_ALL = $@"
@@ -617,21 +617,21 @@ VALUES (
             internal static readonly string DELETE_T155D_KAIJYOU = $@"
 DELETE 
   FROM t155d_pre_tokuten 
- WHERE gou_id=@gou_id
-   AND kaijyou_id=@kaijyou_id
-   AND kyouka_id=@kyouka_id
-   AND sentaku=@sentaku
-   AND juken_id=@juken_id
+ WHERE gou_id = @gou_id
+   AND kaijyou_id = @kaijyou_id
+   AND kyouka_id = @kyouka_id
+   AND sentaku = @sentaku
+   AND juken_id = @juken_id
 ";
 
             internal static readonly string DELETE_T155D_GROUP = $@"
 DELETE 
   FROM t155d_pre_tokuten 
- WHERE gou_id=@gou_id
-   AND group_id=@group_id
-   AND kyouka_id=@kyouka_id
-   AND sentaku=@sentaku
-   AND juken_id=@juken_id
+ WHERE gou_id = @gou_id
+   AND group_id = @group_id
+   AND kyouka_id = @kyouka_id
+   AND sentaku = @sentaku
+   AND juken_id = @juken_id
 ";
         }
 
@@ -640,8 +640,8 @@ DELETE
         /// </summary>
         internal class GET_CORRELATION
         {
-            /// 「相関」の取得
-            internal static readonly string GET_CONSISTENCY = $@"
+            /// 「相関」件数の取得
+            internal static readonly string GET_CONSISTENCY_COUNT = $@"
 SELECT
      target.gou_id, target.kyouka_id, target.ryouiki_sentaku_id
    , max(CASE WHEN target.type = 't36d'  THEN target.CT END) AS t36d_CT
@@ -651,7 +651,7 @@ SELECT
   FROM (
     SELECT 't36d' as type, gou_id, kyouka_id, ryouiki_sentaku_id, COUNT(*) as CT
       FROM t36d_setumonbetu
-     WHERE auto_saiten=1 AND ryouiki_sentaku_id<>-1
+     WHERE auto_saiten = 1 AND ryouiki_sentaku_id<>-1
      GROUP BY gou_id, kyouka_id, ryouiki_sentaku_id
       UNION ALL
     SELECT 't301d' as type, gou_id, kyouka_id, ryouiki_sentaku_id, COUNT(*) as CT
@@ -668,6 +668,50 @@ SELECT
   ) as target
  @condition
  GROUP BY target.gou_id, target.kyouka_id, target.ryouiki_sentaku_id
+";
+
+            /// 「相関」データの取得
+            internal static readonly string GET_CONSISTENCY_DATA = $@"
+SELECT
+    t304d.field_id    as t304d_field_id
+  , t304d.field_name  as t304d_field_name
+  , t304d.mark_value  as t304d_mark_value
+
+  , t302d.mondai_id   as t302d_mondai_id
+  , t302d.field_id    as t302d_field_id
+  , t302d.field_name  as t302d_field_name
+  , t302d.auto_scoring_disable
+
+  , t303d.field_id    as t303d_field_id
+  , t303d.field_name  as t303d_field_name
+  , t303d.mark_value  as t303d_mark_value
+
+  , 0 as tmp_seigo_field_id
+  , 0 as tmp_seigo_mondai_id
+
+  FROM (
+    SELECT * FROM t304d_mark_answer_data
+     WHERE nendo = @nendo
+       AND gou_id = @gou_id
+       AND kyouka_id = @kyouka_id
+       AND ryouiki_sentaku_id = @ryouiki_sentaku_id
+       AND juken_id = @juken_id
+       @conditions
+  ) as t304d
+
+      LEFT JOIN t302d_mark_link_data t302d
+        ON t304d.gou_id = t302d.gou_id
+       AND t304d.kyouka_id = t302d.kyouka_id
+       AND t304d.ryouiki_sentaku_id = t302d.ryouiki_sentaku_id
+       AND t304d.field_id = t302d.field_id
+
+      LEFT JOIN t303d_mark_mohan_data t303d
+        ON t304d.gou_id = t303d.gou_id
+       AND t304d.kyouka_id = t303d.kyouka_id
+       AND t304d.ryouiki_sentaku_id = t303d.ryouiki_sentaku_id
+       AND t304d.field_id = t303d.field_id
+
+ ORDER BY t304d.field_id
 ";
         }
 

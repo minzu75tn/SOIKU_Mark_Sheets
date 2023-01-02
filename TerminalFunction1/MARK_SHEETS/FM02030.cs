@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Text;
 
@@ -9,7 +10,10 @@ using CommonBase.Alerts;
 using CommonBase.Tables;
 using CommonBase.Commons;
 using NPOI.SS.Formula.Functions;
-using System.Configuration;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;
+using System.ComponentModel.DataAnnotations;
+using NPOI.SS.UserModel;
 
 namespace MARK_SHEETS
 {
@@ -389,23 +393,17 @@ namespace MARK_SHEETS
                 Global.RETENTION.GROUPKAIJYOU_ID = txtGroupKaijyou.Text;
 
                 // 「設問別データ」の取得
-                // 「マーク紐付けデータ」の取得
-                // 「マーク模範データ」の取得
                 DataTable dt1 = GetSetumonbetuData();
-                DataTable dt2 = GetMarkLinkData();
-                DataTable dt3 = GetMarkMohanData();
-                if (dt1.Rows.Count == 0 || dt2.Rows.Count == 0 || dt3.Rows.Count == 0)
+                if (dt1.Rows.Count == 0)
                 {
-                    string[] embedArray = new string[1] { "「設問別データ」「紐付けデータ」もしくは「模範解答データ」が登録されていません。" };
+                    string[] embedArray = new string[1] { "「設問別データ」が登録されていません。" };
                     Messages1.ShowMessage("MS80040", embedArray);
                     cmbGouID.Focus();
                     return;
                 }
                 Global.RETENTION.T36D = dt1;
-                Global.RETENTION.T302D = dt2;
-                Global.RETENTION.T303D = dt3;
 
-                // 登録済み「解答データ」の取得
+                // 登録済み「解答データ」より「受験ID」の取得
                 DataTable retrieved = GetRetrievedList();
                 if (retrieved.Rows.Count == 0)
                 {
@@ -442,36 +440,6 @@ namespace MARK_SHEETS
         private DataTable GetSetumonbetuData()
         {
             string SQLSTMT = SQL.RELATED_T36D.SELECT_T36D_SAITEN;
-            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
-            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
-            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
-            DataTable results = Tables1.GetSelectRowsDataTable(SQLSTMT);
-            return results;
-        }
-
-        /// <summary>
-        /// 「マーク紐付けデータ」の取得
-        /// </summary>
-        /// <param name></param>
-        /// <returns></returns>
-        private DataTable GetMarkLinkData()
-        {
-            string SQLSTMT = SQL.RELATED_T302D.SELECT_T302D_SAITEN;
-            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
-            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
-            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
-            DataTable results = Tables1.GetSelectRowsDataTable(SQLSTMT);
-            return results;
-        }
-
-        /// <summary>
-        /// 「マーク模範データ」の取得
-        /// </summary>
-        /// <param name></param>
-        /// <returns></returns>
-        private DataTable GetMarkMohanData()
-        {
-            string SQLSTMT = SQL.RELATED_T303D.SELECT_T303D_SAITEN;
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
@@ -539,7 +507,8 @@ namespace MARK_SHEETS
             int PROGRESS = 0;
             for (int ii = 0; ii < Global.RETENTION.T304D.Rows.Count; ii++)
             {
-                var results = Create_PreTokuten_Data(ii, Worker, ref PROGRESS);
+                int juken_id = Convert.ToInt32(Global.RETENTION.T304D.Rows[ii]["juken_id"]);
+                var results = Create_PreTokuten_Data(juken_id, Worker, ref PROGRESS);
                 if (!results)
                 {
                     args.Cancel = true;
@@ -581,7 +550,6 @@ namespace MARK_SHEETS
             {
                 AddMessages("「自動採点実施」がキャンセルされました。");
                 Messages1.ShowMessage("MS02020", embedArray2);
-                Close();
                 return;
             }
 
@@ -595,20 +563,16 @@ namespace MARK_SHEETS
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private bool Create_PreTokuten_Data(int index, BackgroundWorker Worker, ref int PROGRESS)
+        private bool Create_PreTokuten_Data(int juken_id, BackgroundWorker Worker, ref int PROGRESS)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
-
-            DataRow dtrT304D = null;
 
             try
             {
                 PROGRESS++;
+                Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0}」の自動採点を開始しました。", juken_id.ToString("0000")));
 
-                dtrT304D = Global.RETENTION.T304D.Rows[index];
-                Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0000}」の自動採点を開始しました。", Convert.ToInt32(dtrT304D["juken_id"])));
-
-                Global.RETENTION.T304D = GetMarkAnswerData(dtrT304D["juken_id"]);
+                DataTable T304D = GetMarkAnswerData(juken_id);
                 Invoke(new delegate1(AddMessages_Thread), String.Format(" >解答データの取得が完了しました。"));
 
                 // delete
@@ -628,7 +592,7 @@ namespace MARK_SHEETS
                 }
  
                 SQLSTMT1 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT1, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
-                SQLSTMT1 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT1, "@juken_id", Convert.ToInt32(dtrT304D["juken_id"]));
+                SQLSTMT1 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT1, "@juken_id", juken_id);
                 SQLSTMT1 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT1, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
                 SQLSTMT1 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT1, "@sentaku", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
                 bool results1 = Tables1.ExecuteModify(SQLSTMT1);
@@ -637,7 +601,7 @@ namespace MARK_SHEETS
                 // insert
                 string SQLSTMT2 = SQL.RELATED_T155D.INSERT_T155D_PARTS;
                 SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
-                SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@juken_id", Convert.ToInt32(dtrT304D["juken_id"]));
+                SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@juken_id", juken_id);
                 SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
                 SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@sentaku", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
 
@@ -650,52 +614,122 @@ namespace MARK_SHEETS
                 {
                     // 塾・会場系
                     columns.Append(", kaijyou_id");
+                    values.Append(", " + Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+                    columns.Append(", group_id");
+                    values.Append(", -1");
                 }
                 else
                 {
                     // 学校系
+                    columns.Append(", kaijyou_id");
+                    values.Append(", -1");
                     columns.Append(", group_id");
+                    values.Append(", " + Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
                 }
-                values.Append(", " + Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
 
-                // 正誤設定
-                for (int nn = 0; nn < Global.RETENTION.T302D.Rows.Count; nn++)
+                // 整合性の検証
+                for (int nn = 0; nn < T304D.Rows.Count; nn++)
                 {
-                    DataRow dtrT302D = Global.RETENTION.T302D.Rows[nn];
-                    int disabled = Convert.ToInt32(dtrT302D["auto_scoring_disable"]);
+                    DataRow dtr = T304D.Rows[nn];
+
+                    if (dtr["t302d_field_id"] == null)
+                    {
+                        throw new Exception("マーク紐付けテーブルに該当するデータが存在しません。" + "(t302d_mark_link_data)");
+                    }
+
+                    if (dtr["t303d_field_id"] == null)
+                    {
+                        throw new Exception("マーク模範解答テーブルに該当するデータが存在しません。" + "(t303d_mark_mohan_data)");
+                    }
+
+                    if (!dtr["t302d_field_name"].Equals(dtr["t303d_field_name"])
+                      || !dtr["t303d_field_name"].Equals(dtr["t304d_field_name"])
+                      || !dtr["t304d_field_name"].Equals(dtr["t302d_field_name"]))
+                    {
+                        throw new Exception("フィールド名に不整合があります。" + "(テーブル間)");
+                    }
+                }
+
+                // 正誤設定 1st（field_id 単位）
+                for (int nn = 0; nn < T304D.Rows.Count; nn++)
+                {
+                    DataRow dtr = T304D.Rows[nn];
+                    int disabled = Convert.ToInt32(dtr["auto_scoring_disable"]);
 
                     if (disabled == 0)
                     {
-                        int seigo = 0;
+                        int seigo = dtr["t303d_mark_value"].Equals(dtr["t304d_mark_value"]) ? 1 : 2;
+                        dtr["tmp_seigo_field_id"] = seigo;
+                    }
+                }
 
-                        int mondai_id = Convert.ToInt32(dtrT302D["mondai_id"]);
-                        string field_name = Convert.ToString(dtrT302D["field_name"]);
+                // 正誤設定 2st（mondai_id 単位）
+                DataView dtv1 = new DataView(T304D);
+                string[] cols1 = { "t302d_mondai_id" };
+                DataTable dtf1 = dtv1.ToTable(true, cols1);
 
-                        DataRow[] dtrSelect1 = Global.RETENTION.T303D.Select("field_name = '" + field_name + "'");
-                        DataRow[] dtrSelect2 = Global.RETENTION.T304D.Select("field_name = '" + field_name + "'");
-                        if (dtrSelect1.Length == 0 || dtrSelect2.Length == 0)
+                for (int nn = 0; nn < dtf1.Rows.Count; nn++)
+                {
+                    DataRow dtr = dtf1.Rows[nn];
+                    int mondai_id = Convert.ToInt32(dtr["t302d_mondai_id"]);
+
+                    int counts = T304D.Select("t302d_mondai_id = " + mondai_id).Count();
+                    string compute1 = "Sum(tmp_seigo_field_id)";
+                    string compute2 = "t302d_mondai_id = " + mondai_id;
+                    int sums = Convert.ToInt32((T304D.Compute(compute1, compute2) is DBNull) ? 0 : T304D.Compute(compute1, compute2));
+
+                    int seigo = counts == sums ? 1 : 2;
+                    DataRow[] dtrs = T304D.Select("t302d_mondai_id = " + mondai_id);
+                    foreach (DataRow elms in dtrs)
+                    {
+                        elms["tmp_seigo_mondai_id"] = seigo;
+                    }
+                }
+
+                // 正誤設定 3rd（配点・集計）
+                DataView dtv2 = new DataView(T304D);
+                string[] cols2 = { "t302d_mondai_id" };
+                DataTable dtf2 = dtv2.ToTable(true, cols2);
+
+                for (int nn = 0; nn < dtf2.Rows.Count; nn++)
+                {
+                    DataRow dtr = dtf2.Rows[nn];
+                    int mondai_id = Convert.ToInt32(dtr["t302d_mondai_id"]);
+
+                    DataRow[] dtrs = T304D.Select("t302d_mondai_id = " + mondai_id);
+                    int seigo = Convert.ToInt32(dtrs[0]["tmp_seigo_mondai_id"]);
+                    if (seigo == 1)
+                    {
+                        DataRow[] dtrs2 = Global.RETENTION.T36D.Select("mondai_id = " + mondai_id);
+                        if(dtrs2.Length == 0)
                         {
-                            if (dtrSelect1.Length == 0 || dtrSelect2.Length == 0)
-                            {
-                                Invoke(new delegate1(AddMessages_Thread), String.Format(" >模範解答と解答データ間で不整合を検出しました。"));
-                                throw new Exception("模範解答と解答データ間で不整合を検出しました。");
-                            }
+                            throw new Exception("設問別テーブルに該当する問題IDが存在しません。" + "(t36d_setumonbetu)");
                         }
-                        else
-                        {
-                            seigo = dtrSelect1[0]["mark_value"].Equals(dtrSelect2[0]["mark_value"]) ? 1 : 2;
-                        }
-                        columns.Append(", seigo" + mondai_id);
-                        values.Append(", " + seigo);
 
-                        if (seigo == 1)
+                        if (Convert.ToInt32(dtrs2[0]["auto_saiten"]) == 1)
                         {
-                            DataRow[] dtr = Global.RETENTION.T36D.Select("mondai_id = " + mondai_id);
-                            int haiten = Convert.ToInt32(dtr[0]["haiten"]);
+                            int haiten = Convert.ToInt32(dtrs2[0]["haiten"]);
                             tokuten = tokuten + haiten;
                         }
                     }
                 }
+
+                // 正誤設定 4th（SQL文生成・登録）
+                DataView dtv3 = new DataView(T304D);
+                string[] cols3 = { "t302d_mondai_id" };
+                DataTable dtf3 = dtv3.ToTable(true, cols3);
+
+                for (int nn = 0; nn < dtf3.Rows.Count; nn++)
+                {
+                    DataRow dtr = dtf2.Rows[nn];
+                    int mondai_id = Convert.ToInt32(dtr["t302d_mondai_id"]);
+
+                    DataRow[] dtrs = T304D.Select("t302d_mondai_id = " + mondai_id);
+                    int seigo = Convert.ToInt32(dtrs[0]["tmp_seigo_mondai_id"]);
+                    columns.Append(", seigo" + mondai_id);
+                    values.Append(", " + seigo);
+                }
+
                 SQLSTMT2 = CommonLogic1.ReplaceStatement(SQLSTMT2, "@columns_define", columns.ToString());
                 SQLSTMT2 = CommonLogic1.ReplaceStatement(SQLSTMT2, "@values_define", values.ToString());
 
@@ -717,7 +751,7 @@ namespace MARK_SHEETS
                     throw new Exception("テーブル登録処理で異常を検出しました。" + "(t155d_pre_tokuten)");
                 }
 
-                Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0000}」の自動採点が完了しました。", Convert.ToInt32(dtrT304D["juken_id"])));
+                Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0}」の自動採点が完了しました。", juken_id.ToString("0000")));
 
                 // 進行状況の更新
                 int Percents = Convert.ToInt32(((double)PROGRESS / (double)toolStripProgressBar1.Maximum) * 100);
@@ -727,7 +761,7 @@ namespace MARK_SHEETS
             catch (Exception ex)
             {
                 Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
-                Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0000}」の自動採点に失敗しました。", Convert.ToInt32(dtrT304D["juken_id"])));
+                Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0}」の自動採点に失敗しました。", juken_id.ToString("0000")));
                 string[] embedArray = new string[1] { ex.Message };
                 Messages1.ShowMessage("MS90010", embedArray);
                 return false;
@@ -742,19 +776,18 @@ namespace MARK_SHEETS
         /// <returns></returns>
         private DataTable GetMarkAnswerData(object juken_id)
         {
-            string SQLSTMT;
+            string SQLSTMT = SQL.GET_CORRELATION.GET_CONSISTENCY_DATA;
 
+            StringBuilder conditions = new StringBuilder();
             if (rdbJuku.Checked)
             {
                 // 塾・会場系
-                SQLSTMT = SQL.RELATED_T304D.SELECT_T304D_LIST_KAIJYOU;
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kaijyou_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+                conditions.Append(" AND kaijyou_id = " + Global.RETENTION.GROUPKAIJYOU_ID);
             }
             else
             {
                 // 学校系
-                SQLSTMT = SQL.RELATED_T304D.SELECT_T304D_LIST_GROUP;
-                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@group_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+                conditions.Append(" AND group_id = " + Global.RETENTION.GROUPKAIJYOU_ID);
             }
 
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@nendo", Convert.ToInt32(Global.RETENTION.NENDO));
@@ -762,6 +795,7 @@ namespace MARK_SHEETS
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@juken_id", Convert.ToInt32(juken_id));
+            SQLSTMT = CommonLogic1.ReplaceStatement(SQLSTMT, "@conditions", conditions.ToString());
 
             DataTable dt = Tables1.GetSelectRowsDataTable(SQLSTMT);
             return dt;

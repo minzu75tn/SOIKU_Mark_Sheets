@@ -1,5 +1,4 @@
-﻿using NPOI.Util;
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
@@ -185,6 +184,7 @@ namespace CommonBase.Tables
                 {
                     SqlDataReader sdr = command.ExecuteReader();
                     results = sdr.HasRows;
+                    sdr.Close();
                 }
             }
             catch (Exception ex)

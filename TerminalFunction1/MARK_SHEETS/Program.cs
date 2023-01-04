@@ -14,7 +14,7 @@ namespace MARK_SHEETS
 		static Mutex objMutex = null;
 		static Retention RETENTION = new Retention();
 		static Logger1 LOGGER = new Logger1();
-		static FM00000 FM00000X;
+        public static FM00000 FM00000X;
 
 		/// <summary>
 		///  The main entry point for the application.

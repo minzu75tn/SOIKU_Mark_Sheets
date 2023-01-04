@@ -86,7 +86,6 @@ namespace MARK_SHEETS
         public ArrayList UPTREATED { get; set; } = null;
 
         public DataTable T36D { get; set; } = null;
-        public DataTable T304D { get; set; } = null;
 
     }
 }

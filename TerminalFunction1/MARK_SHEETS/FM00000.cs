@@ -2,11 +2,14 @@
 
 using CommonBase;
 using CommonBase.BaseForms;
+using CommonBase.Alerts;
 
 namespace MARK_SHEETS
 {
     public partial class FM00000 : BaseForm
     {
+        private bool bolFinish;
+
         public FM00000()
         {
             base.InitializeComponent();
@@ -17,98 +20,226 @@ namespace MARK_SHEETS
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            txtServer.Text = Global.RETENTION.DB_DATA_SOURCE.Substring(0, 5).ToUpper() + "-" + Global.RETENTION.DB_DATA_SOURCE.Substring(5);
-            tsmMenu3_sub1.Checked = true;
+            this.Width = 1000;
+            this.Height = 500;
+
+            tsmMenu4_sub1.Checked = true;
 
             this.toolStripStatusLabel1.Text = "v1.0";
             this.toolStripStatusLabel2.Text = "2022/10/15 15:22";
             this.toolStripStatusLabel3.Text = "";
             this.toolStripStatusLabel4.Text = "";
             this.toolStripStatusLabel5.Text = "";
+
+            this.timer1.Interval = 500;
+            this.timer1.Enabled = true;
+            this.timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!bolFinish)
+            {
+                DateTime dtNow = DateTime.Now;
+                this.toolStripStatusLabel5.Text = dtNow.ToShortDateString() + " " + dtNow.ToShortTimeString();
+                this.timer1.Interval = 5000;
+            }
+            this.timer1.Enabled = true;
         }
 
         private void FM00000_FormClosing(object sender, FormClosingEventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
-            if (cmdGetMarks.Enabled == false)
+
+            string[] embedArray = new string[1] { "アプリケーションを終了してよろしいですか？" };
+            DialogResult confirm = Messages1.ShowMessage("MS80020", embedArray);
+            if (confirm == DialogResult.Yes)
+            {
+                bolFinish = true;
+            }
+            else
             {
                 e.Cancel = true;
             }
         }
 
+        private void FM00000_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+
+            try
+            {
+                Form frm;
+                foreach (Form frm_loopVariable in this.MdiChildren)
+                {
+                    frm = frm_loopVariable;
+                    frm.Dispose();
+                    frm = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Error, ex.ToString());
+                string[] embedArray = new string[1] { ex.Message };
+                Messages1.ShowMessage("MS90010", embedArray);
+            }
+        }
+
         private void tsmMenu1_sub1_Click(object sender, EventArgs e)
+        {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM00010"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM00010 NEWFORM = new FM00010()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
+        private void tsmMenu1_sub2_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        private void tsmMenu2_sub1_Click(object sender, EventArgs e)
+        {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM01010"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM01010 NEWFORM = new FM01010()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
+        private void tsmMenu2_sub2_Click(object sender, EventArgs e)
+        {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM01030"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM01030 NEWFORM = new FM01030()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
+        private void tsmMenu2_sub3_Click(object sender, EventArgs e)
+        {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM01050"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM01050 NEWFORM = new FM01050()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
+        private void tsmMenu2_sub4_Click(object sender, EventArgs e)
+        {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM01070"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM01070 NEWFORM = new FM01070()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
         private void tsmMenu3_sub1_Click(object sender, EventArgs e)
         {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM02010"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM02010 NEWFORM = new FM02010()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
+        private void tsmMenu3_sub2_Click(object sender, EventArgs e)
+        {
+            Form frm;
+            // For Each frm In FM00000X.MdiChildren
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                frm = frm_loopVariable;
+                if (frm.Name.Equals("FM02030"))
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            FM02030 NEWFORM = new FM02030()
+            {
+                MdiParent = this
+            };
+            NEWFORM.Show();
+        }
+
+        private void tsmMenu4_sub1_Click(object sender, EventArgs e)
+        {
             this.statusStrip1.Visible = tsmMenu3_sub1.Checked ? true : false;
-        }
-
-        private void cmdGetMarks_Click(object sender, EventArgs e)
-        {
-            FM01010 LOWER = new FM01010();
-            LOWER.PARRENT_FORM = this;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdEntryMarkLink_Click(object sender, EventArgs e)
-        {
-            FM01030 LOWER = new FM01030();
-            LOWER.PARRENT_FORM = this;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdGetModelAnswer_Click(object sender, EventArgs e)
-        {
-            FM01050 LOWER = new FM01050();
-            LOWER.PARRENT_FORM = this;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdCheckAutoScoreing_Click(object sender, EventArgs e)
-        {
-            FM01070 LOWER = new FM01070();
-            LOWER.PARRENT_FORM = this;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdGetAnswer_Click(object sender, EventArgs e)
-        {
-            FM02010 LOWER = new FM02010();
-            LOWER.PARRENT_FORM = this;
-            LOWER.ShowDialog();
-        }
-
-        private void cmdAutoScoreing_Click(object sender, EventArgs e)
-        {
-            FM02030 LOWER = new FM02030();
-            LOWER.PARRENT_FORM = this;
-            LOWER.ShowDialog();
-        }
-
-        private void Button_Enter(object sender, EventArgs e)
-        {
-            ButtonFocusEnter(sender, e);
-        }
-
-        private void Button_Leave(object sender, EventArgs e)
-        {
-            ButtonFocusLeave(sender, e);
-        }
-
-        private void Button_EnabledChanged(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-            if (button.Enabled)
-            {
-                ButtonColorEnabled(button);
-            }
-            else
-            {
-                ButtonColorDisabled(button);
-            }
         }
 
     }

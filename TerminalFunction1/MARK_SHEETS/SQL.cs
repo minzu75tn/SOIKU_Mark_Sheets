@@ -367,10 +367,12 @@ DELETE
         internal class RELATED_T304D
         {
             internal static readonly string SELECT_T304D_LIST_KAIJYOU = $@"
-SELECT DISTINCT target.juken_id
+SELECT DISTINCT
+    target.nendo, target.gou_id, target.kaijyou_id
+  , target.kyouka_id, target.ryouiki_sentaku_id
+  , target.juken_id
   FROM t304d_mark_answer_data as target
-  LEFT JOIN (
-    SELECT nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
+  RIGHT JOIN (    SELECT nendo, gou_id, kaijyou_id, kyouka_id, ryouiki_sentaku_id
       FROM t304d_mark_answer_data 
      WHERE nendo = @nendo
        AND gou_id = @gou_id
@@ -388,9 +390,12 @@ SELECT DISTINCT target.juken_id
 ";
 
             internal static readonly string SELECT_T304D_LIST_GROUP = $@"
-SELECT DISTINCT target.juken_id
+SELECT DISTINCT 
+    target.nendo, target.gou_id, target.group_id
+  , target.kyouka_id, target.ryouiki_sentaku_id
+  , target.juken_id
   FROM t304d_mark_answer_data as target
-  LEFT JOIN (
+  RIGHT JOIN (
     SELECT nendo, gou_id, group_id, kyouka_id, ryouiki_sentaku_id
       FROM t304d_mark_answer_data 
      WHERE nendo = @nendo
@@ -516,11 +521,21 @@ DELETE
         /// </summary>
         internal class RELATED_T155D
         {
-            internal static readonly string SELECT_T155D = $@"
+            internal static readonly string SELECT_T155D_KAIJYOU = $@"
 SELECT *
   FROM t155d_pre_tokuten
  WHERE gou_id = @gou_id
    AND kaijyou_id = @kaijyou_id
+   AND kyouka_id = @kyouka_id
+   AND sentaku = @sentaku
+   AND juken_id = @juken_id
+";
+
+            internal static readonly string SELECT_T155D_GROUP = $@"
+SELECT *
+  FROM t155d_pre_tokuten
+ WHERE gou_id = @gou_id
+   AND group_id = @group_id
    AND kyouka_id = @kyouka_id
    AND sentaku = @sentaku
    AND juken_id = @juken_id

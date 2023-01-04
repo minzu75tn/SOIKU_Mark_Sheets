@@ -56,6 +56,7 @@ namespace MARK_SHEETS
             this.txtGroupKaijyouName = new System.Windows.Forms.TextBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.lstMessages = new System.Windows.Forms.ListBox();
+            this.chkDifferent = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.pnlGouKyouka.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -205,7 +206,7 @@ namespace MARK_SHEETS
             this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdExecute.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdExecute.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdExecute.Location = new System.Drawing.Point(751, 43);
+            this.cmdExecute.Location = new System.Drawing.Point(751, 27);
             this.cmdExecute.Margin = new System.Windows.Forms.Padding(4);
             this.cmdExecute.Name = "cmdExecute";
             this.cmdExecute.Size = new System.Drawing.Size(118, 32);
@@ -359,7 +360,7 @@ namespace MARK_SHEETS
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdCancel.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCancel.Location = new System.Drawing.Point(751, 88);
+            this.cmdCancel.Location = new System.Drawing.Point(751, 113);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(118, 32);
@@ -385,13 +386,29 @@ namespace MARK_SHEETS
             this.lstMessages.Size = new System.Drawing.Size(874, 225);
             this.lstMessages.TabIndex = 34;
             // 
+            // chkDifferent
+            // 
+            this.chkDifferent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkDifferent.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkDifferent.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
+            this.chkDifferent.Location = new System.Drawing.Point(735, 52);
+            this.chkDifferent.Name = "chkDifferent";
+            this.chkDifferent.Size = new System.Drawing.Size(149, 53);
+            this.chkDifferent.TabIndex = 39;
+            this.chkDifferent.TabStop = false;
+            this.chkDifferent.Text = "処理条件を満たすものすべて再自動採点";
+            this.chkDifferent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkDifferent.UseVisualStyleBackColor = true;
+            this.chkDifferent.CheckedChanged += new System.EventHandler(this.chkDifferent_CheckedChanged);
+            // 
             // FM02030
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 429);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdExecute);
+            this.Controls.Add(this.chkDifferent);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.grpShoriJoken);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.lstMessages);
@@ -448,6 +465,7 @@ namespace MARK_SHEETS
         private TextBox txtGroupKaijyouName;
         private Button cmdCancel;
         internal ListBox lstMessages;
+        private CheckBox chkDifferent;
     }
 }
 

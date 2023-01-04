@@ -335,6 +335,7 @@ namespace MARK_SHEETS
             this.chkDifferent.Text = "処理条件を満たすものすべて再取込み";
             this.chkDifferent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDifferent.UseVisualStyleBackColor = true;
+            this.chkDifferent.CheckedChanged += new System.EventHandler(this.chkDifferent_CheckedChanged);
             // 
             // cmdExecute
             // 

@@ -14,12 +14,14 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using NPOI.SS.UserModel;
+using System.Collections;
+using System.Diagnostics;
 
 namespace MARK_SHEETS
 {
     public partial class FM02030 : BaseForm
     {
-        public FM00000 PARRENT_FORM { get; set; } = null;
+        public FM00010 PARRENT_FORM { get; set; } = null;
 
         private bool DoClose { get; set; } = false;
         private bool DoExecute { get; set; } = false;
@@ -371,6 +373,22 @@ namespace MARK_SHEETS
             lstMessages.SelectedIndex = lstMessages.Items.Count - 1;
         }
 
+        private void chkDifferent_CheckedChanged(object sender, EventArgs e)
+        {
+            Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
+
+            string[] embedArray;
+            if (chkDifferent.Checked)
+            {
+                embedArray = new string[1] { "処理条件を満たす、すべての解答の自動採点をし直します。" };
+            }
+            else
+            {
+                embedArray = new string[1] { "処理条件を満たす、未自動採点のもののみ対象とします。" };
+            }
+            Messages1.ShowMessage("MS80030", embedArray);
+        }
+
         private void cmdExecute_Click(object sender, EventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
@@ -412,13 +430,41 @@ namespace MARK_SHEETS
                     cmbGouID.Focus();
                     return;
                 }
-                Global.RETENTION.T304D = retrieved;
+
+                ArrayList untreated = new ArrayList();
+                for (int ii = 0; ii < retrieved.Rows.Count; ii++)
+                {
+                    if (this.chkDifferent.Checked)
+                    {
+                        // すべて自動採点
+                        untreated.Add(retrieved.Rows[ii]["juken_id"]);
+                    }
+                    else
+                    {
+                        // 未実施のみ
+                        int juken_id = Convert.ToInt32(retrieved.Rows[ii]["juken_id"]);
+                        bool exists = GetPreTokutenExists(juken_id);
+                        if (!exists)
+                        {
+                            untreated.Add(retrieved.Rows[ii]["juken_id"]);
+                        }
+                    }
+                }
+
+                if (untreated.Count == 0)
+                {
+                    string[] embedArray = new string[1] { "処理対象のデータが有りません。" };
+                    Messages1.ShowMessage("MS80010", embedArray);
+                    cmdExecute.Enabled = false;
+                    return;
+                }
 
                 // Worker Start
                 AddMessages("「自動採点実施」を開始しました。");
+                Global.RETENTION.UPTREATED = untreated;
                 toolStripProgressBar1.Value = 0;
-                toolStripProgressBar1.Maximum = retrieved.Rows.Count;
-                backgroundWorker1.RunWorkerAsync(retrieved.Rows.Count);
+                toolStripProgressBar1.Maximum = untreated.Count;
+                backgroundWorker1.RunWorkerAsync(untreated.Count);
 
                 cmdExecute.Enabled = false;
                 cmdCancel.Enabled = true;
@@ -478,6 +524,37 @@ namespace MARK_SHEETS
             return dt;
         }
 
+        /// <summary>
+        /// 登録済み「プレ得点データ」の件数取得
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
+        private bool GetPreTokutenExists(int juken_id)
+        {
+            string SQLSTMT;
+
+            if (rdbJuku.Checked)
+            {
+                // 塾・会場系
+                SQLSTMT = SQL.RELATED_T155D.SELECT_T155D_KAIJYOU;
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kaijyou_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+            }
+            else
+            {
+                // 学校系
+                SQLSTMT = SQL.RELATED_T155D.SELECT_T155D_GROUP;
+                SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@group_id", Convert.ToInt32(Global.RETENTION.GROUPKAIJYOU_ID));
+            }
+
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@nendo", Convert.ToInt32(Global.RETENTION.NENDO));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@sentaku", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@juken_id", juken_id);
+
+            return Tables1.GetSelectHasRows(SQLSTMT);
+        }
+
         private void cmdCancel_Click(object sender, EventArgs e)
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
@@ -505,9 +582,10 @@ namespace MARK_SHEETS
 
             // 生徒数分 繰返す
             int PROGRESS = 0;
-            for (int ii = 0; ii < Global.RETENTION.T304D.Rows.Count; ii++)
+             
+            for (int ii = 0; ii < Global.RETENTION.UPTREATED.Count; ii++)
             {
-                int juken_id = Convert.ToInt32(Global.RETENTION.T304D.Rows[ii]["juken_id"]);
+                int juken_id = Convert.ToInt32(Global.RETENTION.UPTREATED[ii]);
                 var results = Create_PreTokuten_Data(juken_id, Worker, ref PROGRESS);
                 if (!results)
                 {
@@ -742,7 +820,7 @@ namespace MARK_SHEETS
                 }
                 else
                 {
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@tokuten", 0);
+                    SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@tokuten", null);
                 }
 
                 bool results = Tables1.ExecuteModify(SQLSTMT2);
@@ -751,6 +829,7 @@ namespace MARK_SHEETS
                     throw new Exception("テーブル登録処理で異常を検出しました。" + "(t155d_pre_tokuten)");
                 }
 
+                Invoke(new delegate1(AddMessages_Thread), String.Format(" >プレ得点データの登録が完了しました。"));
                 Invoke(new delegate1(AddMessages_Thread), String.Format("「受験ID：{0}」の自動採点が完了しました。", juken_id.ToString("0000")));
 
                 // 進行状況の更新

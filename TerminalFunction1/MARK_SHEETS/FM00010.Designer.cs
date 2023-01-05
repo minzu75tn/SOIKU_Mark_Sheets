@@ -46,10 +46,10 @@ namespace MARK_SHEETS
             // 
             this.cmdGetMarks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdGetMarks.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdGetMarks.Location = new System.Drawing.Point(35, 32);
+            this.cmdGetMarks.Location = new System.Drawing.Point(22, 32);
             this.cmdGetMarks.Margin = new System.Windows.Forms.Padding(4);
             this.cmdGetMarks.Name = "cmdGetMarks";
-            this.cmdGetMarks.Size = new System.Drawing.Size(196, 32);
+            this.cmdGetMarks.Size = new System.Drawing.Size(171, 32);
             this.cmdGetMarks.TabIndex = 2;
             this.cmdGetMarks.Text = "マーク位置情報取込み";
             this.cmdGetMarks.UseVisualStyleBackColor = false;
@@ -62,10 +62,10 @@ namespace MARK_SHEETS
             // 
             this.cmdEntryMarkLink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdEntryMarkLink.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdEntryMarkLink.Location = new System.Drawing.Point(35, 72);
+            this.cmdEntryMarkLink.Location = new System.Drawing.Point(22, 72);
             this.cmdEntryMarkLink.Margin = new System.Windows.Forms.Padding(4);
             this.cmdEntryMarkLink.Name = "cmdEntryMarkLink";
-            this.cmdEntryMarkLink.Size = new System.Drawing.Size(196, 32);
+            this.cmdEntryMarkLink.Size = new System.Drawing.Size(171, 32);
             this.cmdEntryMarkLink.TabIndex = 24;
             this.cmdEntryMarkLink.Text = "設問＆マーク紐付け登録";
             this.cmdEntryMarkLink.UseVisualStyleBackColor = false;
@@ -78,10 +78,10 @@ namespace MARK_SHEETS
             // 
             this.cmdGetModelAnswer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdGetModelAnswer.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdGetModelAnswer.Location = new System.Drawing.Point(35, 112);
+            this.cmdGetModelAnswer.Location = new System.Drawing.Point(22, 112);
             this.cmdGetModelAnswer.Margin = new System.Windows.Forms.Padding(4);
             this.cmdGetModelAnswer.Name = "cmdGetModelAnswer";
-            this.cmdGetModelAnswer.Size = new System.Drawing.Size(196, 32);
+            this.cmdGetModelAnswer.Size = new System.Drawing.Size(171, 32);
             this.cmdGetModelAnswer.TabIndex = 25;
             this.cmdGetModelAnswer.Text = "模範解答データ取込み";
             this.cmdGetModelAnswer.UseVisualStyleBackColor = false;
@@ -94,10 +94,10 @@ namespace MARK_SHEETS
             // 
             this.cmdGetAnswer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdGetAnswer.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdGetAnswer.Location = new System.Drawing.Point(41, 32);
+            this.cmdGetAnswer.Location = new System.Drawing.Point(22, 32);
             this.cmdGetAnswer.Margin = new System.Windows.Forms.Padding(4);
             this.cmdGetAnswer.Name = "cmdGetAnswer";
-            this.cmdGetAnswer.Size = new System.Drawing.Size(196, 32);
+            this.cmdGetAnswer.Size = new System.Drawing.Size(171, 32);
             this.cmdGetAnswer.TabIndex = 26;
             this.cmdGetAnswer.Text = "解答データ取込み";
             this.cmdGetAnswer.UseVisualStyleBackColor = false;
@@ -110,10 +110,10 @@ namespace MARK_SHEETS
             // 
             this.cmdAutoScoreing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdAutoScoreing.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdAutoScoreing.Location = new System.Drawing.Point(41, 72);
+            this.cmdAutoScoreing.Location = new System.Drawing.Point(22, 72);
             this.cmdAutoScoreing.Margin = new System.Windows.Forms.Padding(4);
             this.cmdAutoScoreing.Name = "cmdAutoScoreing";
-            this.cmdAutoScoreing.Size = new System.Drawing.Size(196, 32);
+            this.cmdAutoScoreing.Size = new System.Drawing.Size(171, 32);
             this.cmdAutoScoreing.TabIndex = 27;
             this.cmdAutoScoreing.Text = "自動採点実施";
             this.cmdAutoScoreing.UseVisualStyleBackColor = false;
@@ -129,9 +129,9 @@ namespace MARK_SHEETS
             this.groupBox1.Controls.Add(this.cmdGetModelAnswer);
             this.groupBox1.Controls.Add(this.cmdEntryMarkLink);
             this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(40, 52);
+            this.groupBox1.Location = new System.Drawing.Point(9, 33);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(276, 213);
+            this.groupBox1.Size = new System.Drawing.Size(217, 207);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "事前処理系";
@@ -140,10 +140,10 @@ namespace MARK_SHEETS
             // 
             this.cmdCheckAutoScoreing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(235)))), ((int)(((byte)(255)))));
             this.cmdCheckAutoScoreing.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdCheckAutoScoreing.Location = new System.Drawing.Point(35, 152);
+            this.cmdCheckAutoScoreing.Location = new System.Drawing.Point(22, 152);
             this.cmdCheckAutoScoreing.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCheckAutoScoreing.Name = "cmdCheckAutoScoreing";
-            this.cmdCheckAutoScoreing.Size = new System.Drawing.Size(196, 32);
+            this.cmdCheckAutoScoreing.Size = new System.Drawing.Size(171, 32);
             this.cmdCheckAutoScoreing.TabIndex = 27;
             this.cmdCheckAutoScoreing.Text = "自動採点事前チェック";
             this.cmdCheckAutoScoreing.UseVisualStyleBackColor = false;
@@ -157,9 +157,9 @@ namespace MARK_SHEETS
             this.groupBox2.Controls.Add(this.cmdGetAnswer);
             this.groupBox2.Controls.Add(this.cmdAutoScoreing);
             this.groupBox2.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox2.Location = new System.Drawing.Point(367, 52);
+            this.groupBox2.Location = new System.Drawing.Point(9, 249);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(276, 213);
+            this.groupBox2.Size = new System.Drawing.Size(217, 125);
             this.groupBox2.TabIndex = 30;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "本番処理系";
@@ -169,7 +169,7 @@ namespace MARK_SHEETS
             this.txtServer.BackColor = System.Drawing.SystemColors.Control;
             this.txtServer.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtServer.ForeColor = System.Drawing.Color.Red;
-            this.txtServer.Location = new System.Drawing.Point(546, 15);
+            this.txtServer.Location = new System.Drawing.Point(131, 7);
             this.txtServer.Name = "txtServer";
             this.txtServer.ReadOnly = true;
             this.txtServer.Size = new System.Drawing.Size(95, 27);
@@ -182,14 +182,16 @@ namespace MARK_SHEETS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 284);
+            this.ClientSize = new System.Drawing.Size(236, 392);
+            this.ControlBox = false;
             this.Controls.Add(this.txtServer);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(703, 323);
-            this.MinimumSize = new System.Drawing.Size(703, 323);
+            this.MaximumSize = new System.Drawing.Size(252, 431);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(252, 431);
             this.Name = "FM00010";
             this.Text = "マークシート対応 メニュー";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM00010_FormClosing);

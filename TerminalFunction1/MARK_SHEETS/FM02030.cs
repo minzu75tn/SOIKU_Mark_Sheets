@@ -9,20 +9,12 @@ using CommonBase.BaseForms;
 using CommonBase.Alerts;
 using CommonBase.Tables;
 using CommonBase.Commons;
-using NPOI.SS.Formula.Functions;
-using static System.Net.Mime.MediaTypeNames;
-using System.Windows.Forms;
-using System.ComponentModel.DataAnnotations;
-using NPOI.SS.UserModel;
 using System.Collections;
-using System.Diagnostics;
 
 namespace MARK_SHEETS
 {
     public partial class FM02030 : BaseForm
     {
-        public FM00010 PARRENT_FORM { get; set; } = null;
-
         private bool DoClose { get; set; } = false;
         private bool DoExecute { get; set; } = false;
 

@@ -20,8 +20,8 @@ namespace MARK_SHEETS
         {
             Global.RETENTION.LOGGER.PUT_TRACE_MESSAGE(ConstantCommon.LOGLEVEL.Information, "");
 
-            this.Width = 1000;
-            this.Height = 500;
+            this.Width = 1050;
+            this.Height = 600;
 
             tsmMenu4_sub1.Checked = true;
 
@@ -34,6 +34,8 @@ namespace MARK_SHEETS
             this.timer1.Interval = 500;
             this.timer1.Enabled = true;
             this.timer1.Start();
+
+            tsmMenu1_sub1.PerformClick();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -85,6 +87,32 @@ namespace MARK_SHEETS
             }
         }
 
+        private void FM00000_Activated(object sender, EventArgs e)
+        {
+            ReDrawing();
+        }
+
+        private void FM00000_Resize(object sender, EventArgs e)
+        {
+            ReDrawing();
+        }
+
+        private void ReDrawing()
+        {
+            foreach (Form frm_loopVariable in this.MdiChildren)
+            {
+                if (frm_loopVariable.Name == "FM00010")
+                {
+                    Rectangle ra = this.ClientRectangle;
+                    int xx = ra.Width - frm_loopVariable.Width - 15;
+                    int yy = 10;
+                    frm_loopVariable.Location = new Point(xx, yy);
+                    break;
+                }
+            }
+
+        }
+
         private void tsmMenu1_sub1_Click(object sender, EventArgs e)
         {
             Form frm;
@@ -95,6 +123,7 @@ namespace MARK_SHEETS
                 if (frm.Name.Equals("FM00010"))
                 {
                     frm.Activate();
+                    ReDrawing();
                     return;
                 }
             }
@@ -104,6 +133,7 @@ namespace MARK_SHEETS
                 MdiParent = this
             };
             NEWFORM.Show();
+            ReDrawing();
         }
 
         private void tsmMenu1_sub2_Click(object sender, EventArgs e)

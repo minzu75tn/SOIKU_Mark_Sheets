@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Data;
+using System.Collections;
+using System.Configuration;
 
 using CommonBase;
 using CommonBase.BaseForms;
 using CommonBase.Alerts;
 using CommonBase.Commons;
 using CommonBase.Tables;
-using System.Collections;
-using System.Configuration;
 
 namespace MARK_SHEETS
 {
     public partial class FM01030 : BaseForm
     {
-        public FM00010 PARRENT_FORM { get; set; } = null;
-
         private bool DoClose { get; set; } = false;
         private bool DoChange { get; set; } = false;
 

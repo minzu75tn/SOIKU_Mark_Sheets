@@ -226,7 +226,7 @@
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 320);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 439);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             this.statusStrip1.Size = new System.Drawing.Size(858, 22);
@@ -237,15 +237,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(858, 342);
+            this.ClientSize = new System.Drawing.Size(858, 461);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
             this.IsMdiContainer = true;
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "FM00000";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "FM00000";
+            this.Activated += new System.EventHandler(this.FM00000_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM00000_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FM00000_FormClosed);
             this.Load += new System.EventHandler(this.FM00000_Load);
+            this.Resize += new System.EventHandler(this.FM00000_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

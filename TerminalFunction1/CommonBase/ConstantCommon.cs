@@ -10,7 +10,7 @@ namespace CommonBase
         /// <summary>
         /// App.Config KEY
         /// </summary>
-        public const string CONFIG_SERVER_DRIVE = "ServerDrive";
+        public const string CONFIG_ENTRY_IMAGE = "EntryImage";
         public const string CONFIG_LOG_PATH = "LogPath";
         public const string CONFIG_LOG_LEVEL = "LogLevel";
         public const string CONFIG_EXCLUDE_TEST = "ExcludeTest";

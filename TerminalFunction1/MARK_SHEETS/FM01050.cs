@@ -298,7 +298,7 @@ namespace MARK_SHEETS
 
                 // file
                 DateTime dtNow = DateTime.Now;
-                string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
+                string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_ENTRY_IMAGE];
                 string filePath = drives + Constant.MARKS_DESIGN_FOLDER;
                 string filename = $"{Constant.MARKS_ANSWER_FILE}_{Global.RETENTION.GOU_ID}_{Global.RETENTION.KYOUKA_ID}-{Global.RETENTION.SENTAKU_ID}_{dtNow.ToString("yyyyMMdd")}{Constant.FILE_EXTENTION_CSV}";
                 string fullPath = "";

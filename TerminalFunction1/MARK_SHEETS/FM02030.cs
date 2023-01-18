@@ -748,7 +748,20 @@ namespace MARK_SHEETS
                     string compute2 = "t302d_mondai_id = " + mondai_id;
                     int sums = Convert.ToInt32((T304D.Compute(compute1, compute2) is DBNull) ? 0 : T304D.Compute(compute1, compute2));
 
-                    int seigo = counts == sums ? 1 : 2;
+                    int seigo = 9;
+                    if (sums == counts)
+                    {
+                        seigo = 1;
+                    }
+                    else if (sums > counts)
+                    {
+                        seigo = 2;
+                    }
+                    else
+                    {
+                        seigo = 9;
+                    }
+
                     DataRow[] dtrs = T304D.Select("t302d_mondai_id = " + mondai_id);
                     foreach (DataRow elms in dtrs)
                     {
@@ -784,7 +797,7 @@ namespace MARK_SHEETS
                     }
                 }
 
-                // 正誤設定 4th（SQL文生成・登録）
+                // 正誤設定 4th（SQL文生成・テーブル登録）
                 DataView dtv3 = new DataView(T304D);
                 string[] cols3 = { "t302d_mondai_id" };
                 DataTable dtf3 = dtv3.ToTable(true, cols3);

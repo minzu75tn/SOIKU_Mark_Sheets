@@ -424,7 +424,7 @@ namespace MARK_SHEETS
 
                 // Folder (\号数\Marks\)
                 DateTime dtNow = DateTime.Now;
-                string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
+                string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_ENTRY_IMAGE];
                 StringBuilder filePath = new StringBuilder();
                 filePath.Append(drives);
                 filePath.Append(@"\");

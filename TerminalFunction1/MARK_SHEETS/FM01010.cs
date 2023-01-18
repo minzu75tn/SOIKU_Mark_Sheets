@@ -297,7 +297,7 @@ namespace MARK_SHEETS
 
                 // file
                 DateTime dtNow = DateTime.Now;
-                string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_SERVER_DRIVE];
+                string drives = ConfigurationManager.AppSettings[ConstantCommon.CONFIG_ENTRY_IMAGE];
                 string filePath = drives + Constant.MARKS_DESIGN_FOLDER;
                 string filename = $"{Constant.MARKS_LOCATE_FILE}_{Global.RETENTION.GOU_ID}_{Global.RETENTION.KYOUKA_ID}-{Global.RETENTION.SENTAKU_ID}_{dtNow.ToString("yyyyMMdd")}{Constant.FILE_EXTENTION_CSV}";
                 string fullPath = "";
@@ -357,6 +357,7 @@ namespace MARK_SHEETS
             string SQLSTMT = SQL.RELATED_T36D.SELECT_T36D_COUNT;
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@gou_id", Convert.ToInt32(Global.RETENTION.GOU_ID));
             SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@kyouka_id", Convert.ToInt32(Global.RETENTION.KYOUKA_ID));
+            SQLSTMT = CommonLogic1.ReplaceStatementNumeric(SQLSTMT, "@ryouiki_sentaku_id", Convert.ToInt32(Global.RETENTION.SENTAKU_ID));
             int results = Tables1.GetSelectCount(SQLSTMT);
             return results;
         }

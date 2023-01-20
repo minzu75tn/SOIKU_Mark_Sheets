@@ -7,6 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonBase", "CommonBase\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MARK_SHEETS", "MARK_SHEETS\MARK_SHEETS.csproj", "{1FD45C67-D99C-4275-832D-94DA20B018CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB_UPLOADS", "Web_Uploads\WEB_UPLOADS.csproj", "{2BFBD52B-36E5-4F4F-8055-44B3E78894DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{69E906A3-482E-4D5C-8581-23EBADAD9ECC} = {69E906A3-482E-4D5C-8581-23EBADAD9ECC}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2794B0F2-8AB1-4DB6-94C8-A74CCFE85D34}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +31,10 @@ Global
 		{1FD45C67-D99C-4275-832D-94DA20B018CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FD45C67-D99C-4275-832D-94DA20B018CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FD45C67-D99C-4275-832D-94DA20B018CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BFBD52B-36E5-4F4F-8055-44B3E78894DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BFBD52B-36E5-4F4F-8055-44B3E78894DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BFBD52B-36E5-4F4F-8055-44B3E78894DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BFBD52B-36E5-4F4F-8055-44B3E78894DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -692,6 +692,10 @@ SELECT
   , t304d.field_name  as t304d_field_name
   , t304d.mark_value  as t304d_mark_value
 
+  , t301d.field_id    as t303d_field_id
+  , t301d.field_name  as t303d_field_name
+  , t301d.number_of_marks
+
   , t302d.mondai_id   as t302d_mondai_id
   , t302d.field_id    as t302d_field_id
   , t302d.field_name  as t302d_field_name
@@ -713,6 +717,12 @@ SELECT
        AND juken_id = @juken_id
        @conditions
   ) as t304d
+
+      LEFT JOIN t301d_mark_locate_data t301d
+        ON t304d.gou_id = t301d.gou_id
+       AND t304d.kyouka_id = t301d.kyouka_id
+       AND t304d.ryouiki_sentaku_id = t301d.ryouiki_sentaku_id
+       AND t304d.field_id = t301d.field_id
 
       LEFT JOIN t302d_mark_link_data t302d
         ON t304d.gou_id = t302d.gou_id

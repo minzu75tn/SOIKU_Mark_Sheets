@@ -269,7 +269,7 @@ namespace MARK_SHEETS
 
         private void tsmMenu4_sub1_Click(object sender, EventArgs e)
         {
-            this.statusStrip1.Visible = tsmMenu3_sub1.Checked ? true : false;
+            this.statusStrip1.Visible = tsmMenu4_sub1.Checked ? true : false;
         }
 
     }

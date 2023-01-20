@@ -193,7 +193,7 @@ namespace MARK_SHEETS
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(252, 431);
             this.Name = "FM00010";
-            this.Text = "マークシート対応 メニュー";
+            this.Text = "メニュー";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM00010_FormClosing);
             this.Load += new System.EventHandler(this.FM00010_Load);
             this.groupBox1.ResumeLayout(false);

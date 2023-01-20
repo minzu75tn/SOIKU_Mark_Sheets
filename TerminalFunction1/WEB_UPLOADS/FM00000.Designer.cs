@@ -1,4 +1,4 @@
-﻿namespace MARK_SHEETS
+﻿namespace WEB_UPLOADS
 {
     partial class FM00000
     {
@@ -28,38 +28,28 @@
         /// </summary>
         private new void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmMenu1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu1_sub1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMenu1_sub2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu2_sub1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu2_sub2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu2_sub3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu2_sub4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu3_sub1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMenu3_sub2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMenu4 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMenu4_sub1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.cmdLoad = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmMenu1,
-            this.tsmMenu2,
-            this.tsmMenu3,
             this.tsmMenu4});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -71,21 +61,12 @@
             // tsmMenu1
             // 
             this.tsmMenu1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmMenu1_sub1,
             this.tsmMenu1_sub2});
             this.tsmMenu1.Name = "tsmMenu1";
             this.tsmMenu1.ShortcutKeyDisplayString = "";
             this.tsmMenu1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.tsmMenu1.Size = new System.Drawing.Size(70, 20);
             this.tsmMenu1.Text = "ファイル (&F)";
-            // 
-            // tsmMenu1_sub1
-            // 
-            this.tsmMenu1_sub1.Name = "tsmMenu1_sub1";
-            this.tsmMenu1_sub1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M)));
-            this.tsmMenu1_sub1.Size = new System.Drawing.Size(232, 22);
-            this.tsmMenu1_sub1.Text = "メニューの表示 (&M)";
-            this.tsmMenu1_sub1.Click += new System.EventHandler(this.tsmMenu1_sub1_Click);
             // 
             // tsmMenu1_sub2
             // 
@@ -95,71 +76,6 @@
             this.tsmMenu1_sub2.Size = new System.Drawing.Size(232, 22);
             this.tsmMenu1_sub2.Text = "アプリケーションの終了 (&X)";
             this.tsmMenu1_sub2.Click += new System.EventHandler(this.tsmMenu1_sub2_Click);
-            // 
-            // tsmMenu2
-            // 
-            this.tsmMenu2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmMenu2_sub1,
-            this.tsmMenu2_sub2,
-            this.tsmMenu2_sub3,
-            this.tsmMenu2_sub4});
-            this.tsmMenu2.Name = "tsmMenu2";
-            this.tsmMenu2.ShortcutKeyDisplayString = "";
-            this.tsmMenu2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
-            this.tsmMenu2.Size = new System.Drawing.Size(97, 20);
-            this.tsmMenu2.Text = "事前処理系 (&P)";
-            // 
-            // tsmMenu2_sub1
-            // 
-            this.tsmMenu2_sub1.Name = "tsmMenu2_sub1";
-            this.tsmMenu2_sub1.Size = new System.Drawing.Size(193, 22);
-            this.tsmMenu2_sub1.Text = "マーク位置情報取込み";
-            this.tsmMenu2_sub1.Click += new System.EventHandler(this.tsmMenu2_sub1_Click);
-            // 
-            // tsmMenu2_sub2
-            // 
-            this.tsmMenu2_sub2.Name = "tsmMenu2_sub2";
-            this.tsmMenu2_sub2.Size = new System.Drawing.Size(193, 22);
-            this.tsmMenu2_sub2.Text = "設問＆マーク紐付け登録";
-            this.tsmMenu2_sub2.Click += new System.EventHandler(this.tsmMenu2_sub2_Click);
-            // 
-            // tsmMenu2_sub3
-            // 
-            this.tsmMenu2_sub3.Name = "tsmMenu2_sub3";
-            this.tsmMenu2_sub3.Size = new System.Drawing.Size(193, 22);
-            this.tsmMenu2_sub3.Text = "模範解答データ取込み";
-            this.tsmMenu2_sub3.Click += new System.EventHandler(this.tsmMenu2_sub3_Click);
-            // 
-            // tsmMenu2_sub4
-            // 
-            this.tsmMenu2_sub4.Name = "tsmMenu2_sub4";
-            this.tsmMenu2_sub4.Size = new System.Drawing.Size(193, 22);
-            this.tsmMenu2_sub4.Text = "自動採点事前チェック";
-            this.tsmMenu2_sub4.Click += new System.EventHandler(this.tsmMenu2_sub4_Click);
-            // 
-            // tsmMenu3
-            // 
-            this.tsmMenu3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmMenu3_sub1,
-            this.tsmMenu3_sub2});
-            this.tsmMenu3.Name = "tsmMenu3";
-            this.tsmMenu3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.B)));
-            this.tsmMenu3.Size = new System.Drawing.Size(97, 20);
-            this.tsmMenu3.Text = "本番処理系 (&B)";
-            // 
-            // tsmMenu3_sub1
-            // 
-            this.tsmMenu3_sub1.Name = "tsmMenu3_sub1";
-            this.tsmMenu3_sub1.Size = new System.Drawing.Size(159, 22);
-            this.tsmMenu3_sub1.Text = "解答データ取込み";
-            this.tsmMenu3_sub1.Click += new System.EventHandler(this.tsmMenu3_sub1_Click);
-            // 
-            // tsmMenu3_sub2
-            // 
-            this.tsmMenu3_sub2.Name = "tsmMenu3_sub2";
-            this.tsmMenu3_sub2.Size = new System.Drawing.Size(159, 22);
-            this.tsmMenu3_sub2.Text = "自動採点実施";
-            this.tsmMenu3_sub2.Click += new System.EventHandler(this.tsmMenu3_sub2_Click);
             // 
             // tsmMenu4
             // 
@@ -174,17 +90,15 @@
             // 
             // tsmMenu4_sub1
             // 
+            this.tsmMenu4_sub1.Checked = true;
             this.tsmMenu4_sub1.CheckOnClick = true;
+            this.tsmMenu4_sub1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmMenu4_sub1.Name = "tsmMenu4_sub1";
             this.tsmMenu4_sub1.ShortcutKeyDisplayString = "";
             this.tsmMenu4_sub1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
             this.tsmMenu4_sub1.Size = new System.Drawing.Size(189, 22);
             this.tsmMenu4_sub1.Text = "ステータスバー (&S)";
             this.tsmMenu4_sub1.Click += new System.EventHandler(this.tsmMenu4_sub1_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // toolStripStatusLabel1
             // 
@@ -232,27 +146,52 @@
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // webView21
+            // 
+            this.webView21.AllowExternalDrop = true;
+            this.webView21.CreationProperties = null;
+            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webView21.Location = new System.Drawing.Point(0, 24);
+            this.webView21.Name = "webView21";
+            this.webView21.Size = new System.Drawing.Size(858, 415);
+            this.webView21.TabIndex = 4;
+            this.webView21.ZoomFactor = 1D;
+            this.webView21.CoreWebView2InitializationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs>(this.webView21_CoreWebView2InitializationCompleted);
+            this.webView21.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webView21_NavigationCompleted);
+            this.webView21.WebMessageReceived += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs>(this.webView21_WebMessageReceived);
+            // 
+            // cmdLoad
+            // 
+            this.cmdLoad.Location = new System.Drawing.Point(750, 39);
+            this.cmdLoad.Name = "cmdLoad";
+            this.cmdLoad.Size = new System.Drawing.Size(86, 33);
+            this.cmdLoad.TabIndex = 5;
+            this.cmdLoad.Text = "Load";
+            this.cmdLoad.UseVisualStyleBackColor = true;
+            this.cmdLoad.Click += new System.EventHandler(this.cmdLoad_Click);
+            // 
             // FM00000
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(858, 461);
+            this.Controls.Add(this.webView21);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.IsMdiContainer = true;
+            this.Controls.Add(this.cmdLoad);
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "FM00000";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
-            this.Text = "マークシート対応";
-            this.Activated += new System.EventHandler(this.FM00000_Activated);
+            this.Text = "Web Upload";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FM00000_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FM00000_FormClosed);
             this.Load += new System.EventHandler(this.FM00000_Load);
-            this.Resize += new System.EventHandler(this.FM00000_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,23 +201,15 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem tsmMenu1;
         private ToolStripMenuItem tsmMenu1_sub2;
-        private ToolStripMenuItem tsmMenu2;
         private ToolStripMenuItem tsmMenu4;
         private ToolStripMenuItem tsmMenu4_sub1;
-        private ToolStripMenuItem tsmMenu2_sub1;
-        private ToolStripMenuItem tsmMenu2_sub2;
-        private ToolStripMenuItem tsmMenu2_sub3;
-        private ToolStripMenuItem tsmMenu2_sub4;
-        private ToolStripMenuItem tsmMenu3;
-        private ToolStripMenuItem tsmMenu3_sub1;
-        private ToolStripMenuItem tsmMenu3_sub2;
-        private ToolStripMenuItem tsmMenu1_sub1;
-        private System.Windows.Forms.Timer timer1;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel toolStripStatusLabel2;
         private ToolStripStatusLabel toolStripStatusLabel3;
         private ToolStripStatusLabel toolStripStatusLabel4;
         private ToolStripStatusLabel toolStripStatusLabel5;
         private StatusStrip statusStrip1;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private Button cmdLoad;
     }
 }

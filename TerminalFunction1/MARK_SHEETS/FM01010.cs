@@ -473,7 +473,6 @@ namespace MARK_SHEETS
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@field_id", Convert.ToInt32(hash["field_id"]));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@field_name", Convert.ToString(hash["field_name"]));
                     SQLSTMT2 = CommonLogic1.ReplaceStatementNumeric(SQLSTMT2, "@number_of_marks", Convert.ToInt32(hash["number_of_marks"]));
-                    SQLSTMT2 = CommonLogic1.ReplaceStatementString(SQLSTMT2, "@mark_default_value", Convert.ToString(hash["mark_default_value"]));
                     SQLARRAY.Add(SQLSTMT2);
                 }
                 bool results2 = Tables1.ExecuteModifyMultiple(SQLARRAY);

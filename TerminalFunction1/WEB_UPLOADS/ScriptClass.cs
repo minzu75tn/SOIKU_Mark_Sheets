@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace WEB_UPLOADS
 {
-    [ClassInterface(ClassInterfaceType.AutoDual)]
     [ComVisible(true)]
     public class ScriptClass
     {

@@ -152,7 +152,6 @@ INSERT INTO t301d_mark_locate_data (
   , field_id
   , field_name
   , number_of_marks
-  , mark_default_value
 ) 
 VALUES ( 
     @gou_id
@@ -161,7 +160,6 @@ VALUES (
   , @field_id
   , @field_name
   , @number_of_marks
-  , @mark_default_value
 )
 ";
 

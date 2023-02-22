@@ -105,7 +105,7 @@ namespace WEB_UPLOADS
             webView21.AllowExternalDrop = false;
             objBridgeScriptClass = new ScriptClass();
             objBridgeScriptClass.WebView2 = webView21;
-            webView21.CoreWebView2.AddHostObjectToScript("BridgeScriptClass", objBridgeScriptClass);
+            webView21.CoreWebView2.AddHostObjectToScript("BridgeScriptClassWebUpload", objBridgeScriptClass);
             webView21.CoreWebView2.Navigate(ParentURL.PURL + "Login.aspx");
         }
 

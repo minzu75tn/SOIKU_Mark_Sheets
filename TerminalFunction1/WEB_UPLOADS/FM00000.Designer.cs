@@ -169,6 +169,7 @@
             this.cmdLoad.TabIndex = 5;
             this.cmdLoad.Text = "Load";
             this.cmdLoad.UseVisualStyleBackColor = true;
+            this.cmdLoad.Visible = false;
             this.cmdLoad.Click += new System.EventHandler(this.cmdLoad_Click);
             // 
             // FM00000
